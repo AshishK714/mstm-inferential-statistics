@@ -183,6 +183,15 @@ details.more .fig{margin-bottom:.3rem}
 h2.sec2{margin-top:2.8rem}
 code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.92em;background:var(--accent-wash);padding:.08rem .3rem;border-radius:3px;white-space:nowrap}
 .hide{display:none}
+.qa .ans{background:var(--accent-wash);border-left:3px solid var(--accent);padding:.6rem .9rem .2rem;margin:.1rem 0 .7rem}
+.qa .ans p,.qa .ans ul{margin:0 0 .5rem}
+.qa .ans .tw{margin:.2rem 0 .5rem}
+.qa .ans table.t td,.qa .ans table.t th{border-bottom-color:color-mix(in srgb,var(--accent) 22%,transparent)}
+.qa .ak{font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin:0 0 .25rem!important}
+details.dx{margin:.2rem 0 0}
+details.dx summary{font-family:var(--sans);font-size:.88rem;font-weight:600;color:var(--accent);padding:.5rem .9rem}
+details.dx .in{font-size:.9rem}
+details.dx .in ol.plain,details.dx .in ul.plain{margin-bottom:.7rem}
 footer{font-family:var(--sans);font-size:.78rem;color:var(--ghost-ink);border-top:1px solid var(--rule);margin-top:3rem;padding-top:1rem}
 @media print{.bar,.steps,.row,.next{display:none}.pg{display:block;break-before:page}.pg:first-of-type{break-before:auto}}
 </style>
@@ -197,14 +206,16 @@ footer{font-family:var(--sans);font-size:.78rem;color:var(--ghost-ink);border-to
   <button class="btn" data-pg="3" aria-pressed="false">3 A mean</button>
   <button class="btn" data-pg="4" aria-pressed="false">4 A proportion</button>
   <button class="btn" data-pg="5" aria-pressed="false">5 Comparing surveys</button>
-  <button class="btn" data-pg="6" aria-pressed="false">Questions</button>
-  <button class="btn" data-pg="7" aria-pressed="false">Not on the exam</button>
+  <button class="btn" data-pg="6" aria-pressed="false">6 Midterm ideas</button>
+  <button class="btn" data-pg="7" aria-pressed="false">7 Variables and charts</button>
+  <button class="btn" data-pg="8" aria-pressed="false">Questions</button>
+  <button class="btn" data-pg="9" aria-pressed="false">Not on the exam</button>
 </nav>
 
 <!-- ================= start ================= -->
 <article class="pg on" id="pg0">
   <h1>Inferential statistics and hypothesis testing</h1>
-  <p class="dek">Practice for the exam: test a claim, and estimate a population value, from one survey.</p>
+  <p class="dek">Practice for the exam: test a claim, and estimate a population value, from one survey. Parts 6 and 7 review the midterm ideas and data visualization.</p>
 
   <h3>What the exam asks</h3>
   <p>You are given the results of one survey. You ask two questions of it.</p>
@@ -213,6 +224,7 @@ footer{font-family:var(--sans);font-size:.78rem;color:var(--ghost-ink);border-to
     <li><b>Estimate.</b> Nobody has stated a value. What does the survey alone tell you about the population?</li>
   </ul>
   <p>You answer both questions from the survey result and its standard error (SE).</p>
+  <p>Parts 6 and 7 add questions without calculations: the roles of variables, Simpson's paradox and survivorship bias from the midterm, and the types of variable, types of analysis and charts from data visualization.</p>
 
   <h3>Steps and formulas</h3>
   <div class="tw"><table class="t fill">
@@ -252,6 +264,7 @@ footer{font-family:var(--sans);font-size:.78rem;color:var(--ghost-ink);border-to
     <li><b>Show the working</b> gives the full solution.</li>
     <li><b>?</b> beside an answer gives the explanation of that answer. It appears after you check the answer or show the working.</li>
     <li><b>New numbers</b> gives the same question with different numbers.</li>
+    <li>In parts 6 and 7, each question shows its exam answer. <b>Detailed explanation</b> under the answer gives the reasoning and more examples.</li>
   </ul>
   <h3>About the exam</h3>
   <ul class="plain">
@@ -268,12 +281,14 @@ footer{font-family:var(--sans);font-size:.78rem;color:var(--ghost-ink);border-to
     <button class="mcard" data-pg="3"><span class="mk">Part 3 · Q14 to 20</span><span class="mq">A mean: test and estimate</span><span class="ms">Test a claim about a mean, calculate the 95% interval, and connect the two.</span></button>
     <button class="mcard" data-pg="4"><span class="mk">Part 4 · Q21 to 23</span><span class="mq">A proportion: test and estimate</span><span class="ms">The same steps for a proportion. Only the standard error is different.</span></button>
     <button class="mcard" data-pg="5"><span class="mk">Part 5 · Q24 to 28</span><span class="mq">Comparing surveys and stating conclusions</span><span class="ms">Two surveys with different means, the same mean with different sample sizes, and how to state a conclusion correctly.</span></button>
+    <button class="mcard" data-pg="6"><span class="mk">Part 6 · Q29 to 38</span><span class="mq">Midterm ideas</span><span class="ms">The five roles of a variable, Simpson's paradox and survivorship bias, and how each one changes a decision.</span></button>
+    <button class="mcard" data-pg="7"><span class="mk">Part 7 · Q39 to 48</span><span class="mq">Variables, types of analysis and charts</span><span class="ms">Numeric and categorical, discrete and continuous; univariate, bivariate and multivariate; which chart for which question.</span></button>
   </div>
 </article>
 
 <!-- ================= part 1: concepts ================= -->
 <article class="pg" id="pg1">
-  <p class="kick">Part 1 of 5 · questions 1 to 8</p>
+  <p class="kick">Part 1 of 7 · questions 1 to 8</p>
   <h2><span class="tab">1</span>Concepts</h2>
 
   <p>Read each topic, and then answer the question under it.</p>
@@ -466,7 +481,7 @@ footer{font-family:var(--sans);font-size:.78rem;color:var(--ghost-ink);border-to
 
 <!-- ================= part 2: standard error ================= -->
 <article class="pg" id="pg2">
-  <p class="kick">Part 2 of 5 · questions 9 to 13</p>
+  <p class="kick">Part 2 of 7 · questions 9 to 13</p>
   <h2><span class="tab">2</span>Standard error</h2>
 
   <h3>What you need to know</h3>
@@ -530,7 +545,7 @@ footer{font-family:var(--sans);font-size:.78rem;color:var(--ghost-ink);border-to
 
 <!-- ================= part 3: a mean ================= -->
 <article class="pg" id="pg3">
-  <p class="kick">Part 3 of 5 · questions 14 to 20</p>
+  <p class="kick">Part 3 of 7 · questions 14 to 20</p>
   <h2><span class="tab">3</span>A mean: test and estimate</h2>
 
   <h3>What you need to know</h3>
@@ -621,7 +636,7 @@ footer{font-family:var(--sans);font-size:.78rem;color:var(--ghost-ink);border-to
 
 <!-- ================= part 4: a proportion ================= -->
 <article class="pg" id="pg4">
-  <p class="kick">Part 4 of 5 · questions 21 to 23</p>
+  <p class="kick">Part 4 of 7 · questions 21 to 23</p>
   <h2><span class="tab">4</span>A proportion: test and estimate</h2>
 
   <h3>What you need to know</h3>
@@ -670,7 +685,7 @@ footer{font-family:var(--sans);font-size:.78rem;color:var(--ghost-ink);border-to
 
 <!-- ================= part 5: second survey ================= -->
 <article class="pg" id="pg5">
-  <p class="kick">Part 5 of 5 · questions 24 to 28</p>
+  <p class="kick">Part 5 of 7 · questions 24 to 28</p>
   <h2><span class="tab">5</span>Comparing surveys and stating conclusions</h2>
 
   <h3>What you need to know</h3>
@@ -741,18 +756,474 @@ footer{font-family:var(--sans);font-size:.78rem;color:var(--ghost-ink);border-to
   <p>Questions 24 to 26 use a second survey in the same situation.</p>
   <div class="case" data-case="C"></div>
   <div class="qlist" data-part="5"></div>
-  <p class="next"><button class="btn pri" data-pg="6">See the list of questions</button></p>
+  <p class="next"><button class="btn pri" data-pg="6">Go to part 6</button></p>
+</article>
+
+<!-- ================= part 6: midterm ideas ================= -->
+<article class="pg" id="pg6">
+  <p class="kick">Part 6 of 7 · questions 29 to 38 · from the midterm</p>
+  <h2><span class="tab">6</span>Midterm ideas: roles of variables, Simpson's paradox and survivorship bias</h2>
+
+  <p>This part reviews three ideas from the midterm. There is nothing to calculate.</p>
+  <ul class="plain">
+    <li>Each question shows an <b>exam answer</b>. An answer of that length and content is a full answer on the exam.</li>
+    <li>Press <b>Detailed explanation</b> under a question for the reasoning, more examples, and how the idea is used in a decision or in advice.</li>
+    <li>Write your own answer on paper first, and then compare.</li>
+  </ul>
+
+  <div class="case"><p><b>The example used for the roles.</b> A job-training programme recruits adults, trains them, arranges mentors and mock interviews, and helps them find work. It reports to the funders who pay for it.</p></div>
+
+  <h3>Roles of variables</h3>
+
+  <div class="qc qa" id="q29">
+    <p class="qk">Question 29</p>
+    <p class="qt">Name the five roles a variable can play in a decision. Define each role and give an example.</p>
+    <div class="ans"><p class="ak">Exam answer</p>
+      <div class="tw"><table class="t fill">
+        <tr><th>Role</th><th>What it is</th><th>Example in the job-training programme</th></tr>
+        <tr><td><b>Activity</b> (input)</td><td>The work the organisation does. It is the lever the organisation can pull, more or less of it.</td><td>Running mock-interview workshops</td></tr>
+        <tr><td><b>Context</b></td><td>What shapes the result but cannot be changed within the period the plan covers.</td><td>Regional unemployment; whether a participant has childcare</td></tr>
+        <tr><td><b>Mechanism</b></td><td>What has to happen between the activity and the result, often inside a person, for the activity to work.</td><td>The participant gains confidence and skill in interviews</td></tr>
+        <tr><td><b>Signal</b></td><td>What you watch instead of the outcome, because the outcome arrives too late to steer by.</td><td>The share of enrolled participants who finish the course</td></tr>
+        <tr><td><b>Outcome</b> (output)</td><td>What the organisation exists to produce. It is wanted for its own sake.</td><td>A graduate in a better job a year later</td></tr>
+      </table></div>
+    </div>
+    <details class="more dx"><summary>Detailed explanation</summary><div class="in">
+      <p><b>The chain.</b> An organisation does something (the activity). That changes something in people or in the world (the mechanism). The change produces the result the organisation exists for (the outcome). Context sits around the whole chain and shapes every step, but the organisation cannot move it in the time it is planning for. The signal is an early reading taken along the way, because the outcome comes too late to steer by.</p>
+      <p><b>A second example: a coffee chain with a loyalty app.</b></p>
+      <ul class="plain">
+        <li>Activity: sending discount offers through the app. The chain decides how many, to whom, and how large.</li>
+        <li>Context: the weather, a new competitor opening across the street, the neighbourhood a store is in. They affect sales, and the chain cannot change them this year.</li>
+        <li>Mechanism: the customer notices the offer, visits, and forms a habit of coming back. If customers ignore the offers, nothing else in the chain can work.</li>
+        <li>Signal: the share of customers who open the offers, and app sign-ups. They arrive within days.</li>
+        <li>Outcome: repeat visits and profit over the year. They are what the chain actually wants.</li>
+      </ul>
+      <p><b>Why sort variables at all.</b> The role tells you what to do with the variable. You act on activities, watch signals, work around context, check that the mechanism is happening, and judge success by the outcome. Question 32 takes this further.</p>
+      <p><b>A condition for learning anything.</b> Analytics is the study of variation and co-variation. To learn what a lever does, the lever must vary and the outcome must vary. If every participant received exactly the same training, the data cannot tell you what the training does.</p>
+      <p><b>Common mistakes.</b></p>
+      <ul class="plain">
+        <li>Calling a signal an outcome. Course completion is not what the programme exists for. It stands in for a job.</li>
+        <li>Treating context as a lever. A programme cannot lower regional unemployment, so a plan that depends on it is not a plan.</li>
+        <li>Confusing a mechanism with a signal. A mechanism is the change that produces the result. A signal is a measurement you watch. The mechanism is often not recorded in the data at all.</li>
+      </ul>
+    </div></details>
+  </div>
+
+  <div class="qc qa" id="q30">
+    <p class="qk">Question 30</p>
+    <p class="qt">How do you decide whether a variable is a signal or an outcome? Why does the difference matter for a decision?</p>
+    <div class="ans"><p class="ak">Exam answer</p>
+      <p>Ask one question: <i>would I still want this if it led to nothing else?</i> If yes, it is an outcome, wanted for its own sake. If no, it is a signal: it stands in for an outcome that arrives later.</p>
+      <p>The difference matters because a signal can be pushed up while the outcome does not improve. A course completion rate can be raised by making the course easier, and no more graduates find jobs. So a signal should be watched as an early warning, and not made a target on its own.</p>
+    </div>
+    <details class="more dx"><summary>Detailed explanation</summary><div class="in">
+      <p><b>Why signals exist.</b> The outcome usually arrives too late to steer by. A job a year after graduation tells you how last year's course went, after the next course has started. A signal arrives early enough to act on: finishing rates, attendance, employer feedback.</p>
+      <p><b>Examples of signals.</b> Employer feedback on graduates is a signal: the programme does not exist to collect good feedback, but good feedback is an early sign that job offers will follow. The number of employers offering interviews is a signal too, and it shows the danger: it can be raised by approaching more employers of lower quality.</p>
+      <p><b>The same problem in a business.</b></p>
+      <ul class="plain">
+        <li>A website counts clicks (signal) because it wants sales (outcome). Clicks can be raised with misleading headlines that bring no sales.</li>
+        <li>A call centre counts calls answered within one minute (signal) because it wants customers' problems solved (outcome). Agents can answer quickly and rush customers off the phone.</li>
+      </ul>
+      <p>This is often summed up as: <i>when a measure becomes a target, it stops being a good measure.</i></p>
+      <p><b>How to use it in advice.</b> When you report a signal, name the outcome it stands in for, and say what could push the signal up without the outcome improving. Where you can, pair a signal with a later check on the outcome, for example completion now and employment a year later.</p>
+      <p><b>Close calls.</b> Some items depend on who is asking. Community trust in the programme is a signal to a funder (people who trust the programme enrol) and can be an outcome to the programme itself (an organisation that serves a community and is not trusted by it has failed at something it cares about). Asking the question is what matters.</p>
+    </div></details>
+  </div>
+
+  <div class="qc qa" id="q31">
+    <p class="qk">Question 31</p>
+    <p class="qt">Is the role of a variable a fixed property of that variable? Explain with an example.</p>
+    <div class="ans"><p class="ak">Exam answer</p>
+      <p>No. The role belongs to the pairing of a variable with a decision, so it depends on who is deciding and what they are deciding. Regional employment is context for the training programme, because the programme cannot change it. It is the outcome for a regional government, which is judged on it.</p>
+      <p>Even within one file the job of a column can change. When you report average attendance, attendance is the thing being measured. When you compare job placement for high and low attenders, attendance is the thing you group by.</p>
+    </div>
+    <details class="more dx"><summary>Detailed explanation</summary><div class="in">
+      <p><b>More examples of one variable in two roles.</b></p>
+      <ul class="plain">
+        <li>Price is an activity (a lever) for the seller who sets it, and context for the buyer who has to accept it.</li>
+        <li>The interest rate is context for a firm deciding whether to borrow, and an activity for the central bank that sets it.</li>
+        <li>Participant satisfaction is a signal to the person running the programme, and closer to an outcome for the participant who feels it.</li>
+      </ul>
+      <p><b>Inside a table.</b> The column that is measured is called a fact, and the column you slice by is called a dimension. In "average attendance was 93%", attendance is the fact. In "placement was higher for high attenders", attendance is the dimension and placement is the fact. The values of attendance did not change between the two questions. The question changed, and with it the job the column does.</p>
+      <p><b>How to use it.</b> Before any analysis, write down the decision and the decision-maker. Then label the role of each variable for that decision. If three people make three decisions from one file, the same columns may need three sets of labels. A label copied from someone else's decision can lead you to try to pull a lever that is not yours.</p>
+    </div></details>
+  </div>
+
+  <div class="qc qa" id="q32">
+    <p class="qk">Question 32</p>
+    <p class="qt">How do the five roles guide a decision, or the advice you give a manager?</p>
+    <div class="ans"><p class="ak">Exam answer</p>
+      <p>Each role tells you what to do with the variable.</p>
+      <ul class="plain">
+        <li><b>Activities:</b> act on them. They are the only levers.</li>
+        <li><b>Signals:</b> watch them for early warning, but do not reward them on their own.</li>
+        <li><b>Context:</b> work around it. Compare like with like, and do not blame or credit the organisation for it.</li>
+        <li><b>Mechanism:</b> check that it actually happens. An activity that changes nothing in people will not change the outcome.</li>
+        <li><b>Outcome:</b> judge success by it.</li>
+      </ul>
+    </div>
+    <details class="more dx"><summary>Detailed explanation</summary><div class="in">
+      <p><b>A worked piece of advice.</b> The programme's job placement rate fell this year, and the board asks whether to cut the mock-interview workshops. Use the roles to structure the answer.</p>
+      <ol class="plain">
+        <li><b>Context first.</b> Did regional unemployment rise? If it did, placements may have fallen whatever the programme did. Compare with similar programmes or regions in the same year before blaming the workshops.</li>
+        <li><b>The activity.</b> Did the workshops actually change? Were there fewer of them, or did fewer people attend?</li>
+        <li><b>The mechanism.</b> Did participants who attended gain confidence and skill? If people attended but did not change, the problem is in how the workshops are run, not in how many there are.</li>
+        <li><b>The signals.</b> Did completion or employer feedback fall earlier in the year? If they did, the warning was there and the process for acting on signals needs fixing.</li>
+        <li><b>The outcome.</b> Judge the decision by placements in good jobs, not by a signal that can be pushed up.</li>
+      </ol>
+      <p>Advice in one line: <i>do not cut a lever because an outcome fell until you have ruled out context and checked whether the mechanism broke.</i></p>
+      <p><b>Why this structure helps.</b> It separates what the manager can change (activities), what the manager should watch (signals), what the manager should check (mechanism), and what the manager should not be judged on (context). Mixing them up leads to two common errors: rewarding a team for good luck in its context, and punishing it for bad luck.</p>
+    </div></details>
+  </div>
+
+  <h3>Simpson's paradox</h3>
+
+  <div class="qc qa" id="q33">
+    <p class="qk">Question 33</p>
+    <p class="qt">What is Simpson's paradox? Give an example.</p>
+    <div class="ans"><p class="ak">Exam answer</p>
+      <p>Simpson's paradox happens when a comparison between groups reverses when the data are split by a third variable. One group is better within every subgroup, and yet it looks worse overall.</p>
+      <p>Example: two support teams are compared on the share of tickets resolved on time. Overall, Team A looks better. But Team B does better on simple tickets, and also does better on complex tickets. Team B looks worse overall only because most of its tickets are complex, and complex tickets are harder for everyone.</p>
+    </div>
+    <details class="more dx"><summary>Detailed explanation</summary><div class="in">
+      <p><b>How the reversal comes about.</b> The overall rate for a team is a blend of its rate on simple tickets and its rate on complex tickets. The blend depends on how many of each kind the team handled. Team A handled mostly simple tickets, which are usually resolved on time, so its blend is pulled up. Team B handled mostly complex tickets, which are often late, so its blend is pulled down. The overall comparison is mostly comparing the mix of tickets, not the teams.</p>
+      <p><b>Two more examples.</b></p>
+      <ul class="plain">
+        <li><b>Hospitals.</b> A large hospital has a lower overall survival rate than a small one. But the large hospital receives most of the seriously ill patients. Among mildly ill patients it does better, and among seriously ill patients it also does better.</li>
+        <li><b>Trainers.</b> One trainer has the highest overall job placement rate. Another trainer does better with graduates and also better with school leavers, but was given mostly school leavers, who are placed less often whoever trains them.</li>
+      </ul>
+      <p><b>The two ingredients.</b> A reversal needs both:</p>
+      <ol class="plain">
+        <li>a third variable that has a strong effect on the outcome (ticket difficulty, how ill the patient is, education level), and</li>
+        <li>groups that have very different mixes of that variable.</li>
+      </ol>
+      <p>If either is missing, the overall comparison and the within-group comparisons agree.</p>
+    </div></details>
+  </div>
+
+  <div class="qc qa" id="q34">
+    <p class="qk">Question 34</p>
+    <p class="qt">Why does Simpson's paradox happen?</p>
+    <div class="ans"><p class="ak">Exam answer</p>
+      <p>An overall rate is an average of the subgroup rates, weighted by how many cases the group has in each subgroup. When a third variable strongly affects the outcome, and the groups have very different mixes of it, the overall rate measures the mix as much as the group itself. The group that has more of the hard cases looks worse overall, even if it is better in every subgroup.</p>
+    </div>
+    <details class="more dx"><summary>Detailed explanation</summary><div class="in">
+      <p><b>An everyday version.</b> Two students take the same courses. One takes mostly advanced courses, where grades are lower for everyone. The other takes mostly introductory courses. The first student can earn a higher grade than the second in the advanced courses, and a higher grade in the introductory courses, and still have a lower overall average. The overall average rewards the easy mix.</p>
+      <p><b>The name for the third variable.</b> A variable that is related both to which group a case is in and to the outcome is called a confounding variable (or lurking variable). In the support-team example, ticket difficulty decides which team gets a ticket and also decides how likely it is to be resolved on time.</p>
+      <p><b>What it is not.</b> Simpson's paradox is not an error in the arithmetic. Both the overall figures and the subgroup figures are correct. They answer different questions. The overall figure answers "which team resolved more of its own tickets on time?". The subgroup figures answer "which team does better on the same kind of ticket?". For judging the teams, the second question is usually the one that matters.</p>
+    </div></details>
+  </div>
+
+  <div class="qc qa" id="q35">
+    <p class="qk">Question 35</p>
+    <p class="qt">How should Simpson's paradox change a decision, or the advice you give?</p>
+    <div class="ans"><p class="ak">Exam answer</p>
+      <p>Before ranking, rewarding or choosing on an overall rate, ask whether a third variable decides which cases go to each group and also affects the outcome. If it does, compare the groups within each level of that variable, like with like, and base the decision on those comparisons.</p>
+      <p>Hold a variable still only if it was fixed before the groups acted, for example ticket difficulty set by a triage desk. Do not split by a label the groups chose themselves.</p>
+    </div>
+    <details class="more dx"><summary>Detailed explanation</summary><div class="in">
+      <p><b>Steps to follow.</b></p>
+      <ol class="plain">
+        <li>List the variables that strongly affect the outcome (difficulty, severity, customer type, region).</li>
+        <li>Check whether the groups have different mixes of them.</li>
+        <li>If they do, compare the groups within each level.</li>
+        <li>Report both the overall comparison and the within-group comparison, and explain why they differ.</li>
+      </ol>
+      <p><b>Advice that changes.</b></p>
+      <ul class="plain">
+        <li>Do not give Team A the bonus, or move complex tickets away from Team B, on the overall rate. Team B is better at both kinds of ticket.</li>
+        <li>Do not send patients to the small hospital because its overall survival rate is higher. For a patient with a given illness, the large hospital does better.</li>
+        <li>A marketing campaign that targeted hard-to-win customers may look worse overall than one that targeted loyal customers. Compare the two within each customer segment before choosing.</li>
+      </ul>
+      <p><b>A limit.</b> A reversal shows that the third variable matters. It does not prove that splitting by it gives the true answer, and there is no rule for when to stop adding variables. The argument has to come from the situation. If a triage desk set the difficulty before the teams saw the ticket, holding difficulty still compares like with like. If each team labelled its own tickets, a team could label its slow tickets "complex", and splitting by the label would hide part of what you are trying to measure.</p>
+    </div></details>
+  </div>
+
+  <h3>Survivorship bias</h3>
+
+  <div class="qc qa" id="q36">
+    <p class="qk">Question 36</p>
+    <p class="qt">What is survivorship bias? Give an example.</p>
+    <div class="ans"><p class="ak">Exam answer</p>
+      <p>Survivorship bias is drawing a conclusion only from the cases that made it through some process, when the cases that did not make it are missing from the data and differ from the ones that remain.</p>
+      <p>Example: to learn what makes a company succeed, you study only successful companies, and find that their founders took big risks. Many failed companies took the same risks, but they are not in the data, so risk-taking looks like a cause of success.</p>
+    </div>
+    <details class="more dx"><summary>Detailed explanation</summary><div class="in">
+      <p><b>The course example.</b> A software firm has two support teams. Team B's customers first go through a self-service portal that closes the easy questions. Only the harder contacts become tickets. Team A has no portal, so its tickets include easy and hard contacts. Comparing the two teams on their tickets compares all of Team A's contacts with only the hard ones of Team B. The easy cases that were resolved earlier never became rows in the file.</p>
+      <p><b>The classic example.</b> In the Second World War, analysts looked at the bomber planes that came back from missions and marked where they had bullet holes, mostly on the wings and the body. The first idea was to add armour where the holes were. The statistician Abraham Wald pointed out that the planes that were hit in the engines did not come back, so they were not in the data. The armour belonged where the returning planes had no holes.</p>
+      <p><b>Everyday examples.</b></p>
+      <ul class="plain">
+        <li>A satisfaction survey of current customers misses the customers who were unhappy and left.</li>
+        <li>The average return of investment funds that exist today looks high, because the funds that did badly were closed and dropped from the list.</li>
+        <li>"Old buildings were built better" ignores the old buildings that were badly built and have already fallen down.</li>
+      </ul>
+    </div></details>
+  </div>
+
+  <div class="qc qa" id="q37">
+    <p class="qk">Question 37</p>
+    <p class="qt">When does removing cases before the data are collected bias a conclusion, and when does it not?</p>
+    <div class="ans"><p class="ak">Exam answer</p>
+      <p>It biases the conclusion when which cases were removed depends on the thing being measured, so the cases that remain differ from the ones removed. It does not bias the conclusion when cases are removed at random, because the remaining cases still look like the removed ones. The data are only smaller.</p>
+      <p>A portal that closed every third contact at random would not bias the team comparison. A portal that closes the easy contacts does.</p>
+    </div>
+    <details class="more dx"><summary>Detailed explanation</summary><div class="in">
+      <p><b>Survivorship and selection.</b> Both are filters that decide who or what gets into the file, and in both the filter is related to the thing being measured.</p>
+      <ul class="plain">
+        <li><b>Survivorship</b> takes cases out: the easy contacts closed by the portal, the companies that failed, the planes that did not return.</li>
+        <li><b>Selection</b> lets unusual cases in. In the midterm, rural participants had to travel to a city centre to attend, so the rural people in the file were the most motivated and best supported. If a rural centre removes the travel, the new rural learners will include the people the travel kept out, and their results will be closer to the average for rural people in general.</li>
+      </ul>
+      <p>In both cases the file describes a narrower group than its name suggests.</p>
+      <p><b>The question to ask.</b> <i>Was there a step before this file where some cases were resolved, dropped or turned away, and were those cases like the ones that remain?</i></p>
+    </div></details>
+  </div>
+
+  <div class="qc qa" id="q38">
+    <p class="qk">Question 38</p>
+    <p class="qt">How should survivorship bias change a decision, or the advice you give?</p>
+    <div class="ans"><p class="ak">Exam answer</p>
+      <p>Before drawing a conclusion, ask what a case had to go through to appear in the data, and who is missing. Then either collect data on the missing cases (the failures, the customers who left, the contacts closed earlier), or limit the conclusion to the group that made it through. Do not copy the habits of the survivors, or predict for a wider group, without looking at the cases that did not make it.</p>
+    </div>
+    <details class="more dx"><summary>Detailed explanation</summary><div class="in">
+      <p><b>Advice that changes.</b></p>
+      <ul class="plain">
+        <li>Before advising a client to copy the strategy of the ten most successful firms, look for firms that used the same strategy and failed. If many did, the strategy is not what made the winners win.</li>
+        <li>Before concluding that customers are satisfied, survey the customers who cancelled, for example with an exit survey.</li>
+        <li>Before judging Team B on its tickets, get the full list of contacts, including the ones the portal closed, or compare only tickets of the same difficulty.</li>
+        <li>Before opening a rural centre and promising the results of the current rural learners, expect lower results, because the new learners will include people the travel used to keep out.</li>
+      </ul>
+      <p><b>Wording a conclusion honestly.</b> If the missing cases cannot be found, say what the data cover: "Among customers who stayed for a year, satisfaction is high", not "Our customers are satisfied".</p>
+      <p><b>The other side of a filter.</b> A filter can also be useful evidence. Someone who finished a demanding degree has shown motivation, because the degree was costly to get. Being in a filtered file tells you something about each person in it, even though the file does not represent the wider group.</p>
+    </div></details>
+  </div>
+
+  <p class="next"><button class="btn pri" data-pg="7">Go to part 7</button></p>
+</article>
+
+<!-- ================= part 7: variables, analysis and charts ================= -->
+<article class="pg" id="pg7">
+  <p class="kick">Part 7 of 7 · questions 39 to 48 · from data visualization</p>
+  <h2><span class="tab">7</span>Variables, types of analysis and charts</h2>
+
+  <p>This part reviews the types of variable, the types of analysis, and how to choose a chart. As in part 6, each question shows an <b>exam answer</b>, and <b>Detailed explanation</b> gives the reasoning and more examples.</p>
+
+  <h3>Variables</h3>
+
+  <div class="qc qa" id="q39">
+    <p class="qk">Question 39</p>
+    <p class="qt">What is a variable? Give examples.</p>
+    <div class="ans"><p class="ak">Exam answer</p>
+      <p>A variable is a characteristic that can be measured and that can take different values. The key idea is that it varies: between individuals (people differ in age) or within one individual over time (a person's weekly spending).</p>
+      <p>Examples: age in years; the number of courses taken this term; ethnicity; skill level in a sport.</p>
+    </div>
+    <details class="more dx"><summary>Detailed explanation</summary><div class="in">
+      <p><b>Rows and columns.</b> In a data table, each row is one individual (a person, a store, a ticket) and each column is one variable.</p>
+      <p><b>Why "varies" matters.</b> A characteristic that is the same for everyone is not useful for analysis. If every student in a class took four courses, the number of courses cannot explain why some students got higher grades than others. Analytics studies variation in one variable and co-variation between variables.</p>
+      <p><b>The type of a variable decides what you can do with it:</b> which summary is meaningful (a mean or a count) and which chart to draw. Questions 40 and 41 cover the types.</p>
+    </div></details>
+  </div>
+
+  <div class="qc qa" id="q40">
+    <p class="qk">Question 40</p>
+    <p class="qt">What is the difference between a numeric and a categorical variable?</p>
+    <div class="ans"><p class="ak">Exam answer</p>
+      <p>A <b>numeric</b> variable has values that are quantities, measured or counted, so arithmetic such as the mean is meaningful. Examples: age, tuition, number of courses.</p>
+      <p>A <b>categorical</b> variable has values that are labels that place each case in a group, so you count how many cases fall in each group. Examples: major, public or private university, skill level.</p>
+      <p>A quick test: does the average of the values mean something? If yes, the variable is numeric.</p>
+    </div>
+    <details class="more dx"><summary>Detailed explanation</summary><div class="in">
+      <p><b>Numbers that are really labels.</b> A variable written in numbers is not always numeric. A zip code, a student ID, or a code of 1 for rural and 2 for urban are categorical. The average zip code means nothing, and adding the codes for rural and urban counts nothing.</p>
+      <p><b>Why it matters.</b></p>
+      <ul class="plain">
+        <li>For a numeric variable you can report the mean, median and standard deviation, and draw a histogram or a box plot.</li>
+        <li>For a categorical variable you report counts or percentages, and draw a bar plot.</li>
+      </ul>
+      <p>Using the wrong summary gives a number with no meaning, for example "the average major is 2.4".</p>
+    </div></details>
+  </div>
+
+  <div class="qc qa" id="q41">
+    <p class="qk">Question 41</p>
+    <p class="qt">Explain the difference between discrete and continuous numeric variables, and between nominal and ordinal categorical variables. Classify age, number of courses, ethnicity and skill level (low, medium, high).</p>
+    <div class="ans"><p class="ak">Exam answer</p>
+      <div class="tw"><table class="t fill">
+        <tr><th>Type</th><th>What it means</th><th>Example</th></tr>
+        <tr><td>Numeric, <b>continuous</b></td><td>Can take any value within a range, limited only by how precisely it is measured</td><td>Age: 18, 19.25, 41.5</td></tr>
+        <tr><td>Numeric, <b>discrete</b></td><td>Countable values with gaps between them, usually whole numbers</td><td>Number of courses: 4, 5, 7</td></tr>
+        <tr><td>Categorical, <b>nominal</b></td><td>Categories with no natural order</td><td>Ethnicity</td></tr>
+        <tr><td>Categorical, <b>ordinal</b></td><td>Categories with a natural order, but the gaps between them are not equal or not known</td><td>Skill level: low, medium, high</td></tr>
+      </table></div>
+    </div>
+    <details class="more dx"><summary>Detailed explanation</summary><div class="in">
+      <p><b>Three questions that classify any variable.</b></p>
+      <ol class="plain">
+        <li>Does the average mean something? Yes: numeric. No: categorical.</li>
+        <li>If numeric: is there always a possible value between two values? Yes: continuous (between 19 and 20 years old there is 19.5). No: discrete (nobody takes 4.5 courses).</li>
+        <li>If categorical: can the categories be put in a natural order? Yes: ordinal. No: nominal.</li>
+      </ol>
+      <p><b>More examples.</b></p>
+      <div class="tw"><table class="t fill">
+        <tr><th>Variable</th><th>Type</th></tr>
+        <tr><td>Tuition; time to resolve a ticket; weight</td><td>Numeric, continuous</td></tr>
+        <tr><td>Number of PhD faculty; customers per day; number of children</td><td>Numeric, discrete</td></tr>
+        <tr><td>Public or private; major; city; payment method</td><td>Categorical, nominal</td></tr>
+        <tr><td>Satisfaction from "very unhappy" to "very happy"; education level; T-shirt size</td><td>Categorical, ordinal</td></tr>
+      </table></div>
+      <p><b>Ordinal codes are not numbers.</b> If low, medium and high are coded 1, 2 and 3, the codes can be put in order, but nothing says the step from low to medium is the same size as the step from medium to high. So the average of the codes is not meaningful. Report the count in each category, or the median category.</p>
+      <p><b>Money and rounding.</b> Money is counted in cents, but it has so many possible values that it is treated as continuous. Age recorded in whole years is still a continuous variable, recorded in steps.</p>
+    </div></details>
+  </div>
+
+  <h3>Types of analysis</h3>
+
+  <div class="qc qa" id="q42">
+    <p class="qk">Question 42</p>
+    <p class="qt">What are univariate, bivariate and multivariate analysis? Give the summary used in each case.</p>
+    <div class="ans"><p class="ak">Exam answer</p>
+      <ul class="plain">
+        <li><b>Univariate:</b> the pattern, or distribution, of one variable. Numeric: mean, median, mode and standard deviation. Categorical: counts or percentages in each category.</li>
+        <li><b>Bivariate:</b> the relationship between two variables. Numeric and numeric: correlation. Numeric and categorical: the mean (or median, or standard deviation) of the numeric variable for each category, as in a pivot table. Categorical and categorical: counts for each combination of categories, in a cross table.</li>
+        <li><b>Multivariate:</b> the relationship among more than two variables, for example whether the relationship between two variables is the same across the categories of a third.</li>
+      </ul>
+    </div>
+    <details class="more dx"><summary>Detailed explanation</summary><div class="in">
+      <p><b>Business questions of each type, from a file of universities.</b></p>
+      <div class="tw"><table class="t fill">
+        <tr><th>Analysis</th><th>Example question</th><th>Summary</th></tr>
+        <tr><td>Univariate, numeric</td><td>What is the typical tuition, and how much does it vary?</td><td>Mean, median, standard deviation of tuition</td></tr>
+        <tr><td>Univariate, categorical</td><td>How many universities are public, and how many private?</td><td>Count of each type</td></tr>
+        <tr><td>Bivariate, numeric and numeric</td><td>Do universities with more PhD faculty charge more?</td><td>Correlation of PhD faculty and tuition</td></tr>
+        <tr><td>Bivariate, numeric and categorical</td><td>Is tuition higher at private universities?</td><td>Mean tuition for public and for private</td></tr>
+        <tr><td>Bivariate, categorical and categorical</td><td>Are private universities more often in cities?</td><td>Cross table of type by location</td></tr>
+        <tr><td>Multivariate</td><td>Is the link between PhD faculty and tuition the same for public and private universities?</td><td>Correlation, or a scatter plot, for each type</td></tr>
+      </table></div>
+      <p><b>Why multivariate matters.</b> A relationship between two variables can change, or even reverse, once a third variable is taken into account. That is Simpson's paradox (question 33). Looking at a third variable is how you check whether a bivariate pattern is real or is produced by the mix of cases.</p>
+      <p><b>Mean or median.</b> For a skewed variable such as income, the median is often a better summary of the typical value than the mean, because a few very large values pull the mean up (question 44).</p>
+    </div></details>
+  </div>
+
+  <h3>Charts</h3>
+
+  <div class="qc qa" id="q43">
+    <p class="qk">Question 43</p>
+    <p class="qt">Which charts show the distribution of one variable? Which one do you use for a numeric variable, and which for a categorical one?</p>
+    <div class="ans"><p class="ak">Exam answer</p>
+      <p>A <b>numeric</b> variable: a <b>histogram</b>, which shows the shape of the distribution, or a <b>box plot</b>, which shows the median, quartiles and outliers.</p>
+      <p>A <b>categorical</b> variable: a <b>bar plot</b>, with one bar per category and the height of each bar equal to the count or percentage in that category. For example, a bar plot of majors shows the most popular major in a course.</p>
+    </div>
+    <details class="more dx"><summary>Detailed explanation</summary><div class="in">
+      <p><b>Why not a bar plot for a numeric variable?</b> A numeric variable can have hundreds of different values, so one bar per value is unreadable. A histogram groups the values into ranges (bins) first, and then counts how many fall in each range.</p>
+      <p><b>Histogram or box plot?</b> Use a histogram to see the shape: one peak or two, symmetric or skewed. Use a box plot to read the median and quartiles directly, to spot outliers, and to compare several groups side by side. The two answer slightly different questions, and it is common to draw both.</p>
+      <p><b>Bar plot tips.</b> Sort the bars by height when the categories have no order (majors), so the largest is easy to see. Keep the natural order when the categories are ordinal (low, medium, high).</p>
+    </div></details>
+  </div>
+
+  <div class="qc qa" id="q44">
+    <p class="qk">Question 44</p>
+    <p class="qt">What does a histogram show? Describe a normal, a right-skewed and a left-skewed distribution.</p>
+    <div class="ans"><p class="ak">Exam answer</p>
+      <p>A histogram divides the values of a numeric variable into ranges (bins) and draws a bar for each bin. The height of the bar is the number of observations in that bin. It shows the shape of the distribution: where the values are concentrated, how spread out they are, and whether the shape is symmetric.</p>
+      <ul class="plain">
+        <li><b>Normal:</b> a symmetric bell shape. The mean and the median are about equal.</li>
+        <li><b>Right (positive) skew:</b> a long tail to the right, from a few very large values. The mean is above the median. Example: income.</li>
+        <li><b>Left (negative) skew:</b> a long tail to the left, from a few very small values. The mean is below the median. Example: scores on an easy exam.</li>
+      </ul>
+    </div>
+    <details class="more dx"><summary>Detailed explanation</summary><div class="in">
+      <p><b>How to remember the direction.</b> The skew is named after the side of the tail, not the side of the peak. In a right-skewed distribution most values are on the left, and a few stretch far out to the right.</p>
+      <p><b>Why the mean moves.</b> The mean uses every value, so a few very large values pull it towards the tail. The median is the middle value, so it does not move much. That is why reports of income and house prices usually give the median.</p>
+      <p><b>Why the shape matters for a decision.</b> If a manager is told that the average customer spends $40, but spending is strongly right-skewed, most customers spend less than $40 and a few spend a great deal. A promotion designed for a "$40 customer" fits almost nobody. Look at the histogram before choosing which summary to report.</p>
+      <p><b>Outliers in a histogram.</b> A histogram does not mark outliers. They appear as very short bars far from the rest of the data.</p>
+    </div></details>
+  </div>
+
+  <div class="qc qa" id="q45">
+    <p class="qk">Question 45</p>
+    <p class="qt">What does a box plot show? Define Q1, the median, Q3, the IQR and an outlier.</p>
+    <div class="ans"><p class="ak">Exam answer</p>
+      <p>A box plot summarises a numeric variable. The box runs from <b>Q1</b> (the 25th percentile) to <b>Q3</b> (the 75th percentile), and the line inside the box is the <b>median</b> (Q2, the 50th percentile). The whiskers run to the smallest and largest values that are not outliers.</p>
+      <ul class="plain">
+        <li><b>IQR</b> (interquartile range) = Q3 − Q1. It is the spread of the middle half of the data.</li>
+        <li>An <b>outlier</b> is a value below Q1 − 1.5 × IQR or above Q3 + 1.5 × IQR. It is drawn as a separate point.</li>
+      </ul>
+    </div>
+    <details class="more dx"><summary>Detailed explanation</summary><div class="in">
+      <p><b>A small example.</b> Suppose Q1 = 20 and Q3 = 40. Then IQR = 40 − 20 = 20, and 1.5 × IQR = 30. Values below 20 − 30 = −10 or above 40 + 30 = 70 are outliers.</p>
+      <p><b>Reading the box.</b> A quarter of the values are below Q1, a quarter between Q1 and the median, a quarter between the median and Q3, and a quarter above Q3. If the median line is close to Q1 and the upper whisker is long, the data are right-skewed.</p>
+      <p><b>The median, not the mean.</b> The line inside the box is the median, not the mean. Some software adds a separate marker for the mean.</p>
+      <p><b>Where box plots are most useful.</b> Side-by-side box plots compare a numeric variable across categories, for example tuition at public and at private universities. You see at once which group is higher, which is more spread out, and which has outliers.</p>
+    </div></details>
+  </div>
+
+  <div class="qc qa" id="q46">
+    <p class="qk">Question 46</p>
+    <p class="qt">Which chart shows the relationship between two variables? Answer for each combination of variable types, for a trend over time, and for more than two variables.</p>
+    <div class="ans"><p class="ak">Exam answer</p>
+      <ul class="plain">
+        <li><b>Two numeric variables:</b> a <b>scatter plot</b>, one dot per case. An upward slope shows a positive relationship, a downward slope a negative one, and no slope no relationship. The pattern may be straight (linear) or curved.</li>
+        <li><b>Numeric and categorical:</b> a <b>bar plot</b> with one bar per category, the height being the mean or total of the numeric variable. To compare whole distributions, use side-by-side box plots.</li>
+        <li><b>Two categorical variables:</b> a <b>cross table</b> of counts, or a grouped bar plot.</li>
+        <li><b>A trend over time:</b> a <b>line chart</b>, with time on the x-axis, for example a share price.</li>
+        <li><b>More than two variables:</b> add the extra variable to the chart with <b>color</b>, <b>shape</b> or <b>size</b>, for example a scatter plot colored by public or private.</li>
+      </ul>
+    </div>
+    <details class="more dx"><summary>Detailed explanation</summary><div class="in">
+      <p><b>Reading a scatter plot.</b> Look for four things: the direction (up or down), the form (straight or curved), the strength (how tightly the dots follow the pattern), and any unusual points far from the rest.</p>
+      <p><b>Color for categories, size for numbers.</b> A categorical third variable is shown with color or shape (public in one color, private in another). A numeric third variable can be shown with the size of the dot or with a gradient of color (larger dots for larger enrolment).</p>
+      <p><b>A relationship is not a cause.</b> A scatter plot can show that two variables move together. It does not show that one causes the other. A third variable may drive both, which is why multivariate charts are useful.</p>
+    </div></details>
+  </div>
+
+  <div class="qc qa" id="q47">
+    <p class="qk">Question 47</p>
+    <p class="qt">A manager has a file of universities with the columns tuition, Public_or_Private and #PhD_Faculty. For each business question, name the chart and what goes on it.</p>
+    <div class="ans"><p class="ak">Exam answer</p>
+      <div class="tw"><table class="t fill">
+        <tr><th>Business question</th><th>Purpose</th><th>Chart</th></tr>
+        <tr><td>What is the distribution of tuition?</td><td>Distribution of a numeric variable</td><td>Histogram of tuition, or box plot of tuition</td></tr>
+        <tr><td>How many universities are public, and how many private?</td><td>Distribution of a categorical variable</td><td>Bar plot: one bar per type, height = count</td></tr>
+        <tr><td>Is the distribution of tuition similar at public and private universities?</td><td>Compare a distribution across categories</td><td>Histogram of tuition with one color per type, or a box plot for each type</td></tr>
+        <tr><td>Is average tuition higher at private universities?</td><td>Compare an average across categories</td><td>Bar plot: one bar per type, height = average tuition</td></tr>
+        <tr><td>How is #PhD_Faculty related to tuition?</td><td>Relationship between two numeric variables</td><td>Scatter plot: x-axis #PhD_Faculty, y-axis tuition</td></tr>
+        <tr><td>Is that relationship the same for public and private universities?</td><td>Compare a relationship across categories</td><td>Scatter plot as above, with color = Public_or_Private</td></tr>
+      </table></div>
+    </div>
+    <details class="more dx"><summary>Detailed explanation</summary><div class="in">
+      <p><b>The method.</b> Start from the business question, not from the chart. Ask two things:</p>
+      <ol class="plain">
+        <li>How many variables does the question involve: one, two, or more?</li>
+        <li>What type is each one: numeric or categorical?</li>
+      </ol>
+      <p>The answers decide the chart. One numeric variable: histogram or box plot. One categorical: bar plot of counts. Numeric and categorical: bar plot of averages, or box plots by group. Two numeric: scatter plot. A third variable: color, shape or size.</p>
+      <p><b>Distribution or average?</b> Rows 3 and 4 both compare tuition across types, but they answer different questions. Row 4 compares one number per group (the average). Row 3 compares the whole spread: two groups can have the same average while one is much more spread out. If the decision depends on the typical university, the average may be enough. If it depends on the range of prices a student might face, compare the distributions.</p>
+    </div></details>
+  </div>
+
+  <div class="qc qa" id="q48">
+    <p class="qk">Question 48</p>
+    <p class="qt">Why should you look at a chart, and not only report a summary number such as a correlation or a mean?</p>
+    <div class="ans"><p class="ak">Exam answer</p>
+      <p>A single number can hide the shape of the data. A correlation measures only how close the points come to a straight line, so a correlation near zero fits several different pictures: no relationship at all, or a strong relationship that rises and then falls. A mean can hide skew and outliers. A chart shows the shape, so you see curves, outliers and groups before you choose a summary. Look at the scatter plot before computing a correlation, and at the histogram before reporting a mean.</p>
+    </div>
+    <details class="more dx"><summary>Detailed explanation</summary><div class="in">
+      <p><b>A well-known demonstration.</b> The statistician Francis Anscombe made four small data sets with the same means, the same standard deviations and the same correlation. Drawn as scatter plots, they look completely different: one is a straight-line trend, one is a curve, one is a straight line with one outlier, and one is a vertical stack of points with a single far-away point. The numbers alone could not tell them apart.</p>
+      <p><b>An example of a curve.</b> Sales rise with the discount up to a point, and then fall because a deep discount makes customers doubt the quality. The correlation between discount and sales could be close to zero, and a manager reading only that number would conclude that discounts make no difference. The scatter plot shows that there is a best discount.</p>
+      <p><b>Advice.</b> Draw first, then summarise. The chart tells you which summary is honest: a correlation if the pattern is a straight line, a median if the data are skewed, separate summaries if the data contain distinct groups.</p>
+    </div></details>
+  </div>
+
+  <p class="next"><button class="btn pri" data-pg="8">See the list of questions</button></p>
 </article>
 
 <!-- ================= all questions ================= -->
-<article class="pg" id="pg6">
+<article class="pg" id="pg8">
   <h2 class="plainh">Questions</h2>
   <p>The exam questions are taken from this list. In the questions with numbers, the numbers will be different. The steps will be the same.</p>
   <div id="allQ"></div>
   <footer>The situations and numbers in the practice questions are invented.</footer>
 </article>
 <!-- ================= optional: not on the exam ================= -->
-<article class="pg" id="pg7">
+<article class="pg" id="pg9">
   <p class="kick">Optional reading · not on the exam</p>
   <h2 class="plainh">The same thinking in your own decisions</h2>
   <ul class="plain">
@@ -1440,6 +1911,8 @@ sel(document,'.qslot').forEach(function(box){box.innerHTML=cardHTML(byId(+box.ge
 QS.forEach(function(q){if(q.kind!=='case')fill(q);});newCase();
 (function(){var names=['','Part 1. Concepts','Part 2. Standard error','Part 3. A mean: test and estimate','Part 4. A proportion: test and estimate','Part 5. Comparing surveys and stating conclusions'],h='';
   for(var p=1;p<=5;p++){var qs=QS.filter(function(q){return q.part===p;});h+='<h3>'+names[p]+'</h3><ol class="all" start="'+qs[0].id+'">'+qs.map(function(q){return '<li>'+q.text+'</li>';}).join('')+'</ol><p><button class="btn lnk" data-pg="'+p+'">Practice these questions</button></p>';}
+  [[6,"Part 6. Midterm ideas: roles of variables, Simpson's paradox and survivorship bias"],[7,'Part 7. Variables, types of analysis and charts']].forEach(function(p){var qs=sel($('pg'+p[0]),'.qa');
+    h+='<h3>'+p[1]+'</h3><ol class="all" start="'+qs[0].id.slice(1)+'">'+qs.map(function(c){return '<li>'+c.querySelector('.qt').innerHTML+'</li>';}).join('')+'</ol><p><button class="btn lnk" data-pg="'+p[0]+'">Practice these questions</button></p>';});
   $('allQ').innerHTML=h;})();
 
 function evalQ(q){var a=q.getAttribute('data-a');
