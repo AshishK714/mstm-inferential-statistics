@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Inferential Statistics and Hypothesis Testing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* layout: one part per screen; each part is what to know, worked examples, then the questions */
+:root{
+  --ink:#1A1822; --ink-soft:#4E4A58; --paper:#F8F7F9; --card:#FFFFFF;
+  --rule:#D9D5DE; --rule-soft:#E9E6EC;
+  --accent:#6A2C70; --accent-wash:#F1E8F2; --accent-soft:#A67CAB; --on-accent:#FFFFFF;
+  --ghost:#C9C3CF; --ghost-wash:#EEEAF0; --ghost-ink:#8B8493;
+  --ok:#2C6B3F; --ok-wash:#E4F1E6; --bad:#A63A2C; --bad-wash:#F8E7E3;
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;
+  --sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ink:#ECE8F0; --ink-soft:#B5AEBE; --paper:#17141B; --card:#201C26;
+    --rule:#3B3544; --rule-soft:#2C2733;
+    --accent:#D0A3D6; --accent-wash:#35263B; --accent-soft:#8E6494; --on-accent:#1B1220;
+    --ghost:#4A4353; --ghost-wash:#262130; --ghost-ink:#948CA0;
+    --ok:#8FCF9E; --ok-wash:#1D3325; --bad:#F2A497; --bad-wash:#3B2220; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#ECE8F0; --ink-soft:#B5AEBE; --paper:#17141B; --card:#201C26;
+  --rule:#3B3544; --rule-soft:#2C2733;
+  --accent:#D0A3D6; --accent-wash:#35263B; --accent-soft:#8E6494; --on-accent:#1B1220;
+  --ghost:#4A4353; --ghost-wash:#262130; --ghost-ink:#948CA0;
+  --ok:#8FCF9E; --ok-wash:#1D3325; --bad:#F2A497; --bad-wash:#3B2220; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:19px;line-height:1.62}
+@media (max-width:640px){body{font-size:17.5px}}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:60;background:color-mix(in srgb,var(--paper) 94%,transparent);
+  backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid var(--rule)}
+.bar-in{max-width:820px;margin:0 auto;padding:.55rem 1rem;font-family:var(--sans);font-size:.83rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar-in span{color:var(--ink-soft);font-weight:400}
+#app{max-width:820px;margin:0 auto;padding:1.3rem 1rem 5rem;min-width:0}
+
+.btn{font-family:var(--sans);font-size:.8rem;font-weight:500;color:var(--ink);background:var(--card);border:1px solid var(--rule);border-radius:5px;padding:.4rem .72rem;cursor:pointer;line-height:1.3}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn:focus-visible,input:focus-visible,select:focus-visible,.mcard:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn.pri:hover{color:var(--on-accent);filter:brightness(1.08)}
+.btn[aria-pressed="true"]{background:var(--accent-wash);border-color:var(--accent);color:var(--accent);font-weight:600}
+.btn.lnk,.btn.lnk:hover{background:none;border-color:transparent;color:var(--accent);padding-left:0;padding-right:0;text-decoration:underline;text-underline-offset:2px}
+.steps{display:flex;flex-wrap:wrap;gap:.35rem;margin:0 0 1.6rem}
+.row{display:flex;flex-wrap:wrap;gap:.45rem;align-items:center;margin:.6rem 0 0}
+
+.pg{display:none}.pg.on{display:block}
+h1{font-size:2.4rem;line-height:1.1;font-weight:500;letter-spacing:-.012em;margin:0 0 .6rem;text-wrap:balance}
+@media (max-width:640px){h1{font-size:1.95rem}}
+.dek{font-size:1.14rem;line-height:1.5;color:var(--ink-soft);margin:0 0 1.3rem;max-width:58ch}
+.kick{font-family:var(--sans);font-size:.8rem;color:var(--ink-soft);margin:0 0 .7rem}
+h2{position:relative;font-size:1.62rem;line-height:1.2;font-weight:500;margin:0 0 .9rem;padding-left:2.5rem;text-wrap:balance}
+h2 .tab{position:absolute;left:0;top:-.1rem;width:1.75rem;height:2.35rem;background:var(--accent);color:var(--on-accent);font-family:var(--sans);font-size:.86rem;font-weight:600;
+  display:flex;justify-content:center;padding-top:.3rem;clip-path:polygon(0 0,100% 0,100% 100%,50% 78%,0 100%)}
+h2.plainh{padding-left:0}
+h3{font-family:var(--sans);font-size:.76rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:1.9rem 0 .55rem}
+h4{font-family:var(--sans);font-size:.95rem;font-weight:600;margin:1.2rem 0 .3rem}
+p{margin:0 0 .9rem}
+b.term{font-weight:600;color:var(--accent)}
+i.v{font-style:italic}
+sub,sup{font-size:.72em;line-height:0}
+ul.plain,ol.plain{margin:0 0 1rem;padding-left:1.35rem}
+ul.plain li,ol.plain li{margin-bottom:.4rem}
+p.pre{margin-bottom:.35rem}
+.note{border-left:3px solid var(--rule);padding:.1rem 0 .1rem 1rem;color:var(--ink-soft);font-size:.95em;margin:1.1rem 0}
+.formula{font-size:1.2rem;text-align:center;background:var(--accent-wash);border-left:3px solid var(--accent);padding:.75rem 1rem;margin:.9rem 0;overflow-x:auto}
+.formula small{display:block;font-family:var(--sans);font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-bottom:.2rem}
+
+.tw{overflow-x:auto;margin:.7rem 0 1rem}
+table.t{border-collapse:collapse;font-family:var(--sans);font-size:.86rem;line-height:1.45;font-variant-numeric:tabular-nums;width:100%}
+table.t th,table.t td{padding:.45rem .6rem;border-bottom:1px solid var(--rule-soft);text-align:left;vertical-align:top}
+table.t th{font-weight:600;border-bottom:1px solid var(--rule)}
+table.t td:first-child{color:var(--ink-soft)}
+table.t.fill td:first-child{color:var(--ink)}
+
+.ex{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:.95rem 1.05rem .8rem;margin:.7rem 0 1.2rem;font-family:var(--sans);font-size:.9rem;line-height:1.55;font-variant-numeric:tabular-nums}
+.ex p{margin:0 0 .55rem}
+.ex ol{margin:.2rem 0 .7rem;padding-left:1.3rem}
+.ex li{margin-bottom:.3rem}
+.ex h4{margin:.9rem 0 .25rem;font-size:.86rem}
+.fig{display:block;width:100%;max-width:520px;height:auto;margin:.5rem 0 .7rem}
+.fig text{font-family:"IBM Plex Sans",-apple-system,"Segoe UI",Roboto,sans-serif;font-size:12.5px}
+
+.case{background:var(--accent-wash);border-left:3px solid var(--accent);padding:.85rem 1rem .7rem;margin:.6rem 0 1.2rem;font-family:var(--sans);font-size:.9rem;line-height:1.55;font-variant-numeric:tabular-nums}
+.case p{margin:0 0 .5rem}
+.case .hint{color:var(--ink-soft);font-size:.82rem;flex:1 1 12rem;min-width:0}
+.case table.t td,.case table.t th{border-bottom-color:color-mix(in srgb,var(--accent) 22%,transparent)}
+.case table.t td:first-child{color:var(--ink)}
+
+.qc{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:.85rem 1rem .8rem;margin:.8rem 0;min-width:0;font-family:var(--sans);font-size:.9rem;line-height:1.6;font-variant-numeric:tabular-nums}
+.qc.done{border-color:var(--ok)}
+.qk{font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin:0 0 .1rem}
+.qt{font-weight:600;margin:0 0 .55rem}
+.qb p{margin:0 0 .6rem}
+.qb .tw{margin:.3rem 0 .4rem}
+.u{color:var(--ink-soft);white-space:nowrap}
+input.q,select.q{font:inherit;padding:.24rem .42rem;border:1px solid var(--rule);border-radius:5px;background:var(--paper);color:var(--ink);max-width:100%}
+input.q{width:5.4rem;text-align:right}
+.q.ok{border-color:var(--ok);background:var(--ok-wash)}
+.q.bad{border-color:var(--bad);background:var(--bad-wash)}
+.mc label{display:flex;gap:.55rem;align-items:flex-start;padding:.2rem 0;cursor:pointer}
+.mc input{margin-top:.34rem;accent-color:var(--accent)}
+.mc.ok label:has(input:checked) span{color:var(--ok);font-weight:600}
+.mc.bad label:has(input:checked) span{color:var(--bad)}
+.fb{font-size:.84rem;margin:.45rem 0 0;min-height:1.3em}
+.fb.ok{color:var(--ok);font-weight:600}.fb.bad{color:var(--bad)}
+.why{border-top:1px solid var(--rule-soft);margin-top:.6rem;padding-top:.6rem;color:var(--ink-soft)}
+.why p{margin:0 0 .45rem}
+
+.menu{display:grid;gap:.5rem;margin:1rem 0 1.3rem}
+.mcard{display:grid;grid-template-columns:5.2rem minmax(0,1fr);gap:.1rem .8rem;text-align:left;font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:.7rem .95rem;cursor:pointer}
+.mcard:hover{border-color:var(--accent)}
+.mcard .mk{grid-row:1 / 3;font-family:var(--sans);font-size:.74rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--accent);padding-top:.36rem}
+.mcard .mq{font-size:1.1rem;font-weight:500;line-height:1.3}
+.mcard .ms{font-family:var(--sans);font-size:.84rem;color:var(--ink-soft);line-height:1.45}
+@media (max-width:480px){.mcard{grid-template-columns:minmax(0,1fr)}.mcard .mk{grid-row:auto;padding-top:0}}
+
+.demo{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:.95rem 1.05rem .8rem;margin:.7rem 0 1.2rem;font-family:var(--sans);font-size:.88rem;line-height:1.5}
+.demo p{margin:0 0 .5rem}
+.demo ul.plain{margin-bottom:.6rem}
+.cap{font-family:var(--sans);font-size:.82rem;color:var(--ink-soft);margin:.2rem 0 .6rem}
+.all li{margin-bottom:.5rem}
+.all{font-family:var(--sans);font-size:.92rem;line-height:1.5;padding-left:1.6rem}
+.next{margin:1.6rem 0 0}
+.figs{display:flex;flex-wrap:wrap;gap:.3rem 1.6rem;margin:.4rem 0 .6rem}
+.figs>div{flex:1 1 17rem;min-width:0;max-width:520px}
+.figs .cap{margin:0}
+.demo h4{margin:.5rem 0 .1rem;font-size:.86rem}
+.trio{display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;align-items:flex-start;margin:.5rem 0 .7rem}
+.trio>div{min-width:0}
+.trio>.grow{flex:1 1 15rem}
+.trio .cap{margin:0 0 .35rem}
+table.t.narrow{width:auto}
+table.t.narrow th,table.t.narrow td{padding:.24rem 1rem .24rem 0}
+table.t.narrow.means td:last-child{color:var(--accent);font-weight:600}
+.minis{display:grid;grid-template-columns:repeat(auto-fill,minmax(5.2rem,1fr));gap:.45rem}
+table.t.mini{width:100%;font-size:.8rem;border:1px solid var(--rule);border-radius:4px;border-collapse:separate;border-spacing:0}
+table.t.mini th{padding:.18rem .45rem;font-size:.72rem;font-weight:600;color:var(--ink-soft);border-bottom:1px solid var(--rule-soft)}
+table.t.mini td{padding:.12rem .45rem;border-bottom:0;color:var(--ink)}
+table.t.mini td:last-child{text-align:right}
+table.t.mini tr.mrow td{border-top:1px solid var(--rule-soft);font-weight:600;color:var(--accent)}
+table.t.grid{width:auto;font-size:.8rem}
+table.t.grid th,table.t.grid td{padding:.26rem .55rem;text-align:center;white-space:nowrap;color:var(--ink)}
+table.t.grid th{line-height:1.25}
+table.t.grid th span{font-weight:400;color:var(--ink-soft)}
+table.t.grid tr th:first-child{text-align:left}
+.ex ul.plain{margin-bottom:.6rem}
+.xb{display:none;align-items:center;justify-content:center;width:1.3rem;height:1.3rem;margin-left:.35rem;padding:0;border:1px solid var(--accent-soft);border-radius:50%;background:var(--card);color:var(--accent);font-family:var(--sans);font-size:.72rem;font-weight:600;line-height:1;cursor:pointer;vertical-align:middle;flex:none}
+.xb.on{display:inline-flex}
+.xb:hover,.xb[aria-expanded="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.xb:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.xp{background:var(--accent-wash);border-left:3px solid var(--accent);padding:.4rem .7rem;margin:-.2rem 0 .7rem;font-size:.84rem;line-height:1.5;color:var(--ink);white-space:normal}
+td .xp{margin:.4rem 0 .1rem}
+.opt{display:flex;flex-wrap:wrap;align-items:flex-start}
+.opt label{flex:1 1 0;min-width:0}
+.opt .xb{margin-top:.3rem}
+.opt .xp{flex:1 1 100%;margin:.1rem 0 .4rem 1.5rem}
+.xtip{position:absolute;z-index:80;width:max-content;max-width:min(22rem,calc(100vw - 16px));background:var(--card);border:1px solid var(--accent);border-radius:6px;padding:.45rem .7rem;font-family:var(--sans);font-size:.82rem;line-height:1.45;color:var(--ink);box-shadow:0 4px 14px rgba(0,0,0,.18);pointer-events:none}
+details.more{background:var(--card);border:1px solid var(--rule);border-radius:6px;margin:.6rem 0}
+details.more summary{cursor:pointer;padding:.7rem 1rem;font-size:1.08rem;font-weight:500;line-height:1.35}
+details.more summary:hover{color:var(--accent)}
+details.more summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+details.more[open] summary{border-bottom:1px solid var(--rule-soft)}
+details.more .in{padding:.85rem 1rem .3rem;font-family:var(--sans);font-size:.92rem;line-height:1.55}
+details.more .in p{margin:0 0 .6rem}
+.demo .row{margin-bottom:.65rem}
+.ex .row{margin-bottom:.65rem}
+details.more .row{margin:.2rem 0 .65rem}
+details.more .fig{margin-bottom:.3rem}
+h2.sec2{margin-top:2.8rem}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.92em;background:var(--accent-wash);padding:.08rem .3rem;border-radius:3px;white-space:nowrap}
+.hide{display:none}
+footer{font-family:var(--sans);font-size:.78rem;color:var(--ghost-ink);border-top:1px solid var(--rule);margin-top:3rem;padding-top:1rem}
+@media print{.bar,.steps,.row,.next{display:none}.pg{display:block;break-before:page}.pg:first-of-type{break-before:auto}}
+</style>
+</head>
+<body>
+<div class="bar"><div class="bar-in">Inferential statistics and hypothesis testing <span>&nbsp;Exam practice</span></div></div>
+<div id="app">
+<nav class="steps" aria-label="Parts">
+  <button class="btn" data-pg="0" aria-pressed="true">Start</button>
+  <button class="btn" data-pg="1" aria-pressed="false">1 Concepts</button>
+  <button class="btn" data-pg="2" aria-pressed="false">2 Standard error</button>
+  <button class="btn" data-pg="3" aria-pressed="false">3 A mean</button>
+  <button class="btn" data-pg="4" aria-pressed="false">4 A proportion</button>
+  <button class="btn" data-pg="5" aria-pressed="false">5 Comparing surveys</button>
+  <button class="btn" data-pg="6" aria-pressed="false">Questions</button>
+  <button class="btn" data-pg="7" aria-pressed="false">Not on the exam</button>
+</nav>
+
+<!-- ================= start ================= -->
+<article class="pg on" id="pg0">
+  <h1>Inferential statistics and hypothesis testing</h1>
+  <p class="dek">Practice for the exam: test a claim, and estimate a population value, from one survey.</p>
+
+  <h3>What the exam asks</h3>
+  <p>You are given the results of one survey. You ask two questions of it.</p>
+  <ul class="plain">
+    <li><b>Test.</b> Someone has stated a value, called the claim. Is the survey consistent with the claim?</li>
+    <li><b>Estimate.</b> Nobody has stated a value. What does the survey alone tell you about the population?</li>
+  </ul>
+  <p>You answer both questions from the survey result and its standard error (SE).</p>
+
+  <h3>Steps and formulas</h3>
+  <div class="tw"><table class="t fill">
+    <tr><th>Step</th><th>For a mean</th><th>For a proportion</th></tr>
+    <tr><td>1. Standard error (SE)</td><td><i>s</i> / √<i>n</i></td><td>√( <i>p</i> × (1 − <i>p</i>) / <i>n</i> )</td></tr>
+    <tr><td>2. Test. Assume the claim is right. 95% of surveys would give a result in this range.</td><td>claim ± 2 SE</td><td>claim ± 2 SE, with the claimed <i>p</i> in the SE</td></tr>
+    <tr><td>3. Decision</td><td colspan="2">Survey result inside the range: the survey is consistent with the claim. Survey result outside the range: fewer than 5% of surveys would be that far from the claim, so the survey is not consistent with the claim.</td></tr>
+    <tr><td>4. Estimate. Set the claim aside. This is the 95% interval.</td><td>survey mean ± 2 SE</td><td>survey proportion ± 2 SE, with the survey <i>p</i> in the SE</td></tr>
+    <tr><td>5. Connect</td><td colspan="2">The claim is inside the interval exactly when the survey result is inside the range.</td></tr>
+  </table></div>
+
+  <h3>Worksheet sections and the matching questions</h3>
+  <p>Use this table to find the practice questions for each section of the worksheet "One Sample, Two Questions".</p>
+  <div class="tw"><table class="t fill">
+    <tr><th>Section of the worksheet</th><th>Part</th><th>Questions</th></tr>
+    <tr><td>Warm-up: table of the two distributions</td><td>Part 1</td><td>4</td></tr>
+    <tr><td>Warm-up: "in about ___ % of samples"</td><td>Part 1</td><td>6</td></tr>
+    <tr><td>Warm-up: quick check, one adult and one sample</td><td>Part 2</td><td>13</td></tr>
+    <tr><td>A1. Test the claim about the mean</td><td>Part 3</td><td>14 to 17</td></tr>
+    <tr><td>A2. Estimate the mean</td><td>Part 3</td><td>18 and 19</td></tr>
+    <tr><td>A3. Connect the two</td><td>Part 3</td><td>20</td></tr>
+    <tr><td>Part B: a proportion is the mean of 1s and 0s</td><td>Part 1</td><td>8</td></tr>
+    <tr><td>B1. Test the claim about the proportion</td><td>Part 4</td><td>21</td></tr>
+    <tr><td>B2. Estimate the proportion</td><td>Part 4</td><td>22</td></tr>
+    <tr><td>B3. Connect the two</td><td>Part 4</td><td>23</td></tr>
+    <tr><td>Part C: second survey, mean column</td><td>Part 5</td><td>24</td></tr>
+    <tr><td>Part C: second survey, proportion column</td><td>Part 5</td><td>25</td></tr>
+    <tr><td>Part C: why the two surveys lead to different decisions</td><td>Part 5</td><td>26</td></tr>
+    <tr><td>In your own words, 1 and 2</td><td>Part 5</td><td>27 and 28</td></tr>
+    <tr><td>No section of the worksheet: concepts and the standard error</td><td>Parts 1 and 2</td><td>1 to 3, 5, 7, 9 to 12</td></tr>
+  </table></div>
+
+  <h3>How to practice</h3>
+  <p>In each part, read the explanation and the worked example, and then answer the questions.</p>
+  <ul class="plain">
+    <li><b>Check</b> marks each of your entries as right or wrong.</li>
+    <li><b>Show the working</b> gives the full solution.</li>
+    <li><b>?</b> beside an answer gives the explanation of that answer. It appears after you check the answer or show the working.</li>
+    <li><b>New numbers</b> gives the same question with different numbers.</li>
+  </ul>
+  <h3>About the exam</h3>
+  <ul class="plain">
+    <li>The exam questions are taken from the questions in this guide.</li>
+    <li>In the questions with numbers, the numbers will be different. The steps will be the same.</li>
+    <li>Use 2 standard errors for 95%.</li>
+    <li>The last tab, "Not on the exam", is optional reading. It applies the same thinking to everyday decisions, and it explains the exact percentage that statistics software reports for a test.</li>
+  </ul>
+
+  <h3>Topics</h3>
+  <div class="menu">
+    <button class="mcard" data-pg="1"><span class="mk">Part 1 · Q1 to 8</span><span class="mq">Concepts</span><span class="ms">Population and sample, individual values and sample means, the central limit theorem and the empirical rule.</span></button>
+    <button class="mcard" data-pg="2"><span class="mk">Part 2 · Q9 to 13</span><span class="mq">Standard error</span><span class="ms">Calculate the SE of a mean and of a proportion, and decide whether a result is unusual.</span></button>
+    <button class="mcard" data-pg="3"><span class="mk">Part 3 · Q14 to 20</span><span class="mq">A mean: test and estimate</span><span class="ms">Test a claim about a mean, calculate the 95% interval, and connect the two.</span></button>
+    <button class="mcard" data-pg="4"><span class="mk">Part 4 · Q21 to 23</span><span class="mq">A proportion: test and estimate</span><span class="ms">The same steps for a proportion. Only the standard error is different.</span></button>
+    <button class="mcard" data-pg="5"><span class="mk">Part 5 · Q24 to 28</span><span class="mq">Comparing surveys and stating conclusions</span><span class="ms">Two surveys with different means, the same mean with different sample sizes, and how to state a conclusion correctly.</span></button>
+  </div>
+</article>
+
+<!-- ================= part 1: concepts ================= -->
+<article class="pg" id="pg1">
+  <p class="kick">Part 1 of 5 · questions 1 to 8</p>
+  <h2><span class="tab">1</span>Concepts</h2>
+
+  <p>Read each topic, and then answer the question under it.</p>
+
+  <h3>Population and sample</h3>
+  <ul class="plain">
+    <li><b class="term">Population</b>: the whole group you want to know about, for example all the adults in a city. Its size is <i class="v">N</i> and its mean is written μ.</li>
+    <li><b class="term">Sample</b>: the <i class="v">n</i> people you ask, because you cannot ask everyone.</li>
+    <li><b class="term">Survey mean</b>: the mean of the sample. You know it exactly.</li>
+    <li>You do not know μ. The survey mean is your estimate of μ.</li>
+  </ul>
+  <div class="qslot" data-q="1"></div>
+
+  <h3>Why the estimate is uncertain</h3>
+  <p class="pre">The survey mean is not exactly equal to μ, for two reasons:</p>
+  <ul class="plain">
+    <li>People differ.</li>
+    <li>The sample is only a part of the population. A different sample of the same size would give a different mean.</li>
+  </ul>
+  <p class="pre">There would be no uncertainty in two cases:</p>
+  <ul class="plain">
+    <li>Every person has the same value.</li>
+    <li>You survey the whole population.</li>
+  </ul>
+  <div class="qslot" data-q="2"></div>
+
+  <h3>Larger samples: the law of large numbers</h3>
+  <ul class="plain">
+    <li>The mean of a larger sample tends to be closer to the population mean μ.</li>
+    <li>Example: a mean from 400 people is usually closer to μ than a mean from 25 people.</li>
+  </ul>
+  <div class="qslot" data-q="3"></div>
+
+  <h3>Individual values and sample means</h3>
+  <ul class="plain">
+    <li>There are two distributions: the distribution of individual values, and the distribution of sample means.</li>
+    <li>The example uses a very small population, so that you can check every number by hand.</li>
+  </ul>
+  <div class="demo">
+    <p><b>Example.</b> A small café has 8 regular customers. Table 1 gives the amount that each customer spent on the last visit. A sample is 2 customers chosen at random.</p>
+    <div class="trio">
+      <div>
+        <h4>1. The population</h4>
+        <p class="cap">One row is one customer. 8 rows.</p>
+        <div id="popTab"></div>
+      </div>
+      <div class="grow">
+        <h4>2. Twelve samples of 2 customers</h4>
+        <p class="cap">In each sample, one row is one customer. 2 rows.</p>
+        <div id="smpGrid" class="minis"></div>
+      </div>
+      <div>
+        <h4>3. The sample means</h4>
+        <p class="cap">One row is one sample. 12 rows.</p>
+        <div id="smpMeans"></div>
+      </div>
+    </div>
+    <div class="row"><button class="btn pri" id="smpGo">Take 12 new samples</button></div>
+    <p id="smpNote" aria-live="polite"></p>
+    <h4>The two distributions</h4>
+    <div id="smpDist"></div>
+    <p class="cap">One square is one data point: one customer under "Individual values", and one sample under "Sample means". The number above each column is the count.</p>
+  </div>
+  <h4>What one data point is</h4>
+  <ul class="plain">
+    <li><b>Individual values</b> (table 1): one data point is the spend of one customer. The mean of these values is μ = $5 and their standard deviation is σ = $2.</li>
+    <li><b>Sample means</b> (table 3): one data point is the mean of one sample.</li>
+  </ul>
+  <h4>Sample size and number of samples</h4>
+  <ul class="plain">
+    <li><b>Sample size</b>, <i class="v">n</i> = 2: the number of customers in one sample. It is the number of rows in each of the 12 small tables.</li>
+    <li><b>Number of samples</b> = 12: how many times a sample was taken. It is the number of rows in table 3.</li>
+    <li>Only <i class="v">n</i> is used in the formulas. The number of samples is not used in any formula.</li>
+    <li>In a real survey you take one sample, for example one sample of <i class="v">n</i> = 400 people. The other samples are imagined. You imagine them to ask how different your survey mean could have been.</li>
+  </ul>
+  <p class="note">Each of the 2 customers is chosen at random from all 8, so the same customer can be chosen twice. In a large population this almost never happens.</p>
+
+  <h3>The mean of the sample means is μ</h3>
+  <ul class="plain">
+    <li>The 12 samples in the example are only some of the samples that could be taken.</li>
+    <li>There are 8 × 8 = 64 possible samples of 2 customers: 8 choices for the first customer and 8 for the second.</li>
+    <li>The table counts how many of the 64 samples have each mean. The chart is the distribution of the 64 sample means, under the distribution of the 8 customers.</li>
+  </ul>
+  <div class="demo">
+    <div class="tw"><div id="allFreq"></div></div>
+    <p id="allSum"></p>
+    <div id="allDist"></div>
+    <p class="cap">The two distributions have the same center, $5. The sample means are less spread out than the customers.</p>
+    <details class="more">
+      <summary>The mean of each of the 64 samples</summary>
+      <div class="in">
+        <div class="tw"><div id="allGrid"></div></div>
+        <p class="cap">Rows: the first customer chosen. Columns: the second customer chosen. Each cell is the mean of that sample, in dollars.</p>
+      </div>
+    </details>
+  </div>
+  <ul class="plain">
+    <li>The mean of all the sample means is exactly μ.</li>
+    <li>Reason: every customer is in the same number of samples. In the mean of all the sample means, every customer therefore counts equally, exactly as in μ.</li>
+    <li>One sample mean can be above μ or below μ. Sample means have no tendency to be too high or too low. For this reason the survey mean is used as the estimate of μ.</li>
+  </ul>
+
+  <h3>The standard deviation of the sample means is the standard error</h3>
+  <ul class="plain">
+    <li>The standard deviation of the sample means has its own name: the <b class="term">standard error</b> (SE).</li>
+    <li>The table gives the result for every possible sample of 1, 2 and 4 of the 8 customers.</li>
+  </ul>
+  <div class="tw"><div id="enumTab"></div></div>
+  <ul class="plain">
+    <li>The standard deviation calculated from the list of sample means is equal to σ / √<i class="v">n</i>.</li>
+    <li>Sample means differ less than customers do. In a sample, a customer with a high value is usually averaged with customers with lower values.</li>
+    <li>Example: a sample has a mean of $9 only if every customer in it is customer C. This is 1 of the 8 samples of 1 customer, and only 1 of the 4,096 samples of 4 customers.</li>
+    <li>A sample that is 4 times as large has half the standard error: $2 for <i class="v">n</i> = 1 and $1 for <i class="v">n</i> = 4.</li>
+    <li>In a survey you do not know σ. You use the standard deviation of your sample, <i class="v">s</i>, so SE = <i class="v">s</i> / √<i class="v">n</i>.</li>
+  </ul>
+  <h4>Summary: individual values and sample means</h4>
+  <div class="tw"><table class="t fill">
+    <tr><th></th><th>Individual values</th><th>Sample means</th></tr>
+    <tr><td>One data point is</td><td>the value of one person</td><td>the mean of one sample of <i>n</i> people</td></tr>
+    <tr><td>Center</td><td>μ</td><td>μ</td></tr>
+    <tr><td>Spread</td><td>σ, the standard deviation (SD)</td><td>σ / √<i>n</i>, the standard error (SE)</td></tr>
+    <tr><td>Shape</td><td>any shape, often skewed</td><td>approximately normal (next topic)</td></tr>
+  </table></div>
+  <div class="qslot" data-q="4"></div>
+
+  <h3>Sample means are normal: the central limit theorem</h3>
+  <ul class="plain">
+    <li>When the sample is large enough, the means of samples are approximately normally distributed.</li>
+    <li>This is true even when the population is not normal, for example when most people spend nothing and a few people spend a lot.</li>
+  </ul>
+  <div class="demo">
+    <p class="pre"><b>Simulation.</b> The population:</p>
+    <ul class="plain">
+      <li>75% of people spend nothing, and the others spend different amounts.</li>
+      <li>The mean is $2 and the standard deviation is $4.</li>
+      <li>The population is strongly skewed.</li>
+    </ul>
+    <p>Choose the sample size <i>n</i>. The number of samples is always 1,000. The chart shows the 1,000 sample means, so one data point in the chart is the mean of one sample.</p>
+    <div class="row" role="group" aria-label="Sample size" id="dN"></div>
+    <div id="dFig"></div>
+    <p class="cap">The height of a bar is the number of sample means at that value. The dashed line is the population mean, $2. The shaded band is 2 standard errors on each side of it.</p>
+    <div class="row"><button class="btn pri" id="dGo">Take 1,000 new samples</button></div>
+    <div id="dOut"></div>
+  </div>
+  <div class="qslot" data-q="5"></div>
+
+  <h3>The empirical rule</h3>
+  <p class="pre">In a normal distribution:</p>
+  <ul class="plain">
+    <li>about 68% of values are within 1 standard deviation of the mean</li>
+    <li>about 95% are within 2 standard deviations</li>
+    <li>about 99.7% are within 3 standard deviations</li>
+  </ul>
+  <p class="pre">For sample means:</p>
+  <ul class="plain">
+    <li>Sample means are approximately normal.</li>
+    <li>Their standard deviation is the standard error.</li>
+    <li>The rule therefore applies to sample means, with the SE as the unit: about 95% of sample means are within 2 SE of μ.</li>
+  </ul>
+  <div class="ex">
+    <p><b>Example.</b> The population mean is $30 and the standard error is $1. The chart is the distribution of sample means.</p>
+    <div id="figRule"></div>
+    <div class="tw"><table class="t fill">
+      <tr><th>Sample means within</th><th>Range</th><th>Share of sample means</th><th>Of 1,000 samples</th></tr>
+      <tr><td>1 SE of μ</td><td>$29 to $31</td><td>about 68%</td><td>about 680</td></tr>
+      <tr><td>2 SE of μ</td><td>$28 to $32</td><td>about 95%</td><td>about 950</td></tr>
+      <tr><td>3 SE of μ</td><td>$27 to $33</td><td>about 99.7%</td><td>about 997</td></tr>
+    </table></div>
+  </div>
+  <div class="qslot" data-q="6"></div>
+
+  <h3>Standard deviation and standard error</h3>
+  <ul class="plain">
+    <li><b>Standard deviation (SD)</b>: describes people. It measures how far one person usually is from the mean.</li>
+    <li><b>Standard error (SE)</b>: describes sample means. It measures how far the mean of a sample usually is from μ.</li>
+    <li>SE = SD / √<i class="v">n</i>, so the SE is smaller than the SD.</li>
+  </ul>
+  <div class="qslot" data-q="7"></div>
+
+  <h3>A proportion is a mean</h3>
+  <ul class="plain">
+    <li>Write 1 for each person who says yes and 0 for each person who says no.</li>
+    <li>The mean of that column is the proportion <i class="v">p</i>.</li>
+    <li>Its standard deviation is √( <i class="v">p</i> × (1 − <i class="v">p</i>) ).</li>
+    <li>Write proportions as decimals: 20% is 0.20.</li>
+  </ul>
+  <div class="qslot" data-q="8"></div>
+  <p class="next"><button class="btn pri" data-pg="2">Go to part 2</button></p>
+</article>
+
+<!-- ================= part 2: standard error ================= -->
+<article class="pg" id="pg2">
+  <p class="kick">Part 2 of 5 · questions 9 to 13</p>
+  <h2><span class="tab">2</span>Standard error</h2>
+
+  <h3>What you need to know</h3>
+  <ul class="plain">
+    <li>The <b class="term">standard error</b> (SE) is the standard deviation of sample means.</li>
+    <li>It measures how far a sample mean usually is from μ.</li>
+    <li>A small SE means that the survey mean is a precise estimate.</li>
+  </ul>
+  <div class="formula"><small>Standard error of a mean</small>SE = <i>s</i> / √<i>n</i></div>
+  <ul class="plain">
+    <li><i class="v">s</i> is the standard deviation in your survey, and <i class="v">n</i> is the sample size.</li>
+    <li>More difference among people gives a larger SE.</li>
+    <li>A larger sample gives a smaller SE.</li>
+  </ul>
+  <div class="formula"><small>Standard error of a proportion</small>SE = √( <i>p</i> × (1 − <i>p</i>) / <i>n</i> )</div>
+  <ul class="plain">
+    <li>A proportion is a mean: write 1 for yes and 0 for no, and the mean of that column is <i class="v">p</i>.</li>
+    <li>The standard deviation of that column is √( <i class="v">p</i> × (1 − <i class="v">p</i>) ).</li>
+  </ul>
+
+  <h3>Worked example: SE of a mean</h3>
+  <div class="ex">
+    <p>A bookstore surveys its customers. The standard deviation of the spend per visit is $10. The table gives the standard error for a survey of 100 customers and for a survey of 400 customers.</p>
+    <div class="tw"><table class="t fill">
+      <tr><th>Customers surveyed, <i>n</i></th><th>Standard deviation, <i>s</i></th><th>SE = <i>s</i> / √<i>n</i></th></tr>
+      <tr><td>100</td><td>$10</td><td>10 / √100 = 10 / 10 = <b>$1</b></td></tr>
+      <tr><td>400</td><td>$10</td><td>10 / √400 = 10 / 20 = <b>$0.50</b></td></tr>
+    </table></div>
+    <p>The survey of 400 has 4 times as many customers and half the standard error. It is the more precise survey.</p>
+  </div>
+
+  <h3>Worked example: SE of a proportion</h3>
+  <div class="ex">
+    <p>In the survey of 100 customers, 20 customers are members of the loyalty program.</p>
+    <ol>
+      <li><i>p</i> = 20 / 100 = 0.20</li>
+      <li>SD of the 1s and 0s = √( 0.20 × 0.80 ) = √0.16 = 0.40</li>
+      <li>SE = √( 0.20 × 0.80 / 100 ) = √0.0016 = <b>0.04</b></li>
+    </ol>
+  </div>
+
+  <h3>Worked example: is $33 unusual? Use the SD or the SE</h3>
+  <div class="ex">
+    <p>Use the SD to judge one customer. Use the SE to judge a sample mean.</p>
+    <p>Suppose the population mean is $30 and the standard deviation is $10. For a sample of 100 customers, <i>n</i> = 100, so SE = 10 / √100 = $1.</p>
+    <div class="tw"><table class="t fill">
+      <tr><th></th><th>One customer spends $33</th><th>A sample of 100 customers has a mean of $33</th></tr>
+      <tr><td>Compare the distance with</td><td>SD = $10</td><td>SE = $1</td></tr>
+      <tr><td>Distance from $30</td><td>3 / 10 = 0.3 SD</td><td>3 / 1 = 3 SE</td></tr>
+      <tr><td>More than 2?</td><td>no</td><td>yes</td></tr>
+      <tr><td>Conclusion</td><td>Not unusual. Many customers are that far from the mean.</td><td>Unusual. Fewer than 5% of sample means are more than 2 SE from μ.</td></tr>
+    </table></div>
+    <div id="figSD"></div>
+    <p class="cap">The same value, $33, is inside the range for one customer and outside the range for a sample mean. The range for the mean of 400 customers is narrower still.</p>
+  </div>
+
+  <h3>Questions 9 to 13</h3>
+  <div class="qlist" data-part="2"></div>
+  <p class="next"><button class="btn pri" data-pg="3">Go to part 3</button></p>
+</article>
+
+<!-- ================= part 3: a mean ================= -->
+<article class="pg" id="pg3">
+  <p class="kick">Part 3 of 5 · questions 14 to 20</p>
+  <h2><span class="tab">3</span>A mean: test and estimate</h2>
+
+  <h3>What you need to know</h3>
+  <p class="pre"><b>Test</b>, when a claim has been stated:</p>
+  <ul class="plain">
+    <li>Assume for now that the claim is right.</li>
+    <li>Then 95% of sample means are within 2 SE of the claim. Calculate that range.</li>
+    <li>Survey mean inside the range: the survey is consistent with the claim.</li>
+    <li>Survey mean outside the range: a result such as yours would occur in fewer than 5% of samples, so the survey is not consistent with the claim.</li>
+  </ul>
+  <p class="pre"><b>Estimate</b>, when there is no claim:</p>
+  <ul class="plain">
+    <li>Set the claim aside.</li>
+    <li>The 95% interval is the survey mean ± 2 SE.</li>
+  </ul>
+  <p class="pre"><b>Connect</b>:</p>
+  <ul class="plain">
+    <li>The claim is inside the interval exactly when the survey mean is inside the range.</li>
+    <li>The two answers always agree, because both compare the same distance with the same 2 SE.</li>
+  </ul>
+
+  <h3>Worked example 1: the survey is not consistent with the claim</h3>
+  <div class="ex">
+    <p>The head office of a bookstore chain states that customers spend $30 per visit on average. A store manager surveys 100 randomly chosen customers. The survey mean is $33 and the standard deviation is $10.</p>
+    <h4>Test the claim</h4>
+    <ol>
+      <li>SE = <i>s</i> / √<i>n</i> = 10 / √100 = $1</li>
+      <li>If the claim is right, 95% of sample means are between 30 − 2 × 1 = $28 and 30 + 2 × 1 = $32.</li>
+      <li>The survey mean is $33. Its distance from the claim is $3, which is 3 / 1 = 3 SE.</li>
+      <li>$33 is outside the range $28 to $32.</li>
+      <li>If the claim were right, fewer than 5% of samples would be this far from $30.</li>
+      <li>Decision: the survey is not consistent with the claim of $30.</li>
+    </ol>
+    <div id="figA1"></div>
+    <p class="cap">The curve is the distribution of sample means if the claim is right. The shaded part contains 95% of them. The open circle is the claim, and the filled circle is the survey mean.</p>
+    <h4>Estimate</h4>
+    <ol>
+      <li>SE = $1, the same as in the test.</li>
+      <li>95% interval = 33 ± 2 × 1 = $31 to $35</li>
+      <li>Sentence: with about 95% confidence, the average spend per visit of all customers is between $31 and $35.</li>
+    </ol>
+    <div id="figA2"></div>
+    <p class="cap">The shaded band is the 95% interval. The survey mean is in the middle of it.</p>
+    <h4>Connect</h4>
+    <div id="figA2c"></div>
+    <ul class="plain">
+      <li><b>Test</b>: the survey mean, $33, is outside the range $28 to $32.</li>
+      <li><b>Estimate</b>: the claim, $30, is outside the interval $31 to $35.</li>
+      <li><b>Compare</b>: both answers follow from one comparison. The distance between $33 and $30 is $3, and that is more than 2 SE = $2.</li>
+    </ul>
+  </div>
+
+  <h3>Worked example 2: the survey is consistent with the claim</h3>
+  <div class="ex">
+    <p>A second store of the same chain surveys 100 customers. The survey mean is $31.50 and the standard deviation is $10. The claim is the same: $30.</p>
+    <h4>Test the claim</h4>
+    <ol>
+      <li>SE = 10 / √100 = $1</li>
+      <li>If the claim is right, 95% of sample means are between $28 and $32.</li>
+      <li>The survey mean is $31.50. Its distance from the claim is $1.50, which is 1.5 SE.</li>
+      <li>$31.50 is inside the range $28 to $32.</li>
+      <li>If the claim were right, more than 5% of samples would be this far from $30. A result such as this one is common.</li>
+      <li>Decision: the survey is consistent with the claim of $30.</li>
+    </ol>
+    <div id="figA3t"></div>
+    <h4>Estimate</h4>
+    <ol>
+      <li>95% interval = 31.50 ± 2 × 1 = $29.50 to $33.50</li>
+      <li>Sentence: with about 95% confidence, the average spend per visit of all customers of this store is between $29.50 and $33.50.</li>
+    </ol>
+    <div id="figA3e"></div>
+    <h4>Connect</h4>
+    <div id="figA3"></div>
+    <ul class="plain">
+      <li><b>Test</b>: the survey mean, $31.50, is inside the range $28 to $32.</li>
+      <li><b>Estimate</b>: the claim, $30, is inside the interval $29.50 to $33.50.</li>
+      <li><b>Compare</b>: the distance is $1.50, and that is less than 2 SE = $2.</li>
+    </ul>
+    <p>"Consistent" does not mean that the claim is proved. A claim of $31 or of $33 would also be consistent with this survey, because both values are inside the interval.</p>
+  </div>
+
+  <h3>Questions 14 to 20</h3>
+  <p>Questions 14 to 20 use the situation below. Press "New numbers" to practice with different numbers.</p>
+  <div class="case" data-case="A"></div>
+  <div class="qlist" data-part="3"></div>
+  <p class="next"><button class="btn pri" data-pg="4">Go to part 4</button></p>
+</article>
+
+<!-- ================= part 4: a proportion ================= -->
+<article class="pg" id="pg4">
+  <p class="kick">Part 4 of 5 · questions 21 to 23</p>
+  <h2><span class="tab">4</span>A proportion: test and estimate</h2>
+
+  <h3>What you need to know</h3>
+  <p class="pre">The steps are the same as for a mean. Only the standard error is different:</p>
+  <ul class="plain">
+    <li><b>Test</b>: you assume that the claim is right, so the SE uses the claimed proportion.</li>
+    <li><b>Estimate</b>: there is no claim to assume, so the SE uses the survey proportion. Round this SE to two decimals.</li>
+    <li>Write proportions as decimals: 20% is 0.20.</li>
+  </ul>
+  <h3>Worked example</h3>
+  <div class="ex">
+    <p>The head office also states that 50% of customers buy a coffee. In the survey of 100 customers, 62 bought a coffee.</p>
+    <h4>Test the claim</h4>
+    <ol>
+      <li>Survey proportion = 62 / 100 = 0.62</li>
+      <li>SE with the claimed proportion = √( 0.50 × 0.50 / 100 ) = √0.0025 = 0.05</li>
+      <li>If the claim is right, 95% of sample proportions are between 0.50 − 2 × 0.05 = 0.40 and 0.50 + 2 × 0.05 = 0.60.</li>
+      <li>The distance from the claim is 0.62 − 0.50 = 0.12, which is 0.12 / 0.05 = 2.4 SE.</li>
+      <li>0.62 is outside the range 0.40 to 0.60, so fewer than 5% of samples would be this far from 0.50.</li>
+      <li>Decision: the survey is not consistent with the claim of 50%.</li>
+    </ol>
+    <div id="figB1"></div>
+    <h4>Estimate</h4>
+    <ol>
+      <li>SE with the survey proportion = √( 0.62 × 0.38 / 100 ) = √0.002356 = 0.0485, which is 0.05 to two decimals.</li>
+      <li>95% interval = 0.62 ± 2 × 0.05 = 0.52 to 0.72</li>
+      <li>Sentence: with about 95% confidence, between 52% and 72% of all customers buy a coffee.</li>
+    </ol>
+    <div id="figB2"></div>
+    <h4>Connect</h4>
+    <div id="figB3"></div>
+    <ul class="plain">
+      <li><b>Test</b>: the survey proportion, 0.62, is outside the range 0.40 to 0.60.</li>
+      <li><b>Estimate</b>: the claim, 0.50, is outside the interval 0.52 to 0.72.</li>
+      <li><b>Compare</b>: the distance between 0.62 and 0.50 is 0.12, and that is more than 2 SE = 0.10.</li>
+      <li>The test used 0.50 in the SE and the estimate used 0.62. Both standard errors are 0.05 after rounding, so the conclusion is the same.</li>
+    </ul>
+  </div>
+
+  <h3>Questions 21 to 23</h3>
+  <p>These questions use the same situation as part 3.</p>
+  <div class="case" data-case="B"></div>
+  <div class="qlist" data-part="4"></div>
+  <p class="next"><button class="btn pri" data-pg="5">Go to part 5</button></p>
+</article>
+
+<!-- ================= part 5: second survey ================= -->
+<article class="pg" id="pg5">
+  <p class="kick">Part 5 of 5 · questions 24 to 28</p>
+  <h2><span class="tab">5</span>Comparing surveys and stating conclusions</h2>
+
+  <h3>What you need to know</h3>
+  <p class="pre">Two surveys can both be above the claim and still lead to different decisions:</p>
+  <ul class="plain">
+    <li>It does not matter whether a survey is above or below the claim. When the claim is right, about half of all surveys are above it and about half are below it.</li>
+    <li>The decision depends on the distance in standard errors: more than 2 SE from the claim, or not.</li>
+  </ul>
+  <p class="pre">The same survey mean can lead to different decisions when the sample sizes are different:</p>
+  <ul class="plain">
+    <li>A larger sample has a smaller standard error.</li>
+    <li>The distance from the claim is then more standard errors, although the distance in dollars is the same.</li>
+    <li>A small difference from the claim is evidence against the claim only when the sample is large enough.</li>
+  </ul>
+  <p class="pre">State your conclusions carefully:</p>
+  <ul class="plain">
+    <li>A test does not give the chance that the claim is right.</li>
+    <li>A test tells you how often a survey such as yours would occur if the claim were right.</li>
+    <li>"Consistent with the claim" does not mean that the claim is proved. It means that the survey gives no reason to reject it.</li>
+  </ul>
+  <h3>Worked example: two surveys with different means</h3>
+  <div class="ex">
+    <p>Compare the two bookstores from part 3. Both stores surveyed 100 customers, both found a standard deviation of $10, and the claim is $30 for both.</p>
+    <div class="tw"><table class="t fill">
+      <tr><th></th><th>First store</th><th>Second store</th></tr>
+      <tr><td>Survey result</td><td>$33</td><td>$31.50</td></tr>
+      <tr><td>SE for the test</td><td>10 / √100 = $1</td><td>10 / √100 = $1</td></tr>
+      <tr><td>Distance from the claim, in SE</td><td>(33 − 30) / 1 = 3</td><td>(31.50 − 30) / 1 = 1.5</td></tr>
+      <tr><td>Inside or outside claim ± 2 SE ($28 to $32)?</td><td>outside</td><td>inside</td></tr>
+      <tr><td>Interval: survey result ± 2 SE</td><td>$31 to $35</td><td>$29.50 to $33.50</td></tr>
+      <tr><td>Is the claim inside the interval?</td><td>no</td><td>yes</td></tr>
+      <tr><td>Decision about the claim</td><td>The survey is not consistent with the claim.</td><td>The survey is consistent with the claim.</td></tr>
+    </table></div>
+    <div id="figC1"></div>
+    <ul class="plain">
+      <li>Both stores found a mean above $30.</li>
+      <li>The first mean is 3 SE above the claim. A mean 3 SE from the claim is rare when the claim is right.</li>
+      <li>The second mean is 1.5 SE above the claim. A mean 1.5 SE from the claim is common when the claim is right.</li>
+    </ul>
+  </div>
+
+  <h3>Worked example: the same survey mean with different sample sizes</h3>
+  <div class="ex">
+    <p>Three other stores each find a survey mean of $31.50 and a standard deviation of $10. The claim is $30. The stores surveyed 25, 100 and 400 customers.</p>
+    <div class="tw"><div id="nTab"></div></div>
+    <ul class="plain">
+      <li>The survey mean is the same in the three stores: $31.50, which is $1.50 above the claim.</li>
+      <li>A larger sample has a smaller standard error, so the same $1.50 is more standard errors.</li>
+      <li>With 400 customers, $31.50 is 3 SE from the claim. The survey is not consistent with the claim.</li>
+      <li>With 25 or with 100 customers, $31.50 is less than 2 SE from the claim. The survey is consistent with the claim. This does not prove the claim. The sample is too small to decide.</li>
+    </ul>
+    <h4>Simulation: 1,000 samples when the claim is right</h4>
+    <ul class="plain">
+      <li>The simulation uses a population in which the claim is right: the mean is $30 and the standard deviation is $10.</li>
+      <li>It takes 1,000 samples of <i>n</i> customers. The chart shows the 1,000 sample means, so one data point in the chart is the mean of one sample.</li>
+      <li>Choose the sample size. Then read how many of the 1,000 sample means are as far from $30 as $31.50, or farther.</li>
+    </ul>
+    <div class="row" role="group" aria-label="Sample size" id="nB"></div>
+    <div id="nFig"></div>
+    <p class="cap">The height of a bar is the number of sample means at that value. The shaded range is claim ± 2 SE. The dark bars are the sample means that are $1.50 or more from $30.</p>
+    <div class="row"><button class="btn pri" id="nGo">Take 1,000 new samples</button></div>
+    <p id="nOut" aria-live="polite"></p>
+    <div class="tw"><div id="nCnt"></div></div>
+    <p class="cap">5% of 1,000 samples is 50 samples.</p>
+  </div>
+
+  <h3>Questions 24 to 28</h3>
+  <p>Questions 24 to 26 use a second survey in the same situation.</p>
+  <div class="case" data-case="C"></div>
+  <div class="qlist" data-part="5"></div>
+  <p class="next"><button class="btn pri" data-pg="6">See the list of questions</button></p>
+</article>
+
+<!-- ================= all questions ================= -->
+<article class="pg" id="pg6">
+  <h2 class="plainh">Questions</h2>
+  <p>The exam questions are taken from this list. In the questions with numbers, the numbers will be different. The steps will be the same.</p>
+  <div id="allQ"></div>
+  <footer>The situations and numbers in the practice questions are invented.</footer>
+</article>
+<!-- ================= optional: not on the exam ================= -->
+<article class="pg" id="pg7">
+  <p class="kick">Optional reading · not on the exam</p>
+  <h2 class="plainh">The same thinking in your own decisions</h2>
+  <ul class="plain">
+    <li>Nothing in this part is on the exam. There is nothing to calculate and nothing to memorize.</li>
+    <li>In parts 3 to 5 you tested a claim from a report. People use the same thinking whenever someone wants to change what is currently believed.</li>
+    <li>Each heading below is a question. Think about your own answer first, and then open it.</li>
+  </ul>
+
+  <details class="more">
+    <summary>What do people believe before any data are collected?</summary>
+    <div class="in">
+      <ul class="plain">
+        <li>In every test in this guide there was a claim, for example "customers spend $30 per visit". You assumed that the claim was right, and you asked whether the survey was consistent with it.</li>
+        <li>The belief that is accepted until there is evidence against it is called the <b class="term">null hypothesis</b>. It is the established belief.</li>
+        <li>Nobody needs data to keep the null hypothesis. It is accepted by default.</li>
+        <li>People collect data when they want to find evidence against it.</li>
+        <li>The method in one sentence: we collect evidence to test whether we can reject the null hypothesis.</li>
+        <li>If the evidence is not strong enough, the null hypothesis is kept. This does not prove it. In parts 3 to 5 this was the decision "the survey is consistent with the claim".</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="more">
+    <summary>Who has to bring the evidence?</summary>
+    <div class="in">
+      <p>The person who wants to reject the established belief has to bring the evidence. This is called the burden of proof.</p>
+      <div class="tw"><table class="t fill">
+        <tr><th>Situation</th><th>Established belief (null hypothesis)</th><th>Who has to bring the evidence</th></tr>
+        <tr><td>A report states that customers spend $30 per visit</td><td>The mean is $30.</td><td>The person who doubts the report</td></tr>
+        <tr><td>A criminal trial</td><td>The accused is innocent.</td><td>The prosecutor</td></tr>
+        <tr><td>A start-up asks an investor for money</td><td>This start-up will fail, as most start-ups do.</td><td>The founder</td></tr>
+        <tr><td>A person applies for a bank loan</td><td>The applicant may not be able to repay.</td><td>The applicant</td></tr>
+        <tr><td>A team proposes to replace the current supplier</td><td>The current supplier is good enough.</td><td>The team</td></tr>
+      </table></div>
+      <ul class="plain">
+        <li>The null hypothesis depends on the situation. In a criminal trial the accused does not have to prove anything. In a loan application the applicant has to prove that they can repay.</li>
+        <li>A question to think about: the founder has already built and sold two companies and has a degree from Stanford or Harvard. Does the investor now start from a different belief? Or is the belief the same, and the founder's record is strong evidence against it? Both descriptions are reasonable. In both, the investor needs less new evidence from this founder than from a first-time founder.</li>
+        <li>Think of a decision in your own work. What is the established belief, and who would have to bring the evidence to change it?</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="more">
+    <summary>Which mistake would you regret more?</summary>
+    <div class="in">
+      <p>You are deciding whether to pursue another degree. You do not know what the job market will be when you finish. There are two actions and two possible futures.</p>
+      <div class="tw"><table class="t fill">
+        <tr><th></th><th>The job market is good</th><th>The job market is poor</th></tr>
+        <tr><td>You pursue the degree</td><td>Good decision</td><td>Error: you paid for a degree that did not pay off</td></tr>
+        <tr><td>You do not pursue the degree</td><td>Error: you missed an opportunity</td><td>Good decision</td></tr>
+      </table></div>
+      <p>Every test of an established belief has the same four cells.</p>
+      <div class="tw"><table class="t fill">
+        <tr><th></th><th>The established belief is in fact true</th><th>The established belief is in fact false</th></tr>
+        <tr><td>You reject it</td><td>Error: you rejected a true belief</td><td>Good decision</td></tr>
+        <tr><td>You keep it</td><td>Good decision</td><td>Error: you kept a false belief</td></tr>
+      </table></div>
+      <ul class="plain">
+        <li>You can be wrong in two ways, and you cannot make both errors rare with the same data. If you ask for stronger evidence before you reject a belief, you reject true beliefs less often and you keep false beliefs more often.</li>
+        <li>You therefore have to decide which error is worse for you, and how often you are willing to make it.</li>
+        <li>For the degree: which of the two errors would you regret more?</li>
+        <li>Statistics books call the two errors the Type I error (rejecting a true belief) and the Type II error (keeping a false belief).</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="more">
+    <summary>Why is the rule 5%, and not 20%?</summary>
+    <div class="in">
+      <ul class="plain">
+        <li>The rule in this guide was 2 standard errors. With that rule, if the established belief is in fact true, you reject it wrongly only 5% of the time.</li>
+        <li>In business conversation people say this as "I am 95% confident". The note at the end of this page gives the exact meaning.</li>
+        <li>The rule is strict because a wrong rejection of an established belief is costly. Other people have made plans that depend on the belief. The person who rejected it, and was wrong, loses money or reputation.</li>
+        <li>The percentage is a choice. It depends on how strongly the belief is held and on the cost of rejecting it wrongly. 5% is usual in business questions. 1% or less is used when a wrong rejection would be very costly.</li>
+        <li>Courts in the United States make the same choice in words. A criminal conviction requires proof "beyond a reasonable doubt", because convicting an innocent person is very costly. A civil case requires only that the claim is "more likely than not".</li>
+        <li>Think of one belief in your company that you would reject only with very strong evidence, and one that you would reject with little evidence. What is the difference between them?</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="more">
+    <summary>Is it unfair that a new idea needs proof and an old idea needs none?</summary>
+    <div class="in">
+      <ul class="plain">
+        <li>It can seem unfair. A new idea needs strong evidence, and the established idea is kept without any.</li>
+        <li>Stability is useful. If a little evidence were enough to reject any belief, a company would change its strategy after every bad week, and nobody could plan.</li>
+        <li>No belief should be protected from questions either. Anyone may challenge an established belief.</li>
+        <li>Evidence allows both: the belief stays until someone brings enough data against it.</li>
+        <li>There is a price. With a stricter rule, a wrong belief is kept for longer.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="more">
+    <summary>Two people see the same data. Why do they still disagree?</summary>
+    <div class="in">
+      <p>A store manager is evaluated on customer satisfaction. The target is that at least 80% of customers are happy. A survey of 400 customers finds that 79% are happy.</p>
+      <ul class="plain">
+        <li>For 400 customers, SE = √( 0.80 × 0.20 / 400 ) = 0.02, so 2 SE is 4 percentage points.</li>
+        <li>The null hypothesis is the opposite of what the person who brings the data wants to show.</li>
+      </ul>
+      <div class="tw"><table class="t fill">
+        <tr><th></th><th>The manager brings the data</th><th>The firm brings the data</th></tr>
+        <tr><td>Wants to show</td><td>At least 80% are happy.</td><td>Fewer than 80% are happy.</td></tr>
+        <tr><td>Null hypothesis</td><td>Fewer than 80% are happy.</td><td>At least 80% are happy.</td></tr>
+        <tr><td>Survey result needed to reject it</td><td>above 84%</td><td>below 76%</td></tr>
+        <tr><td>The survey found 79%</td><td>The null hypothesis is kept.</td><td>The null hypothesis is kept.</td></tr>
+      </table></div>
+      <ul class="plain">
+        <li>79% is between 76% and 84%. The manager cannot show that the target is met, and the firm cannot show that it is missed. Each side keeps its own belief.</li>
+        <li>Neither side is unreasonable. With 400 customers, 79% is too close to 80% to decide.</li>
+        <li>This happens often. Real data are noisy, so two people who start from different beliefs can see the same data and both keep their beliefs.</li>
+        <li>If each side could choose its own favorite belief as the null hypothesis, neither would ever have to change. For this reason the person who brings the data takes the opposite of what they want to show as the null hypothesis.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="more">
+    <summary>What does it take to change a belief?</summary>
+    <div class="in">
+      <p>More data. With more customers the standard error is smaller, and a small difference becomes enough evidence.</p>
+      <div class="tw"><table class="t fill">
+        <tr><th>Customers surveyed</th><th>2 SE</th><th>The manager needs</th><th>The firm needs</th><th>A survey result of 79%</th></tr>
+        <tr><td>400</td><td>4 points</td><td>above 84%</td><td>below 76%</td><td>decides nothing</td></tr>
+        <tr><td>10,000</td><td>0.8 points</td><td>above 80.8%</td><td>below 79.2%</td><td>is evidence that fewer than 80% are happy</td></tr>
+      </table></div>
+      <ul class="plain">
+        <li>In daily life the data are usually few and noisy. Whichever belief you start from, you will usually keep it.</li>
+        <li>Beliefs change after overwhelming evidence: a very large difference, or a very large amount of data.</li>
+        <li>People also tend to stop collecting data as soon as the data support what they already believe.</li>
+        <li>Two habits help. Decide beforehand how much data you will collect. Decide beforehand which result would change your mind.</li>
+        <li>If no result would change your mind, you are not using the data to decide.</li>
+      </ul>
+    </div>
+  </details>
+
+  <div class="note">
+    <p><b>A note on wording.</b> "95% confident" is used in this part in the way that it is used in business conversation. The exact statement is: if the established belief is in fact true, this rule makes you reject it wrongly only 5% of the time. It is not the chance that your decision is right, and it is not the chance that the belief is true. In the store manager example each side looks in one direction only, so a true null hypothesis is rejected wrongly no more than 5% of the time.</p>
+  </div>
+
+  <h2 class="plainh sec2">Technical discussion: the exact percentage in a test</h2>
+  <ul class="plain">
+    <li>This discussion is not on the exam. On the exam you compare the distance with 2 standard errors, and you write "fewer than 5%" or "more than 5%".</li>
+    <li>Statistics books and software report an exact percentage in place of "fewer than 5%". Read this discussion if you want to know how that percentage is calculated and how a decision is made from it.</li>
+    <li>The examples are the bookstores of part 3. The head office claims that customers spend $30 per visit on average. Each store surveys 100 customers and finds a standard deviation of $10, so SE = $1.</li>
+    <li>The first store found a survey mean of $33 and the second store found $31.50. A third store is added here. Its survey mean is $32.17.</li>
+  </ul>
+
+  <details class="more">
+    <summary>What are the two ways to test a claim?</summary>
+    <div class="in">
+      <p class="pre"><b>First way: start from the survey.</b></p>
+      <ul class="plain">
+        <li>Calculate the 95% interval: survey mean ± 2 SE.</li>
+        <li>Check whether the claimed μ is inside the interval.</li>
+        <li>If the claimed μ is outside the interval, reject the claim.</li>
+      </ul>
+      <p class="pre"><b>Second way: start from the claim.</b></p>
+      <ul class="plain">
+        <li>Assume that the claim is right. Then the mean of all possible sample means is the claimed μ, and their standard deviation is the SE. Part 1 showed both facts with the café of 8 customers.</li>
+        <li>Calculate how many SE the survey mean is from the claimed μ.</li>
+        <li>From that number, calculate how often a sample mean would be that far from μ, or farther.</li>
+        <li>If that would happen in fewer than 5% of samples, reject the claim.</li>
+      </ul>
+      <div class="tw"><table class="t fill">
+        <tr><th></th><th>First store</th><th>Second store</th><th>Third store</th></tr>
+        <tr><td>Survey mean</td><td>$33</td><td>$31.50</td><td>$32.17</td></tr>
+        <tr><td>First way: 95% interval</td><td>$31 to $35</td><td>$29.50 to $33.50</td><td>$30.17 to $34.17</td></tr>
+        <tr><td>Is the claim, $30, inside the interval?</td><td>no</td><td>yes</td><td>no</td></tr>
+        <tr><td>Second way: distance from the claim</td><td>3 SE</td><td>1.5 SE</td><td>2.17 SE</td></tr>
+        <tr><td>More than 2 SE?</td><td>yes</td><td>no</td><td>yes</td></tr>
+        <tr><td>Decision</td><td>Reject the claim.</td><td>Keep the claim.</td><td>Reject the claim.</td></tr>
+      </table></div>
+      <ul class="plain">
+        <li>The two ways always give the same decision. Both compare the distance between the survey mean and the claim with 2 SE. This is the "Connect" step in parts 3 to 5.</li>
+        <li>The second way can give more than a yes or a no. It can give the exact percentage of samples that would be this far from the claim. The next question explains how.</li>
+        <li>The claim is the null hypothesis that was described earlier on this page. "Reject the claim" means "reject the null hypothesis". "Keep the claim" does not mean that the claim is proved.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="more">
+    <summary>How often would a sample mean be this far from the claim?</summary>
+    <div class="in">
+      <ul class="plain">
+        <li>Sample means are approximately normal, so the percentage depends only on the distance in SE.</li>
+        <li>"This far" counts both directions: sample means this far above the claimed μ, and sample means this far below it.</li>
+        <li>Choose a store. The chart is the distribution of sample means if the claim of $30 is right. The dark parts are the sample means that are as far from $30 as the survey mean of that store, or farther.</li>
+      </ul>
+      <div class="row" role="group" aria-label="Store" id="pvB"></div>
+      <div id="pvFig"></div>
+      <p id="pvOut" aria-live="polite"></p>
+      <div class="tw"><table class="t fill">
+        <tr><th>Distance from the claim</th><th>Samples at that distance, or farther</th><th>Where you have seen it</th></tr>
+        <tr><td>1 SE</td><td>31.7%</td><td></td></tr>
+        <tr><td>1.5 SE</td><td>13.4%</td><td>Second store</td></tr>
+        <tr><td>1.96 SE</td><td>5.0%</td><td>The exact distance for 95%</td></tr>
+        <tr><td>2 SE</td><td>4.6%</td><td>The rule in this guide: 2 SE for 95%</td></tr>
+        <tr><td>2.17 SE</td><td>3.0%</td><td>Third store</td></tr>
+        <tr><td>2.4 SE</td><td>1.6%</td><td>The coffee example in part 4</td></tr>
+        <tr><td>3 SE</td><td>0.27%</td><td>First store</td></tr>
+      </table></div>
+      <ul class="plain">
+        <li>Statistics books and software call this percentage the <b class="term">p-value</b>. They write it as a decimal: 3.0% is a p-value of 0.03.</li>
+        <li>You do not calculate it by hand. In Excel, the formula for a distance of 2.17 SE is <code>=2*(1-NORM.S.DIST(2.17,TRUE))</code>. The result is 0.03.</li>
+        <li>"About 95% within 2 SE" is rounded. Exactly 95% of sample means are within 1.96 SE of μ. This guide and the exam use 2.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="more">
+    <summary>The percentage is 3%. What does it mean, and what do you decide?</summary>
+    <div class="in">
+      <p>The third store found a survey mean of $32.17. That is 2.17 SE from the claim of $30, and the percentage is 3%.</p>
+      <ul class="plain">
+        <li>If the claim is right, only 3% of all possible samples have a mean this far from $30, or farther.</li>
+        <li>Suppose you say: "This sample does not come from a population with a mean of $30." If the claim is in fact right, you are wrong. You would be wrong for 3% of all possible samples. These are the samples with means this far from $30.</li>
+        <li>People say this as: "We reject the claim with 97% confidence."</li>
+        <li>The requirement is 95% confidence. It allows a wrong rejection for 5% of samples. 3% is less than 5%.</li>
+        <li>Decision: reject the claim. In other words, reject the null hypothesis.</li>
+      </ul>
+      <p class="pre"><b>The rule for any test:</b></p>
+      <ul class="plain">
+        <li>The percentage is less than 5%: reject the claim.</li>
+        <li>The percentage is more than 5%: keep the claim. This does not prove the claim.</li>
+        <li>5% is a choice. The question "Why is the rule 5%, and not 20%?" on this page explains it. If the requirement is 99% confidence, the percentage has to be less than 1%.</li>
+      </ul>
+      <div class="tw"><table class="t fill">
+        <tr><th></th><th>First store</th><th>Second store</th><th>Third store</th></tr>
+        <tr><td>Distance from the claim</td><td>3 SE</td><td>1.5 SE</td><td>2.17 SE</td></tr>
+        <tr><td>Samples that far from the claim, or farther</td><td>0.27%</td><td>13.4%</td><td>3.0%</td></tr>
+        <tr><td>Decision if the requirement is 95% confidence</td><td>Less than 5%: reject the claim.</td><td>More than 5%: keep the claim.</td><td>Less than 5%: reject the claim.</td></tr>
+        <tr><td>Decision if the requirement is 99% confidence</td><td>Less than 1%: reject the claim.</td><td>More than 1%: keep the claim.</td><td>More than 1%: keep the claim.</td></tr>
+      </table></div>
+      <p class="pre"><b>The first way agrees, whatever the confidence:</b></p>
+      <ul class="plain">
+        <li>An interval with more confidence is wider. The 95% interval is the survey mean ± 2 SE, the 97% interval is ± 2.17 SE, and the 99% interval is ± 2.58 SE.</li>
+        <li>Third store, 95% interval: 32.17 ± 2 × 1 = $30.17 to $34.17. The claim, $30, is outside it, so the claim is rejected.</li>
+        <li>Third store, 97% interval: 32.17 ± 2.17 × 1 = $30.00 to $34.34. The claim is exactly at the end of it.</li>
+        <li>Third store, 99% interval: 32.17 ± 2.58 × 1 = $29.59 to $34.75. The claim is inside it, so the claim is kept.</li>
+        <li>"Reject with 97% confidence" therefore has an exact meaning: the claim is outside every interval that has less than 97% confidence.</li>
+      </ul>
+      <div class="note">
+        <p><b>What the 3% is not.</b> The 3% is not the chance that the claim is right, and 97% is not the chance that your decision is right. The 3% is calculated on the assumption that the claim is right. It is the share of samples that would be this far from the claim. Question 27 in part 5 asks you to correct this mistake.</p>
+      </div>
+    </div>
+  </details>
+</article>
+
+</div>
+<script>
+(function(){
+'use strict';
+var $=function(id){return document.getElementById(id);};
+function sel(el,q){return Array.prototype.slice.call(el.querySelectorAll(q));}
+function pick(a){return a[Math.floor(Math.random()*a.length)];}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function clean(v,d){var m=Math.pow(10,d);return Math.abs(v*m-Math.round(v*m))<1e-7;}
+function rd(v,d){var m=Math.pow(10,d);return Math.round(v*m+(v<0?-1e-9:1e-9))/m;}
+function f(v,d){d=d==null?4:d;var s=rd(v,d).toFixed(d);if(s.indexOf('.')>=0)s=s.replace(/0+$/,'').replace(/\.$/,'');return s.replace('-','−');}
+function nc(v){return Math.round(v).toLocaleString('en-US');}
+function p2(v){return rd(v,2).toFixed(2);}
+function pc(v){return f(v*100,1)+'%';}
+function usd(v){return '$'+(clean(v,0)?f(v,0):rd(v,2).toFixed(2));}
+function numv(str){var t=String(str==null?'':str).replace(/[\s,$%]/g,'').replace(/−/g,'-');return t===''?NaN:Number(t);}
+
+/* ---------- input builders: every answer has its own explanation, opened with the ? beside it ---------- */
+var XP={},xN=0;
+function xb(html){if(!html)return '';xN++;XP['x'+xN]=html;return '<button type="button" class="xb" data-x="x'+xN+'" aria-expanded="false" aria-label="Explanation of this answer">?</button>';}
+function ni(a,o){o=o||{};var at=' data-a="'+a+'" data-t="'+(o.t==null?0.0051:o.t)+'"';
+  if(o.lo!=null)at+=' data-lo="'+o.lo+'" data-hi="'+o.hi+'"';if(o.abs)at+=' data-abs="1"';if(o.prop)at+=' data-prop="1"';if(o.alt)at+=' data-alt="'+o.alt+'"';
+  var v=o.abs?Math.abs(a):a,show=o.show||(o.pre==='$'?usd(v):(o.prop?(clean(v,2)?p2(v):f(v,4)):(clean(v,0)&&Math.abs(v)>=1000?nc(v):f(v,2))+(o.post||'')));
+  return (o.pre?'<span class="u">'+o.pre+'</span> ':'')+'<input class="q" inputmode="'+(o.abs?'text':'decimal')+'" autocomplete="off"'+at+' aria-label="'+(o.label||'Answer')+'">'+(o.post?' <span class="u">'+o.post.replace(/^ /,'')+'</span>':'')+xb(o.x?'<b>Answer: '+show+'.</b> '+o.x:'');}
+function si(a,opts,label,keep,x){var os=keep?opts:shuffle(opts),lab=opts.filter(function(o){return o[0]===a;})[0][1].replace(/\.$/,'');
+  return '<select class="q" data-a="'+a+'" aria-label="'+(label||'Choose')+'"><option value="">Choose</option>'+os.map(function(o){return '<option value="'+o[0]+'">'+o[1]+'</option>';}).join('')+'</select>'+xb(x?'<b>Answer: '+lab+'.</b> '+x:'');}
+var mcN=0;
+function mci(a,opts){mcN++;return '<div class="mc" data-a="'+a+'">'+shuffle(opts).map(function(o){return '<div class="opt"><label><input type="radio" name="mc'+mcN+'" value="'+o[0]+'"><span>'+o[1]+'</span></label>'+xb(o[2]?(o[0]===a?'<b>Correct.</b> ':'<b>Not correct.</b> ')+o[2]:'')+'</div>';}).join('')+'</div>';}
+function yn(v,label,x){return si(v?'y':'n',[['y','yes'],['n','no']],label,true,x);}
+function io(inside,label,x){return si(inside?'i':'o',[['i','inside'],['o','outside']],label,true,x);}
+function fm(fewer,label,x){return si(fewer?'f':'m',[['f','fewer'],['m','more']],label,true,x);}
+function dec(rej,label,x){return si(rej?'n':'c',[['c','The survey is consistent with the claim.'],['n','The survey is not consistent with the claim.'],['p','The survey proves that the claim is right.']],label||'Decision',false,x);}
+function decX(rej,what,k){return rej?'The survey '+what+' is '+f(k)+' SE from the claim. That is more than 2 SE, so it is outside claim ± 2 SE, and fewer than 5% of samples would be that far away if the claim were right.':'The survey '+what+' is '+f(k)+' SE from the claim. That is less than 2 SE, so it is inside claim ± 2 SE. A result this close is common when the claim is right. It is not proof that the claim is right.';}
+
+/* ---------- figures: one figure for each step. A row title is above its row, and no line is drawn across a label. ---------- */
+function svgOpen(W,H,aria){return '<svg class="fig" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+aria+'">';}
+function tx(x,y,t,o){o=o||{};return '<text x="'+x.toFixed(1)+'" y="'+(+y).toFixed(1)+'" text-anchor="'+(o.a||'middle')+'" fill="var(--'+(o.c||'ink-soft')+')"'+(o.b?' font-weight="600"':'')+'>'+t+'</text>';}
+function tw(s){return String(s).replace(/<[^>]+>/g,'').length*6.7;}
+function clamp(v,a,b){return a>b?(a+b)/2:Math.max(a,Math.min(b,v));}
+function seg(x1,y1,x2,y2,c,w,dash){return '<line x1="'+x1.toFixed(1)+'" y1="'+y1.toFixed(1)+'" x2="'+x2.toFixed(1)+'" y2="'+y2.toFixed(1)+'" stroke="var(--'+c+')" stroke-width="'+(w||1.5)+'"'+(dash?' stroke-dasharray="4 3"':'')+'/>';}
+function vline(x,y1,y2,c,dash){return seg(x,y1,x,y2,c,1.5,dash);}
+function npdf(z){return Math.exp(-z*z/2);}
+/* the survey result is a filled circle and the claim is an open circle, in every figure */
+function disc(x,y){return '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="5" fill="var(--accent)"/>';}
+function ring(x,y){return '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="4.5" fill="var(--card)" stroke="var(--ink)" stroke-width="1.8"/>';}
+function rowTitle(L,y,b,t){return '<text x="'+L+'" y="'+y+'" fill="var(--ink-soft)"><tspan font-weight="600" fill="var(--ink)">'+b+'</tspan> '+t+'</text>';}
+/* a value and what is said about it, on two lines above the row, kept inside the figure */
+function tag(x,y,l1,l2,L,R){var w=Math.max(tw(l1)*1.06,tw(l2)),cx=clamp(x,L+w/2,R-w/2);return tx(cx,y,l1,{c:'ink',b:1})+tx(cx,y+15,l2,{c:'ink'});}
+/* a length of 2 SE, drawn under the row */
+function span2(xa,xb,y,lab){var a=Math.min(xa,xb),b=Math.max(xa,xb);return seg(a,y,b,y,'ink-soft',1.2)+seg(a,y-4,a,y+4,'ink-soft',1.2)+seg(b,y-4,b,y+4,'ink-soft',1.2)+(lab?tx((a+b)/2,y+16,lab):'');}
+/* 2 SE on each side of a value. When the two lengths are short, they share one label. */
+function spans(xl,xm,xh,y,lab,L,R){var two=xm-xl>=tw(lab)+8,one=lab+' on each side',w=tw(one);return span2(xl,xm,y,two?lab:'')+span2(xm,xh,y,two?lab:'')+(two?'':tx(clamp(xm,L+w/2,R-w/2),y+16,one));}
+function band(xl,xh,y,h){return '<rect x="'+xl.toFixed(1)+'" y="'+y+'" width="'+(xh-xl).toFixed(1)+'" height="'+h+'" fill="var(--accent-wash)"/><rect x="'+xl.toFixed(1)+'" y="'+y+'" width="2.5" height="'+h+'" fill="var(--accent)"/><rect x="'+(xh-2.5).toFixed(1)+'" y="'+y+'" width="2.5" height="'+h+'" fill="var(--accent)"/>';}
+/* test: the curve of sample results around the claim, the middle 95% shaded, and the survey result */
+function testRow(o,x,y0,L,R){var c=o.c,se=o.se,xc=x(c),xs=x(o.pt),lo=c-2*se,hi=c+2*se,T=y0+62,B=y0+132,px=x(c+se)-xc,yy=function(z){return B-npdf(z)*(B-T);},s='',z,
+    z0=Math.max(-3.7,(L-xc)/px),z1=Math.min(3.7,(R-xc)/px),inside=o.pt>lo&&o.pt<hi;
+  s+=rowTitle(L,y0+12,'Test:','sample '+o.word+'s if the claim is right');
+  s+='<path d="M'+x(lo).toFixed(1)+' '+B;for(z=-2;z<=2+1e-9;z+=0.05)s+=' L'+(xc+z*px).toFixed(1)+' '+yy(z).toFixed(1);s+=' L'+x(hi).toFixed(1)+' '+B+' Z" fill="var(--accent)" fill-opacity="0.2"/>';
+  s+='<path d="M'+(xc+z0*px).toFixed(1)+' '+yy(z0).toFixed(1);for(z=z0;z<=z1+1e-9;z+=0.05)s+=' L'+(xc+z*px).toFixed(1)+' '+yy(z).toFixed(1);s+='" fill="none" stroke="var(--ink)" stroke-width="1.5"/>';
+  s+=seg(L,B,R,B,'rule',1.5);[lo,c,hi].forEach(function(v){s+=seg(x(v),B,x(v),B+4,'rule',1.5);});
+  s+=tx(xc,B-30,'95%',{c:'ink',b:1})+tx(xc,B-15,'of samples');
+  s+=seg(xs,y0+53,xs,B-5,'accent',1.5)+tag(xs,y0+32,'survey '+o.word+' '+o.fs(o.pt),(inside?'inside':'outside')+' the range',L,R);
+  s+=ring(xc,B)+disc(xs,B);
+  s+=tx(x(lo),B+17,o.fs(lo))+tx(xc,B+17,'claim '+o.fs(c),{c:'ink'})+tx(x(hi),B+17,o.fs(hi));
+  s+=spans(x(lo),xc,x(hi),B+30,'2 SE = '+o.fs(2*se),L,R);
+  return{s:s,h:184};}
+/* estimate: the 95% interval around the survey result, and the claim */
+function estRow(o,x,y0,L,R){var xc=x(o.c),xs=x(o.pt),xl=x(o.lo2),xh=x(o.hi2),yb=y0+60,bh=20,ym=yb+bh/2,inside=o.c>o.lo2&&o.c<o.hi2,e2=(o.hi2-o.lo2)/2,s='';
+  s+=rowTitle(L,y0+12,'Estimate:','survey '+o.word+' ± 2 SE, the 95% interval');
+  s+=band(xl,xh,yb,bh);
+  s+=seg(xc,y0+53,xc,ym-5,'ink-soft',1.5)+tag(xc,y0+32,'claim '+o.fs(o.c),(inside?'inside':'outside')+' the interval',L,R);
+  s+=ring(xc,ym)+disc(xs,ym);
+  s+=tx(xl,yb+bh+16,o.fs(o.lo2))+tx(xs,yb+bh+16,'survey '+o.fs(o.pt),{c:'ink'})+tx(xh,yb+bh+16,o.fs(o.hi2));
+  s+=spans(xl,xs,xh,yb+bh+29,'2 SE = '+o.fs(e2),L,R);
+  return{s:s,h:134};}
+/* compare: the distance between the claim and the survey result, drawn above a length of 2 SE */
+function cmpRow(o,x,y0,L,R){var xc=x(o.c),dir=o.pt>o.c?1:-1,d=Math.abs(o.pt-o.c),t2=2*o.se,e2=(o.hi2-o.lo2)/2,same=Math.abs(t2-e2)<1e-9,s='',y=y0+30,
+    bars=[[d,'ink','distance '+o.fs(rd(d,2))+' = '+f(d/o.se)+' SE']].concat(same?[[t2,'accent','2 SE = '+o.fs(t2)]]:[[t2,'accent','test: 2 SE = '+o.fs(t2)],[e2,'accent','estimate: 2 SE = '+o.fs(e2)]]),
+    end=function(len){return xc+dir*(x(o.c+len)-xc);},w=Math.max.apply(null,bars.map(function(b){return tw(b[2]);})),far=end(Math.max.apply(null,bars.map(function(b){return b[0];}))),
+    near=w<=(dir>0?xc-9-L:R-xc-9)||w>(dir>0?R-far-9:far-9-L),lx=near?xc-dir*9:far+dir*9,a=(near?-dir:dir)>0?'start':'end';
+  s+=rowTitle(L,y0+12,'Compare:','the distance is '+(d>t2?'more':'less')+' than 2 SE');
+  bars.forEach(function(b,i){var yy=y+18*i,xe=end(b[0]);s+=seg(xc,yy,xe,yy,b[1],3)+seg(xc,yy-5,xc,yy+5,b[1],1.5)+seg(xe,yy-5,xe,yy+5,b[1],1.5)+tx(lx,yy+4.5,b[2],{a:a,c:'ink'});});
+  return{s:s,h:22+18*bars.length};}
+/* the part of the axis that every figure of one example shares */
+function figDom(o){return[Math.min(o.c-3.4*o.se,o.lo2-0.35*o.se),Math.max(o.c+3.4*o.se,o.hi2+0.35*o.se)];}
+function bothDom(a,b){var p=figDom(a),q=figDom(b);return[Math.min(p[0],q[0]),Math.max(p[1],q[1])];}
+/* parts: 't' the test, 'e' the estimate, 'c' the comparison of the distance with 2 SE */
+function stepFig(o){var W=440,L=14,R=W-14,parts=o.parts||'tec',d=o.dom||figDom(o),mn=d[0],mx=d[1],x=function(v){return L+(v-mn)/(mx-mn)*(R-L);},y=0,s='',a=[],r,
+    io1=(o.pt>o.c-2*o.se&&o.pt<o.c+2*o.se)?'inside':'outside',io2=(o.c>o.lo2&&o.c<o.hi2)?'inside':'outside',
+    add=function(fn){if(y)s+=seg(L,y-1,R,y-1,'rule-soft',1);r=fn(o,x,y,L,R);s+=r.s;y+=r.h+10;};
+  if(parts.indexOf('t')>=0){add(testRow);a.push('Test: if the claim of '+o.fs(o.c)+' is right, 95% of sample '+o.word+'s are between '+o.fs(o.c-2*o.se)+' and '+o.fs(o.c+2*o.se)+'. The survey '+o.word+', '+o.fs(o.pt)+', is '+io1+' this range.');}
+  if(parts.indexOf('e')>=0){add(estRow);a.push('Estimate: the 95% interval is '+o.fs(o.lo2)+' to '+o.fs(o.hi2)+'. The claim, '+o.fs(o.c)+', is '+io2+' the interval.');}
+  if(parts.indexOf('c')>=0){add(cmpRow);a.push('Compare: the distance between the claim and the survey '+o.word+' is '+o.fs(rd(Math.abs(o.pt-o.c),2))+', which is '+(io1==='inside'?'less':'more')+' than 2 SE.');}
+  return svgOpen(W,y-8,a.join(' '))+s+'</svg>';}
+/* two surveys and one claim: one figure for each survey, on the same axis */
+function figPair(a,b,la,lb){return '<div class="figs"><div><p class="cap"><b>'+la+'</b></p>'+a+'</div><div><p class="cap"><b>'+lb+'</b></p>'+b+'</div></div>';}
+/* one value judged against the SD (one person) and against the SE (a sample mean) */
+function sdseFig(mu,sd,ns,v,fmt){var W=440,L=14,R=W-14,mn=mu-2.3*sd,mx=mu+2.3*sd,x=function(u){return L+(u-mn)/(mx-mn)*(R-L);},s='',y=0,xv=x(v),a=[],
+    rows=[{h:2*sd,t:'One customer:',d:'μ ± 2 SD is '+fmt(mu-2*sd)+' to '+fmt(mu+2*sd)}].concat(ns.map(function(n){var se=sd/Math.sqrt(n);return{h:2*se,t:'Mean of '+n+' customers:',d:'μ ± 2 SE is '+fmt(mu-2*se)+' to '+fmt(mu+2*se)};}));
+  rows.forEach(function(r){var yb=y+22,w=Math.abs(v-mu)<r.h?'inside':'outside';
+    s+=rowTitle(L,y+12,r.t,r.d)+band(x(mu-r.h),x(mu+r.h),yb,20)+seg(x(mu),yb,x(mu),yb+20,'ink-soft',1.5,1)+disc(xv,yb+10)+tx(xv+10,yb+14.5,fmt(v)+' is '+w,{a:'start',c:'ink',b:1});
+    a.push(r.t+' '+r.d+', and '+fmt(v)+' is '+w+' this range.');y+=58;});
+  var B=y+2;s+=seg(L,B,R,B,'rule',1.5);
+  [[mu-2*sd,fmt(mu-2*sd)],[mu,'μ = '+fmt(mu)],[mu+2*sd,fmt(mu+2*sd)]].forEach(function(t,i){s+=seg(x(t[0]),B,x(t[0]),B+4,'rule',1.5)+tx(x(t[0]),B+18,t[1],i===1?{c:'ink'}:{});});
+  return svgOpen(W,B+26,a.join(' '))+s+'</svg>';}
+/* distributions on one axis of values. In each row the data points are counted at each value.
+   units: draw one square for each data point. Otherwise draw one bar for each value. */
+function distFig(rows,vals,fmt,mu){var W=440,L=14,R=W-14,step=(R-L-56)/(vals.length-1),x=function(i){return L+28+i*step;},bw=30,H=84,y=0,s='',a=[];
+  rows.forEach(function(r){var top=y+38,B=top+H,mx=Math.max.apply(null,r.c),u=Math.min(16,H/mx),part=[];
+    s+=rowTitle(L,y+12,r.t,r.d)+seg(L,B,R,B,'rule',1.5);
+    r.c.forEach(function(c,i){var xi=x(i),h=r.units?c*u:c/mx*H,k;
+      s+=seg(xi,B,xi,B+4,'rule',1.5)+tx(xi,B+18,(vals[i]===mu?'μ = ':'')+fmt(vals[i]),vals[i]===mu?{c:'ink',b:1}:{});
+      if(!c)return;part.push(fmt(vals[i])+': '+c);
+      if(r.units)for(k=0;k<c;k++)s+='<rect x="'+(xi-bw/2).toFixed(1)+'" y="'+(B-(k+1)*u+1).toFixed(1)+'" width="'+bw+'" height="'+(u-2).toFixed(1)+'" fill="var(--accent-soft)"/>';
+      else s+='<rect x="'+(xi-bw/2).toFixed(1)+'" y="'+(B-h).toFixed(1)+'" width="'+bw+'" height="'+h.toFixed(1)+'" fill="var(--accent-soft)"/>';
+      s+=tx(xi,B-h-5,String(c),{c:'ink',b:1});});
+    a.push(r.t+' '+r.d+'. Count at each value: '+part.join(', ')+'.');y=B+38;});
+  return svgOpen(W,y-12,a.join(' '))+s+'</svg>';}
+/* 1,000 sample means when the claim is right, with the range claim ± 2 SE and one survey mean.
+   The bars at least as far from the claim as the survey mean are drawn dark. */
+function simFig(a,mu,se,m,U,n){var W=440,L=14,R=W-14,lo=mu-6.5,hi=mu+6.5,x=function(v){return L+(Math.max(lo,Math.min(hi,v))-lo)/(hi-lo)*(R-L);},T=64,B=160,nb=130,bwv=(hi-lo)/nb,ct=[],i,d=Math.abs(m-mu),inside=d<2*se,s='',mx=1;
+  for(i=0;i<nb;i++)ct.push(0);a.forEach(function(v){if(v<lo||v>=hi)return;ct[Math.floor((v-lo)/bwv+1e-9)]++;});ct.forEach(function(c){if(c>mx)mx=c;});
+  s+=rowTitle(L,12,'If the claim is right:','means of 1,000 samples of '+n+' customers');
+  s+='<rect x="'+x(mu-2*se).toFixed(1)+'" y="'+T+'" width="'+(x(mu+2*se)-x(mu-2*se)).toFixed(1)+'" height="'+(B-T)+'" fill="var(--accent-wash)"/>';
+  for(i=0;i<nb;i++){if(!ct[i])continue;var c=lo+(i+0.5)*bwv,h=Math.max(1.5,ct[i]/mx*(B-T)),w=(R-L)/nb;
+    s+='<rect x="'+(L+i*w+0.3).toFixed(1)+'" y="'+(B-h).toFixed(1)+'" width="'+Math.max(1,w-0.6).toFixed(1)+'" height="'+h.toFixed(1)+'" fill="var(--'+(Math.abs(c-mu)>=d?'accent':'accent-soft')+')"/>';}
+  s+=seg(x(mu),T,x(mu),B,'ink-soft',1.5,1)+seg(L,B,R,B,'rule',1.5);
+  for(i=-6;i<=6;i+=2)s+=seg(x(mu+i),B,x(mu+i),B+4,'rule',1.5)+tx(x(mu+i),B+17,U(mu+i),i===0?{c:'ink',b:1}:{})+(i===0?tx(x(mu),B+32,'claim'):'');
+  s+=seg(x(m),53,x(m),B-5,'accent',1.5)+tag(x(m),32,'survey mean '+U(m),f(d/se)+' SE, '+(inside?'inside':'outside')+' the range',L,R)+disc(x(m),B);
+  return svgOpen(W,B+40,'Histogram of the means of 1,000 samples of '+n+' customers when the claim of '+U(mu)+' is right. The range claim plus or minus 2 SE is '+U(mu-2*se)+' to '+U(mu+2*se)+'. The survey mean of '+U(m)+' is '+(inside?'inside':'outside')+' the range.')+s+'</svg>';}
+/* ---------- the exact percentage: how often a sample mean is this far from the claim, or farther ---------- */
+function ncdf(z){var t=1/(1+0.2316419*Math.abs(z)),p=0.3989422804014327*Math.exp(-z*z/2)*t*(0.319381530+t*(-0.356563782+t*(1.781477937+t*(-1.821255978+t*1.330274429))));return z>0?1-p:p;}
+function pTwo(k){return 2*(1-ncdf(Math.abs(k)));}
+function pcT(v){v*=100;return v>=1?v.toFixed(1):v.toFixed(2);}
+function pcH(v){v*=100;return v>=0.5?v.toFixed(1):v.toFixed(3);}
+function tailFig(mu,se,m,U){var W=440,L=14,R=W-14,X=3.7,k=Math.abs(m-mu)/se,x=function(z){return L+(z+X)/(2*X)*(R-L);},T=64,B=152,yy=function(z){return B-npdf(z)*(B-T);},p=pTwo(k),tot=pcT(p),mid=(100-Number(tot)).toFixed(p*100>=1?1:2),hi=mu+k*se,lo=mu-k*se,s='',z,i;
+  s+=rowTitle(L,12,'If the claim is right:','sample means this far from '+U(mu)+', or farther');
+  [-1,1].forEach(function(g){s+='<path d="M'+x(g*k).toFixed(1)+' '+B;for(z=k;z<=X+1e-9;z+=0.05)s+=' L'+x(g*z).toFixed(1)+' '+yy(z).toFixed(1);s+=' L'+x(g*X).toFixed(1)+' '+B+' Z" fill="var(--accent)" fill-opacity="0.6"/>';});
+  s+='<path d="M'+x(-X).toFixed(1)+' '+yy(-X).toFixed(1);for(z=-X;z<=X+1e-9;z+=0.05)s+=' L'+x(z).toFixed(1)+' '+yy(z).toFixed(1);s+='" fill="none" stroke="var(--ink)" stroke-width="1.5"/>';
+  s+=seg(L,B,R,B,'rule',1.5);
+  for(i=-3;i<=3;i++)s+=seg(x(i),B,x(i),B+4,'rule',1.5)+tx(x(i),B+17,U(mu+i*se),i===0?{c:'ink',b:1}:{c:'ink'})+tx(x(i),B+32,i===0?'claim':(i<0?'−':'+')+Math.abs(i)+' SE');
+  s+=seg(x(-k),55,x(-k),B,'accent',1.5)+seg(x(k),55,x(k),B-5,'accent',1.5);
+  s+=tag(x(-k),34,pcH(p/2)+'%',U(lo)+' or less',L,R)+tag(x(k),34,pcH(p/2)+'%',U(hi)+' or more',L,R);
+  s+=tx(W/2,B-30,mid+'%',{c:'ink',b:1})+tx(W/2,B-15,'closer to '+U(mu));
+  s+=ring(x(0),B)+disc(x(k),B);
+  return svgOpen(W,B+40,'Curve of sample means if the claim of '+U(mu)+' is right. '+pcH(p/2)+'% of samples have a mean of '+U(hi)+' or more, and '+pcH(p/2)+'% have a mean of '+U(lo)+' or less. Together this is '+tot+'% of samples.')+s+'</svg>';}
+/* normal curve of sample means with the 68%, 95% and 99.7% ranges marked on it */
+function ruleFig(mu,se,U){var W=440,H=236,L=14,R=W-14,X=3.7,x=function(z){return L+(z+X)/(2*X)*(R-L);},B=196,T=88,yy=function(z){return B-npdf(z)*(B-T);},s=svgOpen(W,H,'Normal curve of sample means with the ranges that contain about 68%, 95% and 99.7% of sample means'),z,k,sy=[0,66,44,22],lab=['','about 68%','about 95%','about 99.7%'];
+  for(k=3;k>=1;k--){s+='<path d="M'+x(-k).toFixed(1)+' '+B;for(z=-k;z<=k+1e-9;z+=0.05)s+=' L'+x(z).toFixed(1)+' '+yy(z).toFixed(1);s+=' L'+x(k).toFixed(1)+' '+B+' Z" fill="var(--accent)" fill-opacity="0.16"/>';}
+  for(k=1;k<=3;k++){s+=vline(x(-k),sy[k],B,'accent-soft',1)+vline(x(k),sy[k],B,'accent-soft',1);
+    s+='<line x1="'+x(-k).toFixed(1)+'" y1="'+sy[k]+'" x2="'+x(k).toFixed(1)+'" y2="'+sy[k]+'" stroke="var(--accent)" stroke-width="2"/>';
+    s+='<line x1="'+x(-k).toFixed(1)+'" y1="'+(sy[k]-4)+'" x2="'+x(-k).toFixed(1)+'" y2="'+(sy[k]+4)+'" stroke="var(--accent)" stroke-width="2"/><line x1="'+x(k).toFixed(1)+'" y1="'+(sy[k]-4)+'" x2="'+x(k).toFixed(1)+'" y2="'+(sy[k]+4)+'" stroke="var(--accent)" stroke-width="2"/>';
+    s+=tx(W/2,sy[k]-6,lab[k],{c:'ink',b:1});}
+  s+='<path d="M'+x(-X).toFixed(1)+' '+yy(-X).toFixed(1);for(z=-X;z<=X+1e-9;z+=0.05)s+=' L'+x(z).toFixed(1)+' '+yy(z).toFixed(1);s+='" fill="none" stroke="var(--ink)" stroke-width="1.5"/>';
+  s+='<line x1="'+L+'" y1="'+B+'" x2="'+R+'" y2="'+B+'" stroke="var(--rule)" stroke-width="1.5"/>';
+  for(k=-3;k<=3;k++){s+='<line x1="'+x(k).toFixed(1)+'" y1="'+B+'" x2="'+x(k).toFixed(1)+'" y2="'+(B+4)+'" stroke="var(--rule)" stroke-width="1.5"/>'+tx(x(k),B+17,U(mu+k*se),k===0?{c:'ink',b:1}:{c:'ink'})+tx(x(k),B+32,k===0?'μ':(k<0?'−':'+')+Math.abs(k)+' SE');}
+  return s+'</svg>';}
+
+/* ---------- part 1: a population of 8 customers, samples of 2, and every possible sample ---------- */
+var POP=[['A',5],['B',3],['C',9],['D',3],['E',5],['F',7],['G',3],['H',5]],POPMU=POP.reduce(function(a,p){return a+p[1];},0)/POP.length,
+  POPSD=Math.sqrt(POP.reduce(function(a,p){return a+(p[1]-POPMU)*(p[1]-POPMU);},0)/POP.length),SMP_N=2,SMP_K=12;
+function allSamples(n){var N=POP.length,T=Math.pow(N,n),sum=0,ss=0,top=0,mx=Math.max.apply(null,POP.map(function(p){return p[1];}));
+  for(var c=0;c<T;c++){var t=c,m=0;for(var i=0;i<n;i++){m+=POP[t%N][1];t=Math.floor(t/N);}m/=n;sum+=m;ss+=m*m;if(Math.abs(m-mx)<1e-9)top++;}
+  var mean=sum/T;return{n:n,count:T,sum:sum,mean:mean,sd:Math.sqrt(Math.max(0,ss/T-mean*mean)),top:top,max:mx};}
+/* the values that a customer or a sample mean of 2 customers can have, and the count of data points at each value */
+var DV=(function(){var v=POP.map(function(p){return p[1];}),lo=Math.min.apply(null,v),hi=Math.max.apply(null,v),a=[];for(var k=lo;k<=hi;k++)a.push(k);return a;})();
+function countAt(a){return DV.map(function(v){return a.filter(function(x){return Math.abs(x-v)<1e-9;}).length;});}
+function popRow(){return{t:'Individual values:',d:POP.length+' customers, mean '+usd(POPMU)+', SD '+usd(POPSD),c:countAt(POP.map(function(p){return p[1];})),units:1};}
+function drawSamples(){var g='',rows='',tot=0,rep=0,ms=[];
+  for(var k=1;k<=SMP_K;k++){var a=[],m=0;for(var i=0;i<SMP_N;i++){var p=pick(POP);a.push(p);m+=p[1];}m/=SMP_N;tot+=m;ms.push(m);if(a[0][0]===a[1][0])rep++;
+    g+='<table class="t mini"><tr><th colspan="2">Sample '+k+'</th></tr>'+a.map(function(p){return '<tr><td>'+p[0]+'</td><td>'+usd(p[1])+'</td></tr>';}).join('')+'<tr class="mrow"><td>mean</td><td>'+usd(m)+'</td></tr></table>';
+    rows+='<tr><td>Sample '+k+'</td><td>'+usd(m)+'</td></tr>';}
+  var mm=tot/SMP_K,eq=Math.abs(mm-POPMU)<0.005;
+  $('smpDist').innerHTML=distFig([popRow(),{t:'Sample means:',d:SMP_K+' samples of '+SMP_N+' customers, mean $'+mm.toFixed(2),c:countAt(ms),units:1}],DV,usd,POPMU);
+  $('smpGrid').innerHTML=g;$('smpMeans').innerHTML='<table class="t fill narrow means"><tr><th>Sample</th><th>Sample mean</th></tr>'+rows+'</table>';
+  $('smpNote').innerHTML='The mean of these '+SMP_K+' sample means is $'+mm.toFixed(2)+'. '+(eq?'In this draw it is equal to μ = '+usd(POPMU)+'. Take 12 new samples: it is usually a little different, because 12 samples are only some of the possible samples.':'It is close to μ = '+usd(POPMU)+'. It is not exactly equal, because 12 samples are only some of the possible samples.')+
+    (rep?' In '+(rep===1?'one sample':rep+' samples')+' the same customer was chosen twice.':'');}
+(function(){
+  $('popTab').innerHTML='<table class="t fill narrow"><tr><th>Customer</th><th>Spend</th></tr>'+POP.map(function(p){return '<tr><td>'+p[0]+'</td><td>'+usd(p[1])+'</td></tr>';}).join('')+'</table><p class="cap">μ = '+usd(POPMU)+' and σ = '+usd(POPSD)+'</p>';
+  var h='<table class="t grid"><tr><th></th>'+POP.map(function(p){return '<th>'+p[0]+'<br><span>'+usd(p[1])+'</span></th>';}).join('')+'</tr>';
+  POP.forEach(function(a){h+='<tr><th>'+a[0]+' <span>'+usd(a[1])+'</span></th>'+POP.map(function(b){return '<td>'+f((a[1]+b[1])/2)+'</td>';}).join('')+'</tr>';});
+  $('allGrid').innerHTML=h+'</table>';
+  var E2=allSamples(2),all2=[];POP.forEach(function(a){POP.forEach(function(b){all2.push((a[1]+b[1])/2);});});var c2=countAt(all2);
+  $('allFreq').innerHTML='<table class="t fill narrow"><tr><th>Sample mean</th><th>Number of samples</th><th>Sample mean × number</th></tr>'+DV.map(function(v,i){return '<tr><td>'+usd(v)+'</td><td>'+c2[i]+'</td><td>'+usd(v*c2[i])+'</td></tr>';}).join('')+'<tr><td><b>Total</b></td><td><b>'+E2.count+'</b></td><td><b>$'+f(E2.sum)+'</b></td></tr></table>';
+  $('allDist').innerHTML=distFig([popRow(),{t:'Sample means:',d:'all '+E2.count+' samples of 2 customers, mean '+usd(E2.mean)+', SD '+usd(E2.sd)}].map(function(r){if(!r.c)r.c=c2;return r;}),DV,usd,POPMU);
+  $('allSum').innerHTML='The sum of the '+E2.count+' sample means is $'+f(E2.sum)+', and '+f(E2.sum)+' / '+E2.count+' = '+usd(E2.mean)+'.';
+  $('enumTab').innerHTML='<table class="t fill"><tr><th>Sample size <i>n</i></th><th>Number of possible samples</th><th>Mean of all the sample means</th><th>SD of all the sample means, calculated from the list</th><th>The formula σ / √<i>n</i></th><th>Samples with a mean of '+usd(E2.max)+'</th></tr>'+
+    [1,2,4].map(function(n){var E=allSamples(n);return '<tr><td>'+n+'</td><td>'+nc(E.count)+'</td><td>$'+E.mean.toFixed(2)+'</td><td>$'+E.sd.toFixed(2)+'</td><td>'+f(POPSD)+' / √'+n+' = $'+(POPSD/Math.sqrt(n)).toFixed(2)+'</td><td>'+E.top+' of '+nc(E.count)+'</td></tr>';}).join('')+'</table>';
+  $('smpGo').onclick=drawSamples;drawSamples();})();
+
+/* ---------- "see it for yourself": means of 1,000 samples from a skewed population (mean 2, SD 4) ---------- */
+var DN=[1,25,100,400],DEMO={ni:2,means:null};
+function person(){if(Math.random()<0.75)return 0;return -2*Math.log((1-Math.random())*(1-Math.random())*(1-Math.random())*(1-Math.random()));}
+function demoRun(){var n=DN[DEMO.ni],M=1000,out=[];for(var m=0;m<M;m++){var s=0;for(var i=0;i<n;i++)s+=person();out.push(s/n);}DEMO.means=out;demoDraw();}
+function demoDraw(){var n=DN[DEMO.ni],se=4/Math.sqrt(n),mu=2,a=DEMO.means,M=a.length,W=440,H=186,L=18,R=W-18,B=150,T=10,HI=5,nb=100,ct=[],i,over=0;
+  for(i=0;i<nb;i++)ct.push(0);a.forEach(function(v){if(v>=HI){over++;return;}ct[Math.min(nb-1,Math.floor(v/HI*nb))]++;});
+  var srt=ct.slice().sort(function(p,q){return q-p;}),mxc=Math.max(1,Math.min(srt[0],srt[1]*1.5)),x=function(v){return L+Math.max(0,Math.min(HI,v))/HI*(R-L);},bw=(R-L)/nb,s=svgOpen(W,H,'Histogram of 1,000 sample means');
+  s+='<rect x="'+x(mu-2*se).toFixed(1)+'" y="'+T+'" width="'+(x(mu+2*se)-x(mu-2*se)).toFixed(1)+'" height="'+(B-T)+'" fill="var(--accent-wash)"/>';
+  for(i=0;i<nb;i++){if(!ct[i])continue;var h=Math.max(1,Math.min(1,ct[i]/mxc)*(B-T));s+='<rect x="'+(L+i*bw+0.3).toFixed(1)+'" y="'+(B-h).toFixed(1)+'" width="'+Math.max(1,bw-0.6).toFixed(1)+'" height="'+h.toFixed(1)+'" fill="var(--accent-soft)"/>';}
+  s+='<line x1="'+x(mu).toFixed(1)+'" y1="'+T+'" x2="'+x(mu).toFixed(1)+'" y2="'+B+'" stroke="var(--ink-soft)" stroke-width="1.5" stroke-dasharray="4 3"/>';
+  s+='<line x1="'+L+'" y1="'+B+'" x2="'+R+'" y2="'+B+'" stroke="var(--rule)" stroke-width="1.5"/>';
+  for(i=0;i<=HI;i++)s+='<line x1="'+x(i).toFixed(1)+'" y1="'+B+'" x2="'+x(i).toFixed(1)+'" y2="'+(B+4)+'" stroke="var(--rule)" stroke-width="1.5"/>'+tx(x(i),B+19,'$'+i);
+  $('dFig').innerHTML=s+'</svg>';
+  var w=function(k){return a.filter(function(v){return Math.abs(v-mu)<=k*se+1e-12;}).length;},mn=Math.min.apply(null,a),mx=Math.max.apply(null,a);
+  $('dOut').innerHTML='<div class="tw"><table class="t fill"><tr><th>Number of samples: 1,000. Sample size: <i>n</i> = '+n+'. SE = 4 / √'+n+' = '+usd(se)+'</th><th>What the 1,000 samples gave</th><th>What the empirical rule says</th></tr>'+
+    [1,2,3].map(function(k){return '<tr><td>Sample means within '+k+' SE of $2 ('+usd(Math.max(0,mu-k*se))+' to '+usd(mu+k*se)+')</td><td>'+nc(w(k))+'</td><td>about '+[680,950,997][k-1]+'</td></tr>';}).join('')+
+    '<tr><td>Lowest and highest sample mean</td><td>'+usd(rd(mn,2))+' and '+usd(rd(mx,2))+'</td><td></td></tr></table></div>'+
+    '<p class="cap">The middle column is counted from the 1,000 sample means in the chart. The last column is 68%, 95% and 99.7% of 1,000.</p><p>'+(n===1?'With 1 person in each sample, a sample mean is the value of one person. The chart has the shape of the population, and the counts are not equal to the rule.'+(over?' '+over+' values are above $5 and are not shown.':''):
+      (n===25?'With 25 people in each sample the chart is still skewed, and the counts are only roughly equal to the rule.'+(over?' '+over+' sample means are above $5 and are not shown.':''):
+      'With '+n+' people in each sample the sample means have a shape close to normal, and the counts are close to the rule (central limit theorem). The sample means are also much closer to $2 than the means of smaller samples (law of large numbers).'))+'</p>';}
+(function(){var box=$('dN');DN.forEach(function(n,i){var b=document.createElement('button');b.className='btn';b.innerHTML='<i>n</i> = '+n;b.setAttribute('aria-pressed',i===DEMO.ni?'true':'false');
+  b.onclick=function(){DEMO.ni=i;sel(box,'.btn').forEach(function(o){o.setAttribute('aria-pressed',o===b?'true':'false');});demoRun();};box.appendChild(b);});$('dGo').onclick=demoRun;})();
+
+/* ---------- the practice case: one claim about a mean, one about a proportion, two surveys ---------- */
+var PN={'0.2':[100,400,1600],'0.8':[100,400,1600],'0.5':[100,625,2500],'0.1':[100,225,900],'0.9':[100,225,900]};
+var SCEN=[
+  {who:'A branch manager of a gym chain',src:'A head-office report',unit:'members',mc:function(v){return 'members visit the gym '+v+' times a month on average';},mrow:'Mean number of visits last month',mword:'the average number of visits per month',pre:'',post:' visits',
+   pcl:function(p){return pc(p)+' of members use a personal trainer';},prow:'Used a personal trainer last month',pverb:'use a personal trainer',mu:[8,10,12],s:[4,5,6],p:[0.2,0.1]},
+  {who:'The manager of a grocery store',src:'The head office',unit:'customers',mc:function(v){return 'customers spend $'+v+' per visit on average';},mrow:'Mean spend on the last visit',mword:'the average spend per visit',pre:'$',post:'',
+   pcl:function(p){return pc(p)+' of customers pay with the store app';},prow:'Paid with the store app',pverb:'pay with the store app',mu:[40,50,60],s:[20,25,30],p:[0.2,0.5]},
+  {who:'An analyst at a streaming service',src:'An industry report',unit:'subscribers',mc:function(v){return 'subscribers watch '+v+' hours a week on average';},mrow:'Mean hours watched last week',mword:'the average number of hours watched per week',pre:'',post:' hours',
+   pcl:function(p){return pc(p)+' of subscribers watch on a phone';},prow:'Watched on a phone last week',pverb:'watch on a phone',mu:[10,12,15],s:[5,6,8],p:[0.8,0.5]},
+  {who:'The operations manager of a food delivery company',src:'The company website',unit:'orders',mc:function(v){return 'the average delivery time is '+v+' minutes';},mrow:'Mean delivery time',mword:'the average delivery time',pre:'',post:' minutes',
+   pcl:function(p){return pc(p)+' of orders arrive late';},prow:'Arrived late',pverb:'arrive late',mu:[30,35,40],s:[10,12,15],p:[0.1,0.2]},
+  {who:'A student union officer',src:'A university brochure',unit:'students',mc:function(v){return 'students study '+v+' hours a week on average';},mrow:'Mean hours of study last week',mword:'the average number of hours of study per week',pre:'',post:' hours',
+   pcl:function(p){return pc(p)+' of students have a part-time job';},prow:'Have a part-time job',pverb:'have a part-time job',mu:[15,18,20],s:[6,8,10],p:[0.5,0.2]},
+  {who:'The manager of a hotel',src:'The hotel chain',unit:'guests',mc:function(v){return 'guests spend $'+v+' per stay in the hotel restaurant on average';},mrow:'Mean spend in the restaurant per stay',mword:'the average spend per stay in the restaurant',pre:'$',post:'',
+   pcl:function(p){return pc(p)+' of guests book through the hotel website';},prow:'Booked through the hotel website',pverb:'book through the hotel website',mu:[25,30,45],s:[10,15,20],p:[0.2,0.8]}
+];
+function propSurvey(p0,n,se0,rej){for(var t=0;t<60;t++){var k=pick(rej?[2.5,3]:[1,1.5])*(Math.random()<0.5?1:-1),ph=p0+k*se0;
+    if(ph<0.03||ph>0.97||!clean(ph,2)||!clean(ph*n,0))continue;
+    var seE=Math.sqrt(ph*(1-ph)/n),r=Math.round(seE*100)/100;if(r<=0||Math.abs(seE*100-Math.round(seE*100))>0.35)continue;
+    var Rl=ph-2*r,Rh=ph+2*r,El=ph-2*seE,Eh=ph+2*seE,gap=Math.min(Math.abs(p0-Rl),Math.abs(p0-Rh),Math.abs(p0-El),Math.abs(p0-Eh));
+    var inR=p0>Rl&&p0<Rh,inE=p0>El&&p0<Eh;if(gap<0.004||inR!==inE||inR===rej)continue;
+    return{ph:rd(ph,2),cnt:Math.round(ph*n),k:k,seE:seE,r:r,lo:rd(Rl,2),hi:rd(Rh,2),elo:El,ehi:Eh,inside:!rej};}return null;}
+function genCase(){for(var t=0;t<2000;t++){var S=pick(SCEN),mu0=pick(S.mu),s=pick(S.s),p0=pick(S.p),n=pick(PN[String(p0)]),se=s/Math.sqrt(n);
+    if(!clean(se,2))continue;
+    var rej1=Math.random()<0.5,sg=Math.random()<0.5?1:-1,k1=pick(rej1?[2.5,3]:[1,1.5]),k2=pick(rej1?[1,1.5]:[2.5,3]);
+    if(!clean(k1*se,2)||!clean(k2*se,2)||mu0-3*se<=0)continue;
+    var se0=rd(Math.sqrt(p0*(1-p0)/n),4);if(!clean(se0,2))continue;
+    var prej1=Math.random()<0.5,P1=propSurvey(p0,n,se0,prej1),P2=propSurvey(p0,n,se0,!prej1);if(!P1||!P2)continue;
+    var U=(function(S){return function(v){return S.pre==='$'?usd(v):f(v,2)+S.post;};})(S);
+    var fs=(function(S){return function(v){return S.pre==='$'?usd(v):f(v,2);};})(S);
+    return{S:S,U:U,fs:fs,n:n,rt:Math.sqrt(n),mu0:mu0,s:s,se:rd(se,2),sg:sg,m1:rd(mu0+sg*k1*se,2),k1:k1,rej1:rej1,m2:rd(mu0+sg*k2*se,2),k2:k2,rej2:!rej1,p0:p0,se0:se0,P1:P1,P2:P2};}
+  throw new Error('no case');}
+var C=null;
+function meanO(m){return{c:C.mu0,pt:m,se:C.se,lo2:m-2*C.se,hi2:m+2*C.se,fs:C.fs,word:'mean'};}
+function meanFig(m,parts,dom){var o=meanO(m);o.parts=parts;o.dom=dom;return stepFig(o);}
+function propFig(P,parts){return stepFig({c:C.p0,pt:P.ph,se:C.se0,lo2:P.lo,hi2:P.hi,fs:p2,word:'proportion',parts:parts});}
+function caseHTML(which){var S=C.S,U=C.U,h='';
+  if(which==='A'){h+='<p><b>The situation.</b> '+S.src+' states two figures: '+S.mc(f(C.mu0))+', and '+S.pcl(C.p0)+'. '+S.who+' surveys '+nc(C.n)+' randomly chosen '+S.unit+'.</p>'+
+    '<div class="tw"><table class="t"><tr><th>Survey of '+nc(C.n)+' '+S.unit+'</th><th>Result</th></tr><tr><td>'+S.mrow+'</td><td>'+U(C.m1)+'</td></tr><tr><td>Standard deviation</td><td>'+U(C.s)+'</td></tr><tr><td>'+S.prow+'</td><td>'+nc(C.P1.cnt)+' of '+nc(C.n)+'</td></tr></table></div>'+
+    '<p>In part 3 you use the claim about the mean: μ = '+U(C.mu0)+'.</p>';}
+  else if(which==='B'){h+='<p><b>The situation.</b> '+S.src+' states that '+S.pcl(C.p0)+', so the claim is <i>p</i> = '+p2(C.p0)+'. In the survey of '+nc(C.n)+' '+S.unit+', the result for "'+S.prow+'" is '+nc(C.P1.cnt)+' of '+nc(C.n)+'.</p>';}
+  else{h+='<p><b>The second survey.</b> A second team surveys another '+nc(C.n)+' '+S.unit+'. The claims are the same: μ = '+U(C.mu0)+' and <i>p</i> = '+p2(C.p0)+'.</p>'+
+    '<div class="tw"><table class="t"><tr><th>Second survey of '+nc(C.n)+' '+S.unit+'</th><th>Result</th></tr><tr><td>'+S.mrow+'</td><td>'+U(C.m2)+'</td></tr><tr><td>Standard deviation</td><td>'+U(C.s)+'</td></tr><tr><td>'+S.prow+'</td><td>'+nc(C.P2.cnt)+' of '+nc(C.n)+'</td></tr></table></div>'+
+    '<p>The first survey found a mean of '+U(C.m1)+' and '+nc(C.P1.cnt)+' of '+nc(C.n)+'.</p>';}
+  return h+'<div class="row"><button class="btn newcase">New numbers</button><span class="hint">This changes the numbers in parts 3, 4 and 5 and clears your answers there.</span></div>';}
+
+/* ---------- the 28 questions ---------- */
+var QS=[];
+function Q(id,part,kind,text,make){QS.push({id:id,part:part,kind:kind,text:text,make:make});}
+function uio(S){return {pre:S.pre||null,post:S.post||null};}
+function sq(n){return f(Math.sqrt(n));}
+
+Q(1,1,'gen','In a short description of a survey, identify the population, the sample, <i>N</i> and <i>n</i>. Say which number is a parameter and which is a statistic, and which of the two is known.',function(){
+  var s=pick([{t:'A city has 600,000 adults. A café owner asks 400 of them how much they spent on eating out last week. The mean of the 400 answers is $2.50.',N:600000,n:400,v:'$2.50',all:'the mean spend of all 600,000 adults',who:'the owner',grp:'adults in the city'},
+    {t:'A university has 50,000 students and staff. A restaurant group asks 100 of them how much they would spend per week at a new restaurant. The mean of the 100 answers is $2.10.',N:50000,n:100,v:'$2.10',all:'the mean spend of all 50,000 people',who:'the restaurant group',grp:'students and staff'},
+    {t:'A supermarket chain has 80,000 loyalty-card customers. It asks 250 of them to rate their satisfaction from 1 to 10. The mean of the 250 ratings is 7.2.',N:80000,n:250,v:'7.2',all:'the mean rating of all 80,000 customers',who:'the chain',grp:'loyalty-card customers'}]);
+  var st=[['s','sample statistic'],['p','population parameter']];
+  return{body:'<p>'+s.t+'</p><p><i>N</i> = '+ni(s.N,{t:0.5,label:'N',show:nc(s.N),x:'<i>N</i> is the size of the population. The population is all '+nc(s.N)+' '+s.grp+'.'})+' and <i>n</i> = '+ni(s.n,{t:0.5,label:'n',x:'<i>n</i> is the size of the sample. The sample is the '+nc(s.n)+' who were asked.'})+'</p>'+
+    '<p>'+s.v+' is a '+si('s',st,'Type of quantity',false,'It is calculated from the people in the sample, so it is a statistic.')+'</p>'+
+    '<p>'+s.all.charAt(0).toUpperCase()+s.all.slice(1)+' is a '+si('p',st,'Type of quantity',false,'It describes the whole population, so it is a parameter.')+'</p>'+
+    '<p>'+s.who.charAt(0).toUpperCase()+s.who.slice(1)+' '+si('n',[['k','knows the parameter exactly'],['n','does not know the parameter']],'Known or not',false,'Not everyone was asked, so the value for the whole population is not known. The sample statistic is used as an estimate of it.')+'</p>',
+    why:'<p>The population is the whole group: <i>N</i> = '+nc(s.N)+'. The sample is the group that was asked: <i>n</i> = '+nc(s.n)+'. A number calculated from the sample is a statistic, and it is known exactly. The same number for the whole population is a parameter. It is not known, because not everyone was asked. The statistic is used as an estimate of the parameter.</p>'};});
+Q(2,1,'static','Explain why the mean of a sample is not exactly equal to the population mean. Name the situation in which there would be no uncertainty.',function(){
+  return{body:'<p>Write your explanation on paper first. Then answer: in which situation does a survey mean have no uncertainty?</p>'+mci('c',[
+      ['a','The sample is chosen at random from the population.','A random sample is needed for a fair estimate, but two random samples still give two different means.'],
+      ['b','The sample contains more than 30 people.','A larger sample has less uncertainty, but the uncertainty is not zero.'],
+      ['c','Every person in the population has the same value.','If every person has the same value, every sample has the same mean, and that mean is the population mean.'],
+      ['d','The survey mean is close to the claimed value.','A claim has no effect on how much the survey mean would change from one sample to the next.']]),
+    why:'<p><b>Model answer.</b> People differ from each other, and the sample contains only some of the people. A different sample of the same size would contain different people and would give a different mean.</p><p>There is no uncertainty if every person has the same value, because then one answer gives the mean of everyone. There is also no uncertainty if the survey covers the whole population.</p>'};});
+Q(3,1,'static','State what happens to a sample mean as the sample gets larger (the law of large numbers).',function(){
+  return{body:'<p>As the sample size increases, the sample mean tends to be '+si('c',[['c','closer to the population mean'],['f','farther from the population mean'],['s','equal to the standard error']],'Effect of a larger sample',false,'A larger sample contains more of the population, so its mean is usually closer to μ. This is the law of large numbers.')+'</p><p>A mean from 400 people is usually '+si('c',[['c','closer to'],['f','farther from']],'Comparison',true,'400 is the larger sample, so its mean is usually closer to μ than a mean from 25 people.')+' μ than a mean from 25 people.</p>',
+    why:'<p><b>Model answer.</b> The law of large numbers: the mean of a larger random sample tends to be closer to the population mean. In the formula, a larger <i>n</i> gives a smaller standard error.</p>'};});
+Q(4,1,'static','Complete the table of the two distributions: what one data point is, the center, the spread and the shape, for population values and for sample means.',function(){
+  return{body:'<div class="tw"><table class="t fill"><tr><th></th><th>Population values</th><th>Sample means</th></tr>'+
+    '<tr><td>One data point is</td><td>the value of one person</td><td>'+si('m',[['m','the mean of one sample'],['o','the value of one person'],['a','the mean of the population']],'One data point is',false,'In the distribution of sample means, one data point is the mean of one whole sample. In the table of sample means, it is one row.')+'</td></tr>'+
+    '<tr><td>Center</td><td>μ</td><td>'+si('m',[['m','μ'],['s','σ'],['n','n']],'Center',false,'Sample means are centered on the population mean, μ. Some are above it and some are below it.')+'</td></tr>'+
+    '<tr><td>Spread</td><td>σ</td><td>'+si('e',[['e','σ / √n (the SE)'],['s','σ (the SD)'],['n','σ × √n']],'Spread',false,'The standard deviation of sample means is σ / √<i>n</i>, the standard error. Sample means differ less from each other than people do.')+'</td></tr>'+
+    '<tr><td>Shape</td><td>any shape</td><td>'+si('n',[['n','approximately normal'],['p','the same as the population'],['k','always skewed']],'Shape',false,'For a large enough sample, sample means are approximately normal, whatever the shape of the population. This is the central limit theorem.')+'</td></tr></table></div>',
+    why:'<p>In the distribution of sample means, one data point is the mean of one whole sample. Sample means have the same center as the population, μ. They are less spread out than people: their standard deviation is σ / √<i>n</i>, the standard error. Their shape is approximately normal for a large enough sample.</p>'};});
+Q(5,1,'static','State the central limit theorem and say why it matters when the population is skewed.',function(){
+  return{body:'<p>When the sample is '+si('l',[['l','large enough'],['s','very small'],['r','not random']],'Sample condition',false,'The theorem holds for samples that are large enough. With very small samples, the sample means keep the shape of the population.')+'</p><p>the distribution of sample means is approximately '+si('n',[['n','normal'],['k','skewed'],['u','uniform']],'Shape',false,'The means of large samples are approximately normally distributed.')+'</p><p>This is true '+si('w',[['w','whatever the shape of the population'],['o','only if the population is normal']],'When it holds',false,'The population can have any shape. That is why the theorem is useful: many populations, such as spend, are skewed.')+'.</p>',
+    why:'<p><b>Model answer.</b> The central limit theorem: when the sample is large enough, the means of samples are approximately normally distributed, whatever the shape of the population.</p><p>It matters because many populations are skewed. Spend is an example: many people spend nothing and a few spend a lot. The empirical rule cannot be used on the people, but it can be used on the sample means.</p>'};});
+Q(6,1,'static','Give the share of sample means within 1, 2 and 3 standard errors of the population mean (the empirical rule).',function(){
+  var x=function(k){return 'In a normal distribution this share of values is within '+k+' standard deviation'+(k>1?'s':'')+' of the mean. Sample means are approximately normal, and their standard deviation is the SE.';};
+  return{body:'<p>About '+ni(68,{t:0.5,alt:'68.3,68.27',label:'Percent within 1 SE',show:'68%',x:x(1)})+' % of sample means are within 1 SE of μ.</p><p>About '+ni(95,{t:0.5,alt:'95.4,95.45',label:'Percent within 2 SE',show:'95%',x:x(2)+' The other 5% of sample means are more than 2 SE from μ.'})+' % of sample means are within 2 SE of μ.</p><p>About '+ni(99.7,{t:0.05,alt:'99.73',label:'Percent within 3 SE',show:'99.7%',x:x(3)})+' % of sample means are within 3 SE of μ.</p>',
+    why:'<p>68%, 95% and 99.7%. The 95% figure is the one used in tests and intervals. In about 95% of samples, the sample mean is within 2 SE of the population mean. The other 5% of samples are more than 2 SE away.</p>'};});
+Q(7,1,'static','Explain the difference between the standard deviation (SD) and the standard error (SE).',function(){var o=[['p','individual people'],['m','sample means'],['c','claims']];
+  return{body:'<p>The SD measures how much '+si('p',o,'What the SD describes',false,'The SD is calculated from individual values. It describes how far one person usually is from the mean.')+' differ from the mean.</p><p>The SE measures how much '+si('m',o,'What the SE describes',false,'The SE is the standard deviation of sample means. It describes how far the mean of a sample usually is from μ.')+' differ from the population mean.</p><p>For a sample of more than one person, the SE is '+si('s',[['s','smaller than'],['l','larger than'],['e','equal to']],'Comparison',false,'SE = SD / √<i>n</i>. When <i>n</i> is more than 1, √<i>n</i> is more than 1, so the SE is smaller than the SD.')+' the SD.</p>',
+    why:'<p><b>Model answer.</b> The SD describes people: how far one person usually is from the mean. The SE describes sample means: how far the mean of a sample usually is from the population mean. SE = SD / √<i>n</i>, so the SE is smaller than the SD. Compare one person with the SD, and a sample mean with the SE.</p>'};});
+Q(8,1,'gen','Treat a yes or no answer as 1 or 0. Calculate the proportion and its standard deviation, √( <i>p</i> × (1 − <i>p</i>) ).',function(){
+  var p=pick([0.2,0.5,0.8,0.1,0.9]),n=pick([100,200,400,500]),k=Math.round(p*n),sd=Math.sqrt(p*(1-p));
+  return{body:'<p>Of '+n+' people, '+k+' answer yes. Write 1 for yes and 0 for no.</p><p>Proportion <i>p</i> = mean of the 1s and 0s = '+ni(p,{prop:1,label:'Proportion',x:'The mean of the 1s and 0s is the number of 1s divided by the number of people: '+k+' / '+n+' = '+p2(p)+'.'})+'</p><p>Standard deviation = √( <i>p</i> × (1 − <i>p</i>) ) = '+ni(rd(sd,2),{prop:1,label:'Standard deviation',x:'√( '+p2(p)+' × '+p2(1-p)+' ) = √'+f(p*(1-p))+' = '+p2(sd)+'.'})+'</p>',
+    why:'<p><i>p</i> = '+k+' / '+n+' = '+p2(p)+'. Standard deviation = √( '+p2(p)+' × '+p2(1-p)+' ) = √'+f(p*(1-p))+' = '+p2(sd)+'.</p>'};});
+
+Q(9,2,'gen','Calculate the standard error of a mean from the standard deviation and the sample size.',function(){
+  for(;;){var S=pick(SCEN),s=pick(S.s),n=pick([25,64,100,225,400,900,1600]),se=s/Math.sqrt(n);if(!clean(se,2))continue;
+    var U=function(v){return S.pre==='$'?usd(v):f(v,2)+S.post;},w='SE = <i>s</i> / √<i>n</i> = '+f(s)+' / √'+nc(n)+' = '+f(s)+' / '+sq(n)+' = '+U(se)+'.';
+    return{body:'<p>A survey of '+nc(n)+' '+S.unit+' has a standard deviation of '+U(s)+'.</p><p>SE = <i>s</i> / √<i>n</i> = '+ni(rd(se,2),{pre:S.pre,post:S.post,label:'Standard error',x:w})+'</p>',why:'<p>'+w+'</p>'};}});
+Q(10,2,'gen','Calculate the standard error of a proportion from the proportion and the sample size.',function(){
+  var p=pick([0.2,0.8,0.5,0.1,0.9]),n=pick(PN[String(p)]),se=Math.sqrt(p*(1-p)/n),w='SE = √( '+p2(p)+' × '+p2(1-p)+' / '+nc(n)+' ) = √'+f(p*(1-p)/n,6)+' = '+f(se,4)+'.';
+  return{body:'<p>A proportion is '+p2(p)+' and the sample size is '+nc(n)+'.</p><p>SE = √( <i>p</i> × (1 − <i>p</i>) / <i>n</i> ) = '+ni(rd(se,4),{t:0.00051,prop:1,label:'Standard error',x:w})+'</p>',why:'<p>'+w+'</p>'};});
+Q(11,2,'gen','Calculate the standard error for two sample sizes and say which survey is more precise.',function(){
+  for(;;){var S=pick(SCEN),s=pick(S.s),n1=pick([25,100,400]),n2=4*n1,a=s/Math.sqrt(n1),b=s/Math.sqrt(n2);if(!clean(a,2)||!clean(b,2))continue;
+    var U=function(v){return S.pre==='$'?usd(v):f(v,2)+S.post;},wa=f(s)+' / √'+nc(n1)+' = '+f(s)+' / '+sq(n1)+' = '+U(a)+'.',wb=f(s)+' / √'+nc(n2)+' = '+f(s)+' / '+sq(n2)+' = '+U(b)+'.';
+    return{body:'<p>Two surveys of '+S.unit+' have the same standard deviation, '+U(s)+'. Survey A has '+nc(n1)+' '+S.unit+' and survey B has '+nc(n2)+'.</p><p>SE of survey A = '+ni(rd(a,2),{pre:S.pre,post:S.post,label:'SE of survey A',x:wa})+'</p><p>SE of survey B = '+ni(rd(b,2),{pre:S.pre,post:S.post,label:'SE of survey B',x:wb})+'</p><p>The more precise survey is '+si('b',[['a','survey A'],['b','survey B']],'More precise survey',true,'Survey B has the smaller standard error, '+U(b)+' against '+U(a)+', so its mean is usually closer to μ.')+'</p><p>A larger sample gives a '+si('s',[['s','smaller'],['l','larger']],'Effect on SE',true,'<i>n</i> is in the denominator of SE = <i>s</i> / √<i>n</i>, so a larger sample gives a smaller SE.')+' standard error.</p>',
+      why:'<p>Survey A: '+wa+' Survey B: '+wb+' The larger sample has the smaller standard error, so its mean is usually closer to μ.</p>'};}});
+Q(12,2,'gen','Given μ and the SE, give the ranges that contain 68%, 95% and 99.7% of sample means, and the number of samples in each range.',function(){
+  for(;;){var mu=pick([20,30,40,50]),sg=pick([8,10,12,20]),n=pick([100,400]),se=sg/Math.sqrt(n),base=pick([1000,2000,10000]);if(!clean(se,2))continue;
+    var row=function(k,sh,pt){return '<tr><td>within '+k+' SE</td><td>'+ni(rd(mu-k*se,2),{pre:'$',label:'Lower end, '+k+' SE',x:'μ − '+k+' SE = '+f(mu)+' − '+k+' × '+f(se)+' = '+usd(mu-k*se)+'.'})+' to '+ni(rd(mu+k*se,2),{pre:'$',label:'Upper end, '+k+' SE',x:'μ + '+k+' SE = '+f(mu)+' + '+k+' × '+f(se)+' = '+usd(mu+k*se)+'.'})+'</td><td>'+ni(Math.round(sh*base),{t:0.5,label:'Number of samples within '+k+' SE',show:nc(sh*base),x:'About '+pt+' of sample means are within '+k+' SE. '+pt+' of '+nc(base)+' = '+nc(sh*base)+'.'})+'</td></tr>';};
+    return{body:'<p>Weekly spend in a population has μ = '+usd(mu)+' and σ = '+usd(sg)+'. You take '+nc(base)+' samples of '+n+' people, so SE = '+f(sg)+' / √'+n+' = '+usd(se)+'.</p><div class="tw"><table class="t fill"><tr><th>Sample means</th><th>Range</th><th>About how many of the '+nc(base)+' samples</th></tr>'+row(1,0.68,'68%')+row(2,0.95,'95%')+row(3,0.997,'99.7%')+'</table></div>',
+      why:'<p>Within 1 SE: '+usd(mu-se)+' to '+usd(mu+se)+', about 68% of '+nc(base)+' = '+nc(0.68*base)+'. Within 2 SE: '+usd(mu-2*se)+' to '+usd(mu+2*se)+', about 95% = '+nc(0.95*base)+'. Within 3 SE: '+usd(mu-3*se)+' to '+usd(mu+3*se)+', about 99.7% = '+nc(0.997*base)+'.</p>'+ruleFig(mu,se,usd)};}});
+Q(13,2,'gen','Decide whether a value is unusual: one person compared with the SD, and one sample mean compared with the SE.',function(){
+  for(;;){var mu=pick([2,10,20,30,40]),sg=pick([4,5,8,10,20]),n=pick([25,100,400]),k=pick([2.5,3]),se=sg/Math.sqrt(n),x=mu+k*se;if(!clean(se,2)||!clean(x,2)||sg>mu*2.5)continue;
+    var zs=(x-mu)/sg;
+    return{body:'<p>Suppose μ = '+usd(mu)+' and σ = '+usd(sg)+'. "Unusual" means more than 2 SD or 2 SE from the mean.</p>'+
+      '<p>1. One person spent '+usd(x)+'. This is '+ni(rd(zs,4),{t:0.0061,label:'Distance in SD',x:'For one person, divide the distance by the SD: ('+f(x)+' − '+f(mu)+') / '+f(sg)+' = '+f(zs)+'.'})+' SD above the mean.</p><p>Is this unusual? '+yn(false,'Unusual for one person',f(zs)+' SD is less than 2 SD. Many people are that far from the mean.')+'</p>'+
+      '<p>2. A sample of '+n+' people has a mean of '+usd(x)+'. SE = '+ni(rd(se,2),{pre:'$',label:'Standard error',x:'SE = σ / √<i>n</i> = '+f(sg)+' / √'+n+' = '+f(sg)+' / '+sq(n)+' = '+usd(se)+'.'})+'</p><p>This is '+ni(k,{t:0.011,label:'Distance in SE',x:'For a sample mean, divide the distance by the SE: ('+f(x)+' − '+f(mu)+') / '+f(se)+' = '+f(k)+'.'})+' SE above the mean.</p><p>Is this unusual? '+yn(true,'Unusual for a sample mean',f(k)+' SE is more than 2 SE. Fewer than 5% of sample means are that far from μ.')+'</p>',
+      why:'<p>1. ('+f(x)+' − '+f(mu)+') / '+f(sg)+' = '+f(zs)+' SD. That is less than 2, so it is not unusual for one person.</p><p>2. SE = '+f(sg)+' / √'+n+' = '+usd(se)+'. ('+f(x)+' − '+f(mu)+') / '+f(se)+' = '+f(k)+' SE. That is more than 2, so it is unusual for a sample mean.</p><p>The same value is ordinary for one person and unusual for the mean of '+n+' people.</p>'};}});
+
+/* part 3: a mean */
+function seX(){return 'SE = <i>s</i> / √<i>n</i> = '+f(C.s)+' / √'+nc(C.n)+' = '+f(C.s)+' / '+f(C.rt)+' = '+C.U(C.se)+'.';}
+function distX(m){var d=Math.abs(m-C.mu0);return f(Math.max(m,C.mu0))+' − '+f(Math.min(m,C.mu0))+' = '+C.U(d)+'. Subtract the smaller number from the larger. The direction does not change the distance.';}
+function kX(m,k){var d=Math.abs(m-C.mu0);return 'Distance / SE = '+f(d)+' / '+f(C.se)+' = '+f(k)+'.';}
+Q(14,3,'case','Test a claim about a mean: calculate the SE and the range that contains 95% of sample means if the claim is right (claim ± 2 SE).',function(){var U=C.U,o=uio(C.S),lo=C.mu0-2*C.se,hi=C.mu0+2*C.se;
+  return{body:'<p>Assume for now that the claim is right: μ = '+U(C.mu0)+'.</p><p>SE = <i>s</i> / √<i>n</i> = '+ni(C.se,{pre:o.pre,post:o.post,label:'Standard error',x:seX()})+'</p><p>If the claim is right, 95% of sample means are between '+ni(rd(lo,2),{pre:o.pre,post:o.post,label:'Lower end of the range',x:'Claim − 2 SE = '+f(C.mu0)+' − 2 × '+f(C.se)+' = '+U(lo)+'.'})+' and '+ni(rd(hi,2),{pre:o.pre,post:o.post,label:'Upper end of the range',x:'Claim + 2 SE = '+f(C.mu0)+' + 2 × '+f(C.se)+' = '+U(hi)+'.'})+'</p>',
+    why:'<p>'+seX()+'</p><p>Range = claim ± 2 SE = '+f(C.mu0)+' ± 2 × '+f(C.se)+' = '+U(lo)+' to '+U(hi)+'</p>'};});
+Q(15,3,'case','Calculate the distance between the survey mean and the claim, in the original units and in standard errors.',function(){var U=C.U,o=uio(C.S),d=Math.abs(C.m1-C.mu0);
+  return{body:'<p>The survey mean is '+U(C.m1)+'. Its distance from the claim is '+ni(rd(d,2),{pre:o.pre,post:o.post,abs:1,label:'Distance from the claim',x:distX(C.m1)})+'</p><p>In standard errors, the distance is '+ni(C.k1,{t:0.011,abs:1,label:'Distance in SE',x:kX(C.m1,C.k1)})+' SE.</p>',
+    why:'<p>Distance = '+f(Math.max(C.m1,C.mu0))+' − '+f(Math.min(C.m1,C.mu0))+' = '+U(d)+'. In standard errors: '+f(d)+' / '+f(C.se)+' = '+f(C.k1)+' SE. The survey mean is '+(C.m1>C.mu0?'above':'below')+' the claim. The direction does not change the distance.</p>'};});
+Q(16,3,'case','Say whether the survey mean is inside or outside the range, and whether fewer or more than 5% of samples would be that far from the claim.',function(){var U=C.U,lo=C.mu0-2*C.se,hi=C.mu0+2*C.se;
+  return{body:'<p>The survey mean is '+io(!C.rej1,'Inside or outside',U(C.m1)+' is '+(C.rej1?'outside':'inside')+' the range '+U(lo)+' to '+U(hi)+'.')+' the range in question 14.</p><p>If the claim were right, '+fm(C.rej1,'Fewer or more','The survey mean is '+f(C.k1)+' SE from the claim. About 5% of samples are more than 2 SE from the claim, so '+(C.rej1?'fewer':'more')+' than 5% are '+f(C.k1)+' SE away or farther.')+' than 5% of samples would be this far from the claim or farther.</p>',
+    why:'<p>'+U(C.m1)+' is '+(C.rej1?'outside':'inside')+' the range '+U(lo)+' to '+U(hi)+'. It is '+f(C.k1)+' SE from the claim, which is '+(C.rej1?'more':'less')+' than 2 SE. About 5% of samples are more than 2 SE from the claim, so '+(C.rej1?'fewer':'more')+' than 5% are '+f(C.k1)+' SE away or farther.</p>'+meanFig(C.m1,'t')};});
+Q(17,3,'case','State the decision about the claim in one sentence.',function(){var U=C.U;
+  return{body:'<p>Choose the correct decision. On the exam you write it as a sentence.</p><p>'+dec(C.rej1,'Decision',decX(C.rej1,'mean',C.k1))+'</p>',
+    why:'<p><b>Model sentence.</b> '+(C.rej1?'The survey is not consistent with the claim of '+U(C.mu0)+'. If the claim were right, a sample mean '+f(C.k1)+' SE from it would occur in fewer than 5% of samples.':'The survey is consistent with the claim of '+U(C.mu0)+'. A sample mean '+f(C.k1)+' SE from the claim is common when the claim is right. This does not prove the claim. The survey gives no reason to reject it.')+'</p>'};});
+Q(18,3,'case','Estimate a mean: calculate the 95% interval (survey mean ± 2 SE).',function(){var U=C.U,o=uio(C.S),lo=C.m1-2*C.se,hi=C.m1+2*C.se;
+  return{body:'<p>Set the claim aside. You have only the survey.</p><p>SE = '+ni(C.se,{pre:o.pre,post:o.post,label:'Standard error',x:'The standard error is the same as in the test. '+seX()})+' (the same as in question 14)</p><p>95% interval = survey mean ± 2 SE = '+ni(rd(lo,2),{pre:o.pre,post:o.post,label:'Lower end of the interval',x:'Survey mean − 2 SE = '+f(C.m1)+' − 2 × '+f(C.se)+' = '+U(lo)+'.'})+' to '+ni(rd(hi,2),{pre:o.pre,post:o.post,label:'Upper end of the interval',x:'Survey mean + 2 SE = '+f(C.m1)+' + 2 × '+f(C.se)+' = '+U(hi)+'.'})+'</p>',
+    why:'<p>SE = '+U(C.se)+'. Interval = '+f(C.m1)+' ± 2 × '+f(C.se)+' = '+U(lo)+' to '+U(hi)+'</p>'+meanFig(C.m1,'e')};});
+Q(19,3,'case','Write one sentence that tells a decision maker what the interval means.',function(){var U=C.U,S=C.S,lo=U(C.m1-2*C.se),hi=U(C.m1+2*C.se);
+  return{body:'<p>Choose the correct sentence. On the exam you write it yourself.</p>'+mci('a',[
+      ['a','With about 95% confidence, '+S.mword+' in the population is between '+lo+' and '+hi+'.','The interval is a statement about the population mean, made with about 95% confidence.'],
+      ['b','About 95% of all '+S.unit+' in the population have a value that is between '+lo+' and '+hi+'.','The interval is about the population mean. It does not describe individual '+S.unit+', whose values are much more spread out.'],
+      ['c','It is certain that '+S.mword+' in the population is between '+lo+' and '+hi+'.','A sample cannot give certainty. About 5 of every 100 intervals calculated in this way do not contain the population mean.']]),
+    why:'<p><b>Model sentence.</b> With about 95% confidence, '+S.mword+' of all '+S.unit+' is between '+lo+' and '+hi+'.</p><p>The interval is about the population mean. It is not about individual '+S.unit+', and it is not certain: about 5 of every 100 intervals calculated in this way do not contain the population mean.</p>'};});
+Q(20,3,'case','Connect the test and the interval: check both, and explain why they must agree.',function(){var U=C.U,o=uio(C.S),d=Math.abs(C.m1-C.mu0),w=C.rej1?'outside':'inside';
+  return{body:'<p>Is the claim ('+U(C.mu0)+') inside your interval from question 18? '+yn(!C.rej1,'Claim inside the interval',U(C.mu0)+' is '+w+' the interval '+U(C.m1-2*C.se)+' to '+U(C.m1+2*C.se)+'.')+'</p><p>Was the survey mean ('+U(C.m1)+') inside the range from question 14? '+yn(!C.rej1,'Survey mean inside the range',U(C.m1)+' is '+w+' the range '+U(C.mu0-2*C.se)+' to '+U(C.mu0+2*C.se)+'.')+'</p><p>Distance between the survey mean and the claim = '+ni(rd(d,2),{pre:o.pre,post:o.post,abs:1,label:'Distance',x:distX(C.m1)})+'</p><p>Two SE = '+ni(rd(2*C.se,2),{pre:o.pre,post:o.post,label:'Two standard errors',x:'2 SE = 2 × '+f(C.se)+' = '+U(2*C.se)+'. The distance is compared with this number in the test and in the interval.'})+'</p><p>Then write on paper why the two answers had to agree.</p>',
+    why:'<p>The distance is '+U(d)+' and 2 SE is '+U(2*C.se)+'. The distance is '+(C.rej1?'more':'less')+' than 2 SE, so the claim is '+w+' the interval and the survey mean is '+w+' the range.</p><p><b>Model explanation.</b> Both answers compare the same two numbers: the distance between the survey mean and the claim, and 2 SE. The test asks whether the survey mean is within 2 SE of the claim. The interval asks whether the claim is within 2 SE of the survey mean. The distance is the same in both directions, so the answers must agree.</p>'+meanFig(C.m1,'tec')};});
+
+/* part 4: a proportion */
+function se0X(){return 'The test assumes the claim, so the SE uses '+p2(C.p0)+': √( '+p2(C.p0)+' × '+p2(1-C.p0)+' / '+nc(C.n)+' ) = √'+f(C.p0*(1-C.p0)/C.n,6)+' = '+f(C.se0)+'.';}
+function seEX(P){return 'The estimate has no claim, so the SE uses the survey proportion, '+p2(P.ph)+': √( '+p2(P.ph)+' × '+p2(1-P.ph)+' / '+nc(C.n)+' ) = '+f(P.seE,4)+', which is '+p2(P.r)+' to two decimals.';}
+function propSentence(P){var S=C.S;return mci('a',[
+  ['a','With about 95% confidence, between '+pc(P.lo)+' and '+pc(P.hi)+' of all '+S.unit+' '+S.pverb+'.','The interval is a statement about the proportion in the whole population, made with about 95% confidence.'],
+  ['b','About 95% of the '+S.unit+' in the survey are between '+pc(P.lo)+' and '+pc(P.hi)+'.','The survey proportion is one number, '+p2(P.ph)+'. The interval is about the population, and it does not describe the '+S.unit+' in the survey.'],
+  ['c','It is certain that between '+pc(P.lo)+' and '+pc(P.hi)+' of all '+S.unit+' '+S.pverb+'.','A sample cannot give certainty. About 5 of every 100 intervals calculated in this way do not contain the population proportion.']]);}
+Q(21,4,'case','Test a claim about a proportion: SE from the claimed proportion, the range, the distance in SE, and the decision.',function(){var P=C.P1,lo=C.p0-2*C.se0,hi=C.p0+2*C.se0,d=Math.abs(P.ph-C.p0),ak=Math.abs(P.k),rej=!P.inside,w=P.inside?'inside':'outside';
+  return{body:'<p>Survey proportion = '+nc(P.cnt)+' / '+nc(C.n)+' = '+ni(P.ph,{prop:1,label:'Survey proportion',x:nc(P.cnt)+' / '+nc(C.n)+' = '+p2(P.ph)+'.'})+'</p><p>Assume for now that the claim is right: <i>p</i> = '+p2(C.p0)+'. The SE uses '+p2(C.p0)+'.</p><p>SE = √( '+p2(C.p0)+' × '+p2(1-C.p0)+' / '+nc(C.n)+' ) = '+ni(C.se0,{t:0.00051,prop:1,label:'Standard error',x:se0X()})+'</p>'+
+    '<p>If the claim is right, 95% of sample proportions are between '+ni(rd(lo,2),{prop:1,label:'Lower end of the range',x:'Claim − 2 SE = '+p2(C.p0)+' − 2 × '+f(C.se0)+' = '+p2(lo)+'.'})+' and '+ni(rd(hi,2),{prop:1,label:'Upper end of the range',x:'Claim + 2 SE = '+p2(C.p0)+' + 2 × '+f(C.se0)+' = '+p2(hi)+'.'})+'</p>'+
+    '<p>The distance of the survey proportion from the claim is '+ni(rd(d,2),{abs:1,prop:1,label:'Distance from the claim',x:p2(Math.max(P.ph,C.p0))+' − '+p2(Math.min(P.ph,C.p0))+' = '+p2(d)+'. The direction does not change the distance.'})+'</p><p>In standard errors, the distance is '+ni(ak,{t:0.011,abs:1,label:'Distance in SE',x:'Distance / SE = '+p2(d)+' / '+f(C.se0)+' = '+f(ak)+'.'})+' SE.</p>'+
+    '<p>The survey proportion is '+io(P.inside,'Inside or outside',p2(P.ph)+' is '+w+' the range '+p2(lo)+' to '+p2(hi)+'.')+' the range.</p><p>If the claim were right, '+fm(rej,'Fewer or more','The survey proportion is '+f(ak)+' SE from the claim. About 5% of samples are more than 2 SE away, so '+(rej?'fewer':'more')+' than 5% are '+f(ak)+' SE away or farther.')+' than 5% of samples would be this far from the claim.</p><p>'+dec(rej,'Decision',decX(rej,'proportion',ak))+'</p>',
+    why:'<p>Survey proportion = '+nc(P.cnt)+' / '+nc(C.n)+' = '+p2(P.ph)+'</p><p>SE = √( '+p2(C.p0)+' × '+p2(1-C.p0)+' / '+nc(C.n)+' ) = √'+f(C.p0*(1-C.p0)/C.n,6)+' = '+f(C.se0)+'</p><p>Range = '+p2(C.p0)+' ± 2 × '+f(C.se0)+' = '+p2(lo)+' to '+p2(hi)+'</p><p>Distance = '+p2(d)+', which is '+p2(d)+' / '+f(C.se0)+' = '+f(ak)+' SE. '+p2(P.ph)+' is '+w+' the range.</p><p><b>Model sentence.</b> '+(rej?'The survey is not consistent with the claim of '+pc(C.p0)+'. If the claim were right, a sample proportion '+f(ak)+' SE from it would occur in fewer than 5% of samples.':'The survey is consistent with the claim of '+pc(C.p0)+'. A sample proportion '+f(ak)+' SE from the claim is common when the claim is right. This does not prove the claim.')+'</p>'+propFig(P,'t')};});
+Q(22,4,'case','Estimate a proportion: SE from the survey proportion, the 95% interval, and one sentence.',function(){var P=C.P1;
+  return{body:'<p>Set the claim aside. The SE now uses the survey proportion, '+p2(P.ph)+'.</p><p>SE = √( '+p2(P.ph)+' × '+p2(1-P.ph)+' / '+nc(C.n)+' ) = '+ni(P.r,{lo:Math.min(P.r,P.seE),hi:Math.max(P.r,P.seE),t:0.0006,prop:1,label:'Standard error',show:p2(P.r),x:seEX(P)})+' (round to two decimals)</p><p>95% interval = survey proportion ± 2 SE = '+ni(P.lo,{lo:Math.min(P.lo,P.elo),hi:Math.max(P.lo,P.elo),prop:1,label:'Lower end of the interval',show:p2(P.lo),x:'Survey proportion − 2 SE = '+p2(P.ph)+' − 2 × '+p2(P.r)+' = '+p2(P.lo)+'.'})+' to '+ni(P.hi,{lo:Math.min(P.hi,P.ehi),hi:Math.max(P.hi,P.ehi),prop:1,label:'Upper end of the interval',show:p2(P.hi),x:'Survey proportion + 2 SE = '+p2(P.ph)+' + 2 × '+p2(P.r)+' = '+p2(P.hi)+'.'})+'</p><p>Choose the correct sentence for a decision maker.</p>'+propSentence(P),
+    why:'<p>SE = √( '+p2(P.ph)+' × '+p2(1-P.ph)+' / '+nc(C.n)+' ) = √'+f(P.ph*(1-P.ph)/C.n,6)+' = '+f(P.seE,4)+', which is '+p2(P.r)+' to two decimals.</p><p>Interval = '+p2(P.ph)+' ± 2 × '+p2(P.r)+' = '+p2(P.lo)+' to '+p2(P.hi)+'</p><p><b>Model sentence.</b> With about 95% confidence, between '+pc(P.lo)+' and '+pc(P.hi)+' of all '+C.S.unit+' '+C.S.pverb+'.</p>'+propFig(P,'e')};});
+Q(23,4,'case','Explain why the test and the estimate use different values in the SE of a proportion, and say whether it changed the conclusion.',function(){var P=C.P1,w=P.inside?'inside':'outside';
+  return{body:'<p>Is the claim ('+p2(C.p0)+') inside your interval from question 22? '+yn(P.inside,'Claim inside the interval',p2(C.p0)+' is '+w+' the interval '+p2(P.lo)+' to '+p2(P.hi)+'.')+'</p><p>Was the survey proportion ('+p2(P.ph)+') inside the range from question 21? '+yn(P.inside,'Survey proportion inside the range',p2(P.ph)+' is '+w+' the range '+p2(C.p0-2*C.se0)+' to '+p2(C.p0+2*C.se0)+'.')+'</p><p>Question 21 used '+p2(C.p0)+' in the SE and question 22 used '+p2(P.ph)+'. Why?</p>'+mci('a',[
+      ['a','The test assumes the claim is right. The estimate has no claim.','In a test you assume that the claim is right, so the SE is calculated from the claimed proportion. In an estimate there is no claim, so the SE is calculated from the survey proportion.'],
+      ['b','The test uses the larger value. The estimate uses the smaller value.','The choice does not depend on which value is larger. It depends on whether a claim is being assumed.'],
+      ['c','The claim is more accurate than the survey, so the test uses it.','The test does not treat the claim as more accurate. It assumes the claim only to see whether the survey is consistent with it.']])+
+    '<p>Did the different SE change the conclusion in this case? '+yn(false,'Conclusion changed','The two standard errors are '+f(C.se0)+' and '+p2(P.r)+'. The claim is '+w+' the interval and the survey proportion is '+w+' the range, so the two answers agree.')+'</p>',
+    why:'<p>The claim is '+w+' the interval and the survey proportion is '+w+' the range. The two answers agree.</p><p><b>Model explanation.</b> In the test you assume that the claim is right, so the standard error is calculated from the claimed proportion, '+p2(C.p0)+'. In the estimate there is no claim, so the standard error is calculated from the survey proportion, '+p2(P.ph)+'. Here the two standard errors are '+f(C.se0)+' and '+p2(P.r)+', and the conclusion is the same.</p>'+propFig(P,'tec')};});
+
+/* part 5: second survey and own words */
+Q(24,5,'case','For a second survey, complete the table for the mean: SE, distance in SE, inside or outside, interval, and decision.',function(){var U=C.U,o=uio(C.S),lo=C.m2-2*C.se,hi=C.m2+2*C.se,w=C.rej2?'outside':'inside',d=Math.abs(C.m2-C.mu0);
+  return{body:'<div class="tw"><table class="t fill"><tr><th></th><th>'+C.S.mrow+'</th></tr><tr><td>Survey result</td><td>'+U(C.m2)+'</td></tr>'+
+    '<tr><td>SE for the test</td><td>'+ni(C.se,{pre:o.pre,post:o.post,label:'Standard error',x:'The sample size and the standard deviation are the same as in the first survey. '+seX()})+'</td></tr>'+
+    '<tr><td>Distance from the claim, in SE</td><td>'+ni(C.k2,{t:0.011,abs:1,label:'Distance in SE',x:'Distance = '+f(Math.max(C.m2,C.mu0))+' − '+f(Math.min(C.m2,C.mu0))+' = '+f(d)+'. '+kX(C.m2,C.k2)})+'</td></tr>'+
+    '<tr><td>Inside or outside claim ± 2 SE?</td><td>'+io(!C.rej2,'Inside or outside','Claim ± 2 SE is '+U(C.mu0-2*C.se)+' to '+U(C.mu0+2*C.se)+'. '+U(C.m2)+' is '+w+' it.')+'</td></tr>'+
+    '<tr><td>Interval: survey result ± 2 SE</td><td>'+ni(rd(lo,2),{pre:o.pre,post:o.post,label:'Lower end of the interval',x:f(C.m2)+' − 2 × '+f(C.se)+' = '+U(lo)+'.'})+' to '+ni(rd(hi,2),{pre:o.pre,post:o.post,label:'Upper end of the interval',x:f(C.m2)+' + 2 × '+f(C.se)+' = '+U(hi)+'.'})+'</td></tr>'+
+    '<tr><td>Is the claim inside the interval?</td><td>'+yn(!C.rej2,'Claim inside the interval',U(C.mu0)+' is '+w+' the interval '+U(lo)+' to '+U(hi)+'.')+'</td></tr>'+
+    '<tr><td>Decision about the claim</td><td>'+dec(C.rej2,'Decision',decX(C.rej2,'mean',C.k2))+'</td></tr></table></div>',
+    why:'<p>SE = '+f(C.s)+' / √'+nc(C.n)+' = '+U(C.se)+'. Distance = ('+f(Math.max(C.m2,C.mu0))+' − '+f(Math.min(C.m2,C.mu0))+') / '+f(C.se)+' = '+f(C.k2)+' SE.</p><p>Claim ± 2 SE is '+U(C.mu0-2*C.se)+' to '+U(C.mu0+2*C.se)+', so '+U(C.m2)+' is '+w+'. Interval = '+f(C.m2)+' ± 2 × '+f(C.se)+' = '+U(lo)+' to '+U(hi)+', and the claim of '+U(C.mu0)+' is '+(C.rej2?'not inside':'inside')+' it.</p><p>Decision: the survey is '+(C.rej2?'not consistent':'consistent')+' with the claim.</p>'+meanFig(C.m2,'tec')};});
+Q(25,5,'case','For a second survey, complete the table for the proportion.',function(){var P=C.P2,ak=Math.abs(P.k),rej=!P.inside,w=P.inside?'inside':'outside',d=Math.abs(P.ph-C.p0);
+  return{body:'<div class="tw"><table class="t fill"><tr><th></th><th>'+C.S.prow+'</th></tr><tr><td>Survey result</td><td>'+nc(P.cnt)+' / '+nc(C.n)+' = '+ni(P.ph,{prop:1,label:'Survey proportion',x:nc(P.cnt)+' / '+nc(C.n)+' = '+p2(P.ph)+'.'})+'</td></tr>'+
+    '<tr><td>SE for the test (uses the claim)</td><td>'+ni(C.se0,{t:0.00051,prop:1,label:'Standard error for the test',x:se0X()})+'</td></tr>'+
+    '<tr><td>Distance from the claim, in SE</td><td>'+ni(ak,{t:0.011,abs:1,label:'Distance in SE',x:'Distance = '+p2(Math.max(P.ph,C.p0))+' − '+p2(Math.min(P.ph,C.p0))+' = '+p2(d)+'. Distance / SE = '+p2(d)+' / '+f(C.se0)+' = '+f(ak)+'.'})+'</td></tr>'+
+    '<tr><td>Inside or outside claim ± 2 SE?</td><td>'+io(P.inside,'Inside or outside','Claim ± 2 SE is '+p2(C.p0-2*C.se0)+' to '+p2(C.p0+2*C.se0)+'. '+p2(P.ph)+' is '+w+' it.')+'</td></tr>'+
+    '<tr><td>Interval: survey result ± 2 SE (SE from the survey, two decimals)</td><td>'+ni(P.lo,{lo:Math.min(P.lo,P.elo),hi:Math.max(P.lo,P.elo),prop:1,label:'Lower end of the interval',show:p2(P.lo),x:seEX(P)+' Lower end = '+p2(P.ph)+' − 2 × '+p2(P.r)+' = '+p2(P.lo)+'.'})+' to '+ni(P.hi,{lo:Math.min(P.hi,P.ehi),hi:Math.max(P.hi,P.ehi),prop:1,label:'Upper end of the interval',show:p2(P.hi),x:'Upper end = '+p2(P.ph)+' + 2 × '+p2(P.r)+' = '+p2(P.hi)+'.'})+'</td></tr>'+
+    '<tr><td>Is the claim inside the interval?</td><td>'+yn(P.inside,'Claim inside the interval',p2(C.p0)+' is '+w+' the interval '+p2(P.lo)+' to '+p2(P.hi)+'.')+'</td></tr>'+
+    '<tr><td>Decision about the claim</td><td>'+dec(rej,'Decision',decX(rej,'proportion',ak))+'</td></tr></table></div>',
+    why:'<p>Survey proportion = '+nc(P.cnt)+' / '+nc(C.n)+' = '+p2(P.ph)+'. SE for the test = √( '+p2(C.p0)+' × '+p2(1-C.p0)+' / '+nc(C.n)+' ) = '+f(C.se0)+'. Distance = '+p2(d)+' / '+f(C.se0)+' = '+f(ak)+' SE.</p><p>Claim ± 2 SE is '+p2(C.p0-2*C.se0)+' to '+p2(C.p0+2*C.se0)+', so '+p2(P.ph)+' is '+w+'.</p><p>SE for the interval = √( '+p2(P.ph)+' × '+p2(1-P.ph)+' / '+nc(C.n)+' ) = '+f(P.seE,4)+', which is '+p2(P.r)+' to two decimals. Interval = '+p2(P.ph)+' ± 2 × '+p2(P.r)+' = '+p2(P.lo)+' to '+p2(P.hi)+', and the claim of '+p2(C.p0)+' is '+(P.inside?'inside':'not inside')+' it.</p><p>Decision: the survey is '+(rej?'not consistent':'consistent')+' with the claim.</p>'+propFig(P,'tec')};});
+Q(26,5,'case','Two surveys are both above (or both below) the claim but lead to different decisions. Explain why.',function(){var U=C.U,dir=C.sg>0?'above':'below',far=C.rej1?'first':'second',near=C.rej1?'second':'first',kf=C.rej1?C.k1:C.k2,kn=C.rej1?C.k2:C.k1;
+  return{body:'<p>The first survey found a mean of '+U(C.m1)+' and the second found '+U(C.m2)+'. Both are '+dir+' the claim of '+U(C.mu0)+'. Why do the two surveys lead to different decisions?</p>'+mci('b',[
+      ['a','The second survey has a much larger standard error than the first survey.','Both surveys have the same sample size and the same standard deviation, so they have the same standard error, '+U(C.se)+'.'],
+      ['b','Only one survey mean is more than 2 SE from the claim.','The '+far+' survey mean is '+f(kf)+' SE from the claim, and the '+near+' is '+f(kn)+' SE from it. Only the '+far+' is more than 2 SE away.'],
+      ['c','Only one of the two survey means is really '+dir+' the claimed value.','Both survey means are '+dir+' the claim: '+U(C.m1)+' and '+U(C.m2)+'. When a claim is right, about half of all surveys are '+dir+' it.'],
+      ['d','The second survey is less reliable because it was done after the first.','The order of the surveys has no effect. Each survey is compared with the claim in the same way.']]),
+    why:'<p><b>Model answer.</b> Both surveys have the same standard error, '+U(C.se)+'. The '+far+' survey mean is '+f(kf)+' SE from the claim, which is more than 2 SE, so that survey is not consistent with the claim. The '+near+' survey mean is '+f(kn)+' SE from the claim, which is less than 2 SE, so that survey is consistent with it.</p><p>A mean '+dir+' the claim is not evidence against the claim. When the claim is right, about half of all surveys are '+dir+' it. The decision depends on the distance in standard errors.</p>'+(function(){var dm=bothDom(meanO(C.m1),meanO(C.m2));return figPair(meanFig(C.m1,'tec',dm),meanFig(C.m2,'tec',dm),'First survey: mean '+U(C.m1),'Second survey: mean '+U(C.m2));})()};});
+Q(27,5,'static','Correct the sentence "There is less than a 5% chance that the claim is right" so that it says what the test showed.',function(){
+  return{body:'<p>A survey mean is more than 2 SE from a claim. A classmate says: "There is less than a 5% chance that the claim is right." This sentence is not correct. Which sentence says what the test showed?</p>'+mci('d',[
+      ['a','There is more than a 95% chance that the survey mean is the true mean.','The test gives no chance that the survey mean is the true mean. A survey mean is almost never exactly equal to μ.'],
+      ['b','Fewer than 5% of all the people in the population agree with the claim.','The 5% is a share of samples. It is not a share of people.'],
+      ['c','The claim must be wrong, because the survey mean is different from the claim.','Almost every survey mean is different from the claim. The test asks whether it is more than 2 SE away, and even then the claim is not proved wrong.'],
+      ['d','If the claim were right, fewer than 5% of samples would be this far away.','The 5% is the share of samples that would be this far from the claim. It is calculated on the assumption that the claim is right.']]),
+    why:'<p><b>Model answer.</b> If the claim were right, fewer than 5% of samples would have a mean this far from the claim or farther.</p><p>The 5% is about samples, and it is calculated on the assumption that the claim is right. It is not the chance that the claim is right. The test does not give that chance.</p>'};});
+Q(28,5,'static','Finish the sentence: "The 95% interval is the list of all the claims that ..."',function(){
+  return{body:'<p>"The 95% interval is the list of all the claims that ..."</p>'+mci('c',[
+      ['a','... 95% of the people surveyed would accept."','The interval is not a vote among the people in the survey.'],
+      ['b','... have a 95% chance of being exactly right."','The interval does not give a chance for any single value.'],
+      ['c','... a test with this survey would not reject."','Every value inside the interval is within 2 SE of the survey result, so a test would not reject it.'],
+      ['d','... are more than 2 SE from the survey result."','Values more than 2 SE from the survey result are outside the interval, and a test would reject them.']]),
+    why:'<p><b>Model answer.</b> "The 95% interval is the list of all the claims that the survey is consistent with." Every value inside the interval is within 2 SE of the survey result, so a test would not reject it. Every value outside the interval is more than 2 SE away, so a test would reject it.</p>'};});
+
+/* ---------- rendering and checking ---------- */
+function byId(id){for(var i=0;i<QS.length;i++)if(QS[i].id===id)return QS[i];}
+function fill(q){var c=$('q'+q.id),r=q.make();c.querySelector('.qb').innerHTML=r.body;var w=c.querySelector('.why');w.innerHTML=r.why;w.classList.add('hide');
+  var fb=c.querySelector('.fb');fb.textContent='';fb.className='fb';c.classList.remove('done','shown');
+  sel(c,'.q').forEach(function(e,k){e.id='q'+q.id+'_'+k;});}
+function newCase(){C=genCase();sel(document,'.case').forEach(function(el){el.innerHTML=caseHTML(el.getAttribute('data-case'));});QS.forEach(function(q){if(q.kind==='case')fill(q);});}
+function cardHTML(q){return '<div class="qc" id="q'+q.id+'"><p class="qk">Question '+q.id+'</p><p class="qt">'+q.text+'</p><div class="qb"></div><div class="row"><button class="btn pri chk">Check</button><button class="btn show">'+(q.kind==='static'?'Show the answer':'Show the working')+'</button>'+(q.kind==='gen'?'<button class="btn new">New numbers</button>':'')+'</div><p class="fb" aria-live="polite"></p><div class="why hide"></div></div>';}
+sel(document,'.qlist').forEach(function(box){var part=+box.getAttribute('data-part');box.innerHTML=QS.filter(function(q){return q.part===part;}).map(cardHTML).join('');});
+sel(document,'.qslot').forEach(function(box){box.innerHTML=cardHTML(byId(+box.getAttribute('data-q')));});
+QS.forEach(function(q){if(q.kind!=='case')fill(q);});newCase();
+(function(){var names=['','Part 1. Concepts','Part 2. Standard error','Part 3. A mean: test and estimate','Part 4. A proportion: test and estimate','Part 5. Comparing surveys and stating conclusions'],h='';
+  for(var p=1;p<=5;p++){var qs=QS.filter(function(q){return q.part===p;});h+='<h3>'+names[p]+'</h3><ol class="all" start="'+qs[0].id+'">'+qs.map(function(q){return '<li>'+q.text+'</li>';}).join('')+'</ol><p><button class="btn lnk" data-pg="'+p+'">Practice these questions</button></p>';}
+  $('allQ').innerHTML=h;})();
+
+function evalQ(q){var a=q.getAttribute('data-a');
+  if(q.tagName==='SELECT')return{ok:q.value!==''&&q.value===a,empty:q.value===''};
+  var v=numv(q.value);if(isNaN(v))return{ok:false,empty:q.value.trim()===''};
+  var ex=Number(a),t=Number(q.getAttribute('data-t')),abs=q.hasAttribute('data-abs');if(abs){v=Math.abs(v);ex=Math.abs(ex);}
+  if(q.hasAttribute('data-lo')){var lo=Number(q.getAttribute('data-lo')),hi=Number(q.getAttribute('data-hi'));if(v>=lo-t-1e-9&&v<=hi+t+1e-9)return{ok:true};}
+  else if(Math.abs(v-ex)<=t+1e-9)return{ok:true};
+  var alt=q.getAttribute('data-alt');if(alt&&alt.split(',').some(function(s){return Math.abs(v-Number(s))<1e-9;}))return{ok:true};
+  return{ok:false,pct:q.hasAttribute('data-prop')&&v>1.5};}
+
+/* the ? beside an answer: shown for a correct entry, for the option you chose, and for every answer once the working is shown */
+function xbOf(q){var e=q.nextElementSibling;if(e&&e.classList.contains('u'))e=e.nextElementSibling;return e&&e.classList.contains('xb')?e:null;}
+function xpClose(b){var p=$('xp_'+b.getAttribute('data-x'));if(p)p.parentNode.removeChild(p);b.setAttribute('aria-expanded','false');}
+function xpToggle(b){var id=b.getAttribute('data-x');if($('xp_'+id)){xpClose(b);return;}
+  var d=document.createElement('div');d.className='xp';d.id='xp_'+id;d.innerHTML=XP[id];
+  var opt=b.closest('.opt'),td=b.closest('td'),p=b.closest('p');
+  if(opt)opt.appendChild(d);else if(td)td.appendChild(d);
+  else if(p){var ref=p.nextSibling;while(ref&&ref.classList&&ref.classList.contains('xp'))ref=ref.nextSibling;p.parentNode.insertBefore(d,ref);}
+  else b.parentNode.appendChild(d);
+  b.setAttribute('aria-expanded','true');}
+function xbSet(b,on){if(!b)return;b.classList.toggle('on',on);if(!on)xpClose(b);}
+function markX(c){var all=c.classList.contains('shown');
+  sel(c,'.q').forEach(function(q){xbSet(xbOf(q),all||q.classList.contains('ok'));});
+  sel(c,'.mc').forEach(function(m){var chk=m.classList.contains('ok')||m.classList.contains('bad');sel(m,'.opt').forEach(function(o){xbSet(o.querySelector('.xb'),all||(chk&&o.querySelector('input').checked));});});}
+function check(c){var qs=sel(c,'.q'),mcs=sel(c,'.mc'),n=0,ok=0,empty=0,pct=false,fb=c.querySelector('.fb');
+  qs.forEach(function(q){n++;var r=evalQ(q);q.classList.remove('ok','bad');if(r.ok){ok++;q.classList.add('ok');}else{if(r.empty)empty++;if(r.pct)pct=true;q.classList.add('bad');}});
+  mcs.forEach(function(m){n++;var ch=m.querySelector('input:checked');m.classList.remove('ok','bad');if(ch&&ch.value===m.getAttribute('data-a')){ok++;m.classList.add('ok');}else{if(!ch)empty++;else m.classList.add('bad');}});
+  fb.className='fb';
+  if(ok===n){fb.textContent=(n>1?'All correct.':'Correct.')+' Press ? beside an answer for its explanation.';fb.classList.add('ok');c.classList.add('done','shown');c.querySelector('.why').classList.remove('hide');markX(c);return;}
+  fb.classList.add('bad');c.classList.remove('done');markX(c);
+  if(empty===n)fb.textContent='Enter your answer first.';
+  else fb.textContent=(n>1?ok+' of '+n+' entries are correct. The others are marked.':'Not correct yet. Try again, or show the working.')+(pct?' Write proportions as decimals, for example 0.25.':'');}
+
+var pgs=sel(document,'.pg'),navB=sel(document,'.steps .btn'),tip=document.createElement('div');
+tip.className='xtip hide';tip.setAttribute('role','tooltip');document.body.appendChild(tip);
+function showPg(i){pgs.forEach(function(p,j){p.classList.toggle('on',j===i);});navB.forEach(function(b,j){b.setAttribute('aria-pressed',j===i?'true':'false');});tip.classList.add('hide');window.scrollTo(0,0);}
+$('app').addEventListener('click',function(e){var b=e.target.closest('[data-pg],.chk,.show,.new,.newcase,.xb');if(!b)return;
+  if(b.hasAttribute('data-pg'))showPg(+b.getAttribute('data-pg'));
+  else if(b.classList.contains('xb')){tip.classList.add('hide');xpToggle(b);}
+  else if(b.classList.contains('chk'))check(b.closest('.qc'));
+  else if(b.classList.contains('show')){var c=b.closest('.qc');c.querySelector('.why').classList.remove('hide');c.classList.add('shown');markX(c);}
+  else if(b.classList.contains('new'))fill(byId(+b.closest('.qc').id.slice(1)));
+  else if(b.classList.contains('newcase'))newCase();});
+$('app').addEventListener('keydown',function(e){if(e.key!=='Enter'||e.target.tagName!=='INPUT'||e.target.type==='radio')return;var c=e.target.closest('.qc');if(c){e.preventDefault();c.querySelector('.chk').click();}});
+/* an answer that is changed after a check loses its mark and its ? until it is checked again */
+function touched(e){var t=e.target,c=t.closest?t.closest('.qc'):null;if(!c||c.classList.contains('shown'))return;
+  if(t.classList.contains('q')){t.classList.remove('ok','bad');xbSet(xbOf(t),false);}
+  else if(t.type==='radio'){var m=t.closest('.mc');m.classList.remove('ok','bad');sel(m,'.xb').forEach(function(b){xbSet(b,false);});}}
+$('app').addEventListener('input',touched);$('app').addEventListener('change',touched);
+/* on a device with a mouse, the explanation also appears while the pointer is on the ? */
+$('app').addEventListener('mouseover',function(e){var b=e.target.closest('.xb');if(!b||b.getAttribute('aria-expanded')==='true')return;
+  tip.innerHTML=XP[b.getAttribute('data-x')];tip.classList.remove('hide');var r=b.getBoundingClientRect(),w=tip.offsetWidth,dw=document.documentElement.clientWidth;
+  tip.style.left=Math.max(8,Math.min(r.left+window.pageXOffset-16,dw+window.pageXOffset-w-8))+'px';tip.style.top=(r.bottom+window.pageYOffset+7)+'px';});
+$('app').addEventListener('mouseout',function(e){if(e.target.closest('.xb'))tip.classList.add('hide');});
+
+/* figures of the worked examples, then the first run of the simulation */
+$('figRule').innerHTML=ruleFig(30,1,usd);
+$('figSD').innerHTML=sdseFig(30,10,[100,400],33,usd);
+(function(){var mo=function(m){return{c:30,pt:m,se:1,lo2:m-2,hi2:m+2,fs:usd,word:'mean'};},one=function(m,parts,dom){var o=mo(m);o.parts=parts;o.dom=dom;return stepFig(o);};
+  $('figA1').innerHTML=one(33,'t');$('figA2').innerHTML=one(33,'e');$('figA2c').innerHTML=one(33,'tec');
+  $('figA3t').innerHTML=one(31.5,'t');$('figA3e').innerHTML=one(31.5,'e');$('figA3').innerHTML=one(31.5,'tec');
+  var pr=function(parts){return stepFig({c:0.5,pt:0.62,se:0.05,lo2:0.52,hi2:0.72,fs:p2,word:'proportion',parts:parts});};
+  $('figB1').innerHTML=pr('t');$('figB2').innerHTML=pr('e');$('figB3').innerHTML=pr('tec');
+  var dm=bothDom(mo(33),mo(31.5));
+  $('figC1').innerHTML=figPair(one(33,'tec',dm),one(31.5,'tec',dm),'First store: survey mean $33','Second store: survey mean $31.50');})();
+/* the exact percentage for the three bookstores: claim $30, SE $1 */
+(function(){var ST=[['First store',33],['Second store',31.5],['Third store',32.17]],cur=2,box=$('pvB');
+  function draw(){var m=ST[cur][1],k=Math.abs(m-30),p=pTwo(k),less=p<0.05;
+    $('pvFig').innerHTML=tailFig(30,1,m,usd);
+    $('pvOut').innerHTML='<b>'+ST[cur][0]+'.</b> The survey mean is '+usd(m)+', which is '+f(k)+' SE from the claim. If the claim of $30 is right, '+pcT(p)+'% of all possible samples have a mean this far from $30, or farther: '+pcH(p/2)+'% at '+usd(30+k)+' or more, and '+pcH(p/2)+'% at '+usd(30-k)+' or less. '+pcT(p)+'% is '+(less?'less':'more')+' than 5%, so the decision is to '+(less?'reject':'keep')+' the claim.';}
+  ST.forEach(function(s,i){var b=document.createElement('button');b.className='btn';b.type='button';b.id='pvB'+i;b.textContent=s[0]+': '+usd(s[1]);b.setAttribute('aria-pressed',i===cur?'true':'false');
+    b.onclick=function(){cur=i;sel(box,'.btn').forEach(function(o){o.setAttribute('aria-pressed',o===b?'true':'false');});draw();};box.appendChild(b);});draw();})();
+demoRun();
+
+/* ---------- part 5: one survey mean, three sample sizes, and 1,000 samples for each when the claim is right ---------- */
+var NS={mu:30,sd:10,m:31.5,ns:[25,100,400],i:1,means:[]};
+/* a skewed population of spends with mean 30 and SD 10 */
+function nPerson(){var p=1;for(var k=0;k<9;k++)p*=1-Math.random();return -(NS.sd*NS.sd/NS.mu)*Math.log(p);}
+function nFar(a){var d=Math.abs(NS.m-NS.mu);return a.filter(function(v){return Math.abs(v-NS.mu)>=d;}).length;}
+function nRow(lab,fn){return '<tr><td>'+lab+'</td>'+NS.ns.map(function(n,i){return '<td>'+fn(n,NS.sd/Math.sqrt(n),i)+'</td>';}).join('')+'</tr>';}
+function nHead(){return '<tr><th></th>'+NS.ns.map(function(n){return '<th>'+n+' customers</th>';}).join('')+'</tr>';}
+function nDraw(){var n=NS.ns[NS.i],se=NS.sd/Math.sqrt(n),a=NS.means[NS.i],d=Math.abs(NS.m-NS.mu),cnt=nFar(a),inside=d<2*se;
+  $('nFig').innerHTML=simFig(a,NS.mu,se,NS.m,usd,n);
+  $('nOut').innerHTML='<b>'+n+' customers.</b> SE = '+f(NS.sd)+' / √'+n+' = '+usd(se)+', so the range is '+usd(NS.mu-2*se)+' to '+usd(NS.mu+2*se)+'. In this run, '+nc(cnt)+' of the 1,000 sample means are '+usd(d)+' or more from '+usd(NS.mu)+'. That is '+f(cnt/10,1)+'% of the samples, which is '+(cnt<50?'fewer':'more')+' than 5%. '+(inside?'A survey mean of '+usd(NS.m)+' is common when the claim is right.':'A survey mean of '+usd(NS.m)+' would be rare if the claim were right.');
+  $('nCnt').innerHTML='<table class="t fill">'+nHead()+nRow('Sample means '+usd(d)+' or more from '+usd(NS.mu)+', of 1,000',function(n,se,i){return nc(nFar(NS.means[i]));})+nRow('Fewer than 50?',function(n,se,i){return nFar(NS.means[i])<50?'yes':'no';})+'</table>';}
+function nRun(){NS.means=NS.ns.map(function(n){var out=[],s,i,j;for(j=0;j<1000;j++){s=0;for(i=0;i<n;i++)s+=nPerson();out.push(s/n);}return out;});nDraw();}
+(function(){var d=Math.abs(NS.m-NS.mu),box=$('nB');
+  $('nTab').innerHTML='<table class="t fill">'+nHead()+
+    nRow('SE = <i>s</i> / √<i>n</i>',function(n,se){return f(NS.sd)+' / √'+n+' = '+usd(se);})+
+    nRow('Distance of '+usd(NS.m)+' from the claim',function(n,se){return usd(d)+' = '+f(d/se)+' SE';})+
+    nRow('Range: claim ± 2 SE',function(n,se){return usd(NS.mu-2*se)+' to '+usd(NS.mu+2*se);})+
+    nRow('Is '+usd(NS.m)+' inside or outside the range?',function(n,se){return d<2*se?'inside':'outside';})+
+    nRow('Interval: survey mean ± 2 SE',function(n,se){return usd(NS.m-2*se)+' to '+usd(NS.m+2*se);})+
+    nRow('Is the claim inside the interval?',function(n,se){return d<2*se?'yes':'no';})+
+    nRow('Decision about the claim',function(n,se){return 'The survey is '+(d<2*se?'consistent':'not consistent')+' with the claim.';})+'</table>';
+  NS.ns.forEach(function(n,i){var b=document.createElement('button');b.className='btn';b.type='button';b.id='nB'+i;b.innerHTML='<i>n</i> = '+n;b.setAttribute('aria-pressed',i===NS.i?'true':'false');
+    b.onclick=function(){NS.i=i;sel(box,'.btn').forEach(function(o){o.setAttribute('aria-pressed',o===b?'true':'false');});nDraw();};box.appendChild(b);});
+  $('nGo').onclick=nRun;nRun();})();
+})();
+</script>
+</body>
+</html>
