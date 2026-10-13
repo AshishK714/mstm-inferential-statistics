@@ -250,10 +250,6 @@ footer{font-family:var(--sans);font-size:.78rem;color:var(--ghost-ink);border-to
     <tr><td>B1. Test the claim about the proportion</td><td>Part 4</td><td>21</td></tr>
     <tr><td>B2. Estimate the proportion</td><td>Part 4</td><td>22</td></tr>
     <tr><td>B3. Connect the two</td><td>Part 4</td><td>23</td></tr>
-    <tr><td>Part C: second survey, mean column</td><td>Part 5</td><td>24</td></tr>
-    <tr><td>Part C: second survey, proportion column</td><td>Part 5</td><td>25</td></tr>
-    <tr><td>Part C: why the two surveys lead to different decisions</td><td>Part 5</td><td>26</td></tr>
-    <tr><td>In your own words, 1 and 2</td><td>Part 5</td><td>27 and 28</td></tr>
     <tr><td>No section of the worksheet: concepts and the standard error</td><td>Parts 1 and 2</td><td>1 to 3, 5, 7, 9 to 12</td></tr>
   </table></div>
 
@@ -271,6 +267,7 @@ footer{font-family:var(--sans);font-size:.78rem;color:var(--ghost-ink);border-to
     <li>The exam questions are taken from the questions in this guide.</li>
     <li>In the questions with numbers, the numbers will be different. The steps will be the same.</li>
     <li>Use 2 standard errors for 95%.</li>
+    <li>Questions 24 to 28 have been removed from this guide and will not be tested.</li>
     <li>The last tab, "Not on the exam", is optional reading. It applies the same thinking to everyday decisions, and it explains the exact percentage that statistics software reports for a test.</li>
   </ul>
 
@@ -280,7 +277,7 @@ footer{font-family:var(--sans);font-size:.78rem;color:var(--ghost-ink);border-to
     <button class="mcard" data-pg="2"><span class="mk">Part 2 · Q9 to 13</span><span class="mq">Standard error</span><span class="ms">Calculate the SE of a mean and of a proportion, and decide whether a result is unusual.</span></button>
     <button class="mcard" data-pg="3"><span class="mk">Part 3 · Q14 to 20</span><span class="mq">A mean: test and estimate</span><span class="ms">Test a claim about a mean, calculate the 95% interval, and connect the two.</span></button>
     <button class="mcard" data-pg="4"><span class="mk">Part 4 · Q21 to 23</span><span class="mq">A proportion: test and estimate</span><span class="ms">The same steps for a proportion. Only the standard error is different.</span></button>
-    <button class="mcard" data-pg="5"><span class="mk">Part 5 · Q24 to 28</span><span class="mq">Comparing surveys and stating conclusions</span><span class="ms">Two surveys with different means, the same mean with different sample sizes, and how to state a conclusion correctly.</span></button>
+    <button class="mcard" data-pg="5"><span class="mk">Part 5 · no questions</span><span class="mq">Comparing surveys and stating conclusions</span><span class="ms">Two surveys with different means, the same mean with different sample sizes, and how to state a conclusion correctly.</span></button>
     <button class="mcard" data-pg="6"><span class="mk">Part 6 · Q29 to 38</span><span class="mq">Midterm ideas</span><span class="ms">The five roles of a variable, Simpson's paradox and survivorship bias, and how each one changes a decision.</span></button>
     <button class="mcard" data-pg="7"><span class="mk">Part 7 · Q39 to 48</span><span class="mq">Variables, types of analysis and charts</span><span class="ms">Numeric and categorical, discrete and continuous; univariate, bivariate and multivariate; which chart for which question.</span></button>
   </div>
@@ -685,7 +682,7 @@ footer{font-family:var(--sans);font-size:.78rem;color:var(--ghost-ink);border-to
 
 <!-- ================= part 5: second survey ================= -->
 <article class="pg" id="pg5">
-  <p class="kick">Part 5 of 7 · questions 24 to 28</p>
+  <p class="kick">Part 5 of 7 · no questions</p>
   <h2><span class="tab">5</span>Comparing surveys and stating conclusions</h2>
 
   <h3>What you need to know</h3>
@@ -752,10 +749,7 @@ footer{font-family:var(--sans);font-size:.78rem;color:var(--ghost-ink);border-to
     <p class="cap">5% of 1,000 samples is 50 samples.</p>
   </div>
 
-  <h3>Questions 24 to 28</h3>
-  <p>Questions 24 to 26 use a second survey in the same situation.</p>
-  <div class="case" data-case="C"></div>
-  <div class="qlist" data-part="5"></div>
+  <div class="note"><p><b>Questions 24 to 28 have been removed.</b> They will not be tested on the exam. The questions continue with question 29 in part 6.</p></div>
   <p class="next"><button class="btn pri" data-pg="6">Go to part 6</button></p>
 </article>
 
@@ -1467,7 +1461,7 @@ footer{font-family:var(--sans);font-size:.78rem;color:var(--ghost-ink);border-to
         <li>"Reject with 97% confidence" therefore has an exact meaning: the claim is outside every interval that has less than 97% confidence.</li>
       </ul>
       <div class="note">
-        <p><b>What the 3% is not.</b> The 3% is not the chance that the claim is right, and 97% is not the chance that your decision is right. The 3% is calculated on the assumption that the claim is right. It is the share of samples that would be this far from the claim. Question 27 in part 5 asks you to correct this mistake.</p>
+        <p><b>What the 3% is not.</b> The 3% is not the chance that the claim is right, and 97% is not the chance that your decision is right. The 3% is calculated on the assumption that the claim is right. It is the share of samples that would be this far from the claim.</p>
       </div>
     </div>
   </details>
@@ -1730,7 +1724,7 @@ function caseHTML(which){var S=C.S,U=C.U,h='';
   else{h+='<p><b>The second survey.</b> A second team surveys another '+nc(C.n)+' '+S.unit+'. The claims are the same: μ = '+U(C.mu0)+' and <i>p</i> = '+p2(C.p0)+'.</p>'+
     '<div class="tw"><table class="t"><tr><th>Second survey of '+nc(C.n)+' '+S.unit+'</th><th>Result</th></tr><tr><td>'+S.mrow+'</td><td>'+U(C.m2)+'</td></tr><tr><td>Standard deviation</td><td>'+U(C.s)+'</td></tr><tr><td>'+S.prow+'</td><td>'+nc(C.P2.cnt)+' of '+nc(C.n)+'</td></tr></table></div>'+
     '<p>The first survey found a mean of '+U(C.m1)+' and '+nc(C.P1.cnt)+' of '+nc(C.n)+'.</p>';}
-  return h+'<div class="row"><button class="btn newcase">New numbers</button><span class="hint">This changes the numbers in parts 3, 4 and 5 and clears your answers there.</span></div>';}
+  return h+'<div class="row"><button class="btn newcase">New numbers</button><span class="hint">This changes the numbers in parts 3 and 4 and clears your answers there.</span></div>';}
 
 /* ---------- the 28 questions ---------- */
 var QS=[];
@@ -1858,59 +1852,18 @@ Q(23,4,'case','Explain why the test and the estimate use different values in the
     '<p>Did the different SE change the conclusion in this case? '+yn(false,'Conclusion changed','The two standard errors are '+f(C.se0)+' and '+p2(P.r)+'. The claim is '+w+' the interval and the survey proportion is '+w+' the range, so the two answers agree.')+'</p>',
     why:'<p>The claim is '+w+' the interval and the survey proportion is '+w+' the range. The two answers agree.</p><p><b>Model explanation.</b> In the test you assume that the claim is right, so the standard error is calculated from the claimed proportion, '+p2(C.p0)+'. In the estimate there is no claim, so the standard error is calculated from the survey proportion, '+p2(P.ph)+'. Here the two standard errors are '+f(C.se0)+' and '+p2(P.r)+', and the conclusion is the same.</p>'+propFig(P,'tec')};});
 
-/* part 5: second survey and own words */
-Q(24,5,'case','For a second survey, complete the table for the mean: SE, distance in SE, inside or outside, interval, and decision.',function(){var U=C.U,o=uio(C.S),lo=C.m2-2*C.se,hi=C.m2+2*C.se,w=C.rej2?'outside':'inside',d=Math.abs(C.m2-C.mu0);
-  return{body:'<div class="tw"><table class="t fill"><tr><th></th><th>'+C.S.mrow+'</th></tr><tr><td>Survey result</td><td>'+U(C.m2)+'</td></tr>'+
-    '<tr><td>SE for the test</td><td>'+ni(C.se,{pre:o.pre,post:o.post,label:'Standard error',x:'The sample size and the standard deviation are the same as in the first survey. '+seX()})+'</td></tr>'+
-    '<tr><td>Distance from the claim, in SE</td><td>'+ni(C.k2,{t:0.011,abs:1,label:'Distance in SE',x:'Distance = '+f(Math.max(C.m2,C.mu0))+' − '+f(Math.min(C.m2,C.mu0))+' = '+f(d)+'. '+kX(C.m2,C.k2)})+'</td></tr>'+
-    '<tr><td>Inside or outside claim ± 2 SE?</td><td>'+io(!C.rej2,'Inside or outside','Claim ± 2 SE is '+U(C.mu0-2*C.se)+' to '+U(C.mu0+2*C.se)+'. '+U(C.m2)+' is '+w+' it.')+'</td></tr>'+
-    '<tr><td>Interval: survey result ± 2 SE</td><td>'+ni(rd(lo,2),{pre:o.pre,post:o.post,label:'Lower end of the interval',x:f(C.m2)+' − 2 × '+f(C.se)+' = '+U(lo)+'.'})+' to '+ni(rd(hi,2),{pre:o.pre,post:o.post,label:'Upper end of the interval',x:f(C.m2)+' + 2 × '+f(C.se)+' = '+U(hi)+'.'})+'</td></tr>'+
-    '<tr><td>Is the claim inside the interval?</td><td>'+yn(!C.rej2,'Claim inside the interval',U(C.mu0)+' is '+w+' the interval '+U(lo)+' to '+U(hi)+'.')+'</td></tr>'+
-    '<tr><td>Decision about the claim</td><td>'+dec(C.rej2,'Decision',decX(C.rej2,'mean',C.k2))+'</td></tr></table></div>',
-    why:'<p>SE = '+f(C.s)+' / √'+nc(C.n)+' = '+U(C.se)+'. Distance = ('+f(Math.max(C.m2,C.mu0))+' − '+f(Math.min(C.m2,C.mu0))+') / '+f(C.se)+' = '+f(C.k2)+' SE.</p><p>Claim ± 2 SE is '+U(C.mu0-2*C.se)+' to '+U(C.mu0+2*C.se)+', so '+U(C.m2)+' is '+w+'. Interval = '+f(C.m2)+' ± 2 × '+f(C.se)+' = '+U(lo)+' to '+U(hi)+', and the claim of '+U(C.mu0)+' is '+(C.rej2?'not inside':'inside')+' it.</p><p>Decision: the survey is '+(C.rej2?'not consistent':'consistent')+' with the claim.</p>'+meanFig(C.m2,'tec')};});
-Q(25,5,'case','For a second survey, complete the table for the proportion.',function(){var P=C.P2,ak=Math.abs(P.k),rej=!P.inside,w=P.inside?'inside':'outside',d=Math.abs(P.ph-C.p0);
-  return{body:'<div class="tw"><table class="t fill"><tr><th></th><th>'+C.S.prow+'</th></tr><tr><td>Survey result</td><td>'+nc(P.cnt)+' / '+nc(C.n)+' = '+ni(P.ph,{prop:1,label:'Survey proportion',x:nc(P.cnt)+' / '+nc(C.n)+' = '+p2(P.ph)+'.'})+'</td></tr>'+
-    '<tr><td>SE for the test (uses the claim)</td><td>'+ni(C.se0,{t:0.00051,prop:1,label:'Standard error for the test',x:se0X()})+'</td></tr>'+
-    '<tr><td>Distance from the claim, in SE</td><td>'+ni(ak,{t:0.011,abs:1,label:'Distance in SE',x:'Distance = '+p2(Math.max(P.ph,C.p0))+' − '+p2(Math.min(P.ph,C.p0))+' = '+p2(d)+'. Distance / SE = '+p2(d)+' / '+f(C.se0)+' = '+f(ak)+'.'})+'</td></tr>'+
-    '<tr><td>Inside or outside claim ± 2 SE?</td><td>'+io(P.inside,'Inside or outside','Claim ± 2 SE is '+p2(C.p0-2*C.se0)+' to '+p2(C.p0+2*C.se0)+'. '+p2(P.ph)+' is '+w+' it.')+'</td></tr>'+
-    '<tr><td>Interval: survey result ± 2 SE (SE from the survey, two decimals)</td><td>'+ni(P.lo,{lo:Math.min(P.lo,P.elo),hi:Math.max(P.lo,P.elo),prop:1,label:'Lower end of the interval',show:p2(P.lo),x:seEX(P)+' Lower end = '+p2(P.ph)+' − 2 × '+p2(P.r)+' = '+p2(P.lo)+'.'})+' to '+ni(P.hi,{lo:Math.min(P.hi,P.ehi),hi:Math.max(P.hi,P.ehi),prop:1,label:'Upper end of the interval',show:p2(P.hi),x:'Upper end = '+p2(P.ph)+' + 2 × '+p2(P.r)+' = '+p2(P.hi)+'.'})+'</td></tr>'+
-    '<tr><td>Is the claim inside the interval?</td><td>'+yn(P.inside,'Claim inside the interval',p2(C.p0)+' is '+w+' the interval '+p2(P.lo)+' to '+p2(P.hi)+'.')+'</td></tr>'+
-    '<tr><td>Decision about the claim</td><td>'+dec(rej,'Decision',decX(rej,'proportion',ak))+'</td></tr></table></div>',
-    why:'<p>Survey proportion = '+nc(P.cnt)+' / '+nc(C.n)+' = '+p2(P.ph)+'. SE for the test = √( '+p2(C.p0)+' × '+p2(1-C.p0)+' / '+nc(C.n)+' ) = '+f(C.se0)+'. Distance = '+p2(d)+' / '+f(C.se0)+' = '+f(ak)+' SE.</p><p>Claim ± 2 SE is '+p2(C.p0-2*C.se0)+' to '+p2(C.p0+2*C.se0)+', so '+p2(P.ph)+' is '+w+'.</p><p>SE for the interval = √( '+p2(P.ph)+' × '+p2(1-P.ph)+' / '+nc(C.n)+' ) = '+f(P.seE,4)+', which is '+p2(P.r)+' to two decimals. Interval = '+p2(P.ph)+' ± 2 × '+p2(P.r)+' = '+p2(P.lo)+' to '+p2(P.hi)+', and the claim of '+p2(C.p0)+' is '+(P.inside?'inside':'not inside')+' it.</p><p>Decision: the survey is '+(rej?'not consistent':'consistent')+' with the claim.</p>'+propFig(P,'tec')};});
-Q(26,5,'case','Two surveys are both above (or both below) the claim but lead to different decisions. Explain why.',function(){var U=C.U,dir=C.sg>0?'above':'below',far=C.rej1?'first':'second',near=C.rej1?'second':'first',kf=C.rej1?C.k1:C.k2,kn=C.rej1?C.k2:C.k1;
-  return{body:'<p>The first survey found a mean of '+U(C.m1)+' and the second found '+U(C.m2)+'. Both are '+dir+' the claim of '+U(C.mu0)+'. Why do the two surveys lead to different decisions?</p>'+mci('b',[
-      ['a','The second survey has a much larger standard error than the first survey.','Both surveys have the same sample size and the same standard deviation, so they have the same standard error, '+U(C.se)+'.'],
-      ['b','Only one survey mean is more than 2 SE from the claim.','The '+far+' survey mean is '+f(kf)+' SE from the claim, and the '+near+' is '+f(kn)+' SE from it. Only the '+far+' is more than 2 SE away.'],
-      ['c','Only one of the two survey means is really '+dir+' the claimed value.','Both survey means are '+dir+' the claim: '+U(C.m1)+' and '+U(C.m2)+'. When a claim is right, about half of all surveys are '+dir+' it.'],
-      ['d','The second survey is less reliable because it was done after the first.','The order of the surveys has no effect. Each survey is compared with the claim in the same way.']]),
-    why:'<p><b>Model answer.</b> Both surveys have the same standard error, '+U(C.se)+'. The '+far+' survey mean is '+f(kf)+' SE from the claim, which is more than 2 SE, so that survey is not consistent with the claim. The '+near+' survey mean is '+f(kn)+' SE from the claim, which is less than 2 SE, so that survey is consistent with it.</p><p>A mean '+dir+' the claim is not evidence against the claim. When the claim is right, about half of all surveys are '+dir+' it. The decision depends on the distance in standard errors.</p>'+(function(){var dm=bothDom(meanO(C.m1),meanO(C.m2));return figPair(meanFig(C.m1,'tec',dm),meanFig(C.m2,'tec',dm),'First survey: mean '+U(C.m1),'Second survey: mean '+U(C.m2));})()};});
-Q(27,5,'static','Correct the sentence "There is less than a 5% chance that the claim is right" so that it says what the test showed.',function(){
-  return{body:'<p>A survey mean is more than 2 SE from a claim. A classmate says: "There is less than a 5% chance that the claim is right." This sentence is not correct. Which sentence says what the test showed?</p>'+mci('d',[
-      ['a','There is more than a 95% chance that the survey mean is the true mean.','The test gives no chance that the survey mean is the true mean. A survey mean is almost never exactly equal to μ.'],
-      ['b','Fewer than 5% of all the people in the population agree with the claim.','The 5% is a share of samples. It is not a share of people.'],
-      ['c','The claim must be wrong, because the survey mean is different from the claim.','Almost every survey mean is different from the claim. The test asks whether it is more than 2 SE away, and even then the claim is not proved wrong.'],
-      ['d','If the claim were right, fewer than 5% of samples would be this far away.','The 5% is the share of samples that would be this far from the claim. It is calculated on the assumption that the claim is right.']]),
-    why:'<p><b>Model answer.</b> If the claim were right, fewer than 5% of samples would have a mean this far from the claim or farther.</p><p>The 5% is about samples, and it is calculated on the assumption that the claim is right. It is not the chance that the claim is right. The test does not give that chance.</p>'};});
-Q(28,5,'static','Finish the sentence: "The 95% interval is the list of all the claims that ..."',function(){
-  return{body:'<p>"The 95% interval is the list of all the claims that ..."</p>'+mci('c',[
-      ['a','... 95% of the people surveyed would accept."','The interval is not a vote among the people in the survey.'],
-      ['b','... have a 95% chance of being exactly right."','The interval does not give a chance for any single value.'],
-      ['c','... a test with this survey would not reject."','Every value inside the interval is within 2 SE of the survey result, so a test would not reject it.'],
-      ['d','... are more than 2 SE from the survey result."','Values more than 2 SE from the survey result are outside the interval, and a test would reject them.']]),
-    why:'<p><b>Model answer.</b> "The 95% interval is the list of all the claims that the survey is consistent with." Every value inside the interval is within 2 SE of the survey result, so a test would not reject it. Every value outside the interval is more than 2 SE away, so a test would reject it.</p>'};});
-
 /* ---------- rendering and checking ---------- */
 function byId(id){for(var i=0;i<QS.length;i++)if(QS[i].id===id)return QS[i];}
 function fill(q){var c=$('q'+q.id),r=q.make();c.querySelector('.qb').innerHTML=r.body;var w=c.querySelector('.why');w.innerHTML=r.why;w.classList.add('hide');
   var fb=c.querySelector('.fb');fb.textContent='';fb.className='fb';c.classList.remove('done','shown');
   sel(c,'.q').forEach(function(e,k){e.id='q'+q.id+'_'+k;});}
-function newCase(){C=genCase();sel(document,'.case').forEach(function(el){el.innerHTML=caseHTML(el.getAttribute('data-case'));});QS.forEach(function(q){if(q.kind==='case')fill(q);});}
+function newCase(){C=genCase();sel(document,'.case[data-case]').forEach(function(el){el.innerHTML=caseHTML(el.getAttribute('data-case'));});QS.forEach(function(q){if(q.kind==='case')fill(q);});}
 function cardHTML(q){return '<div class="qc" id="q'+q.id+'"><p class="qk">Question '+q.id+'</p><p class="qt">'+q.text+'</p><div class="qb"></div><div class="row"><button class="btn pri chk">Check</button><button class="btn show">'+(q.kind==='static'?'Show the answer':'Show the working')+'</button>'+(q.kind==='gen'?'<button class="btn new">New numbers</button>':'')+'</div><p class="fb" aria-live="polite"></p><div class="why hide"></div></div>';}
 sel(document,'.qlist').forEach(function(box){var part=+box.getAttribute('data-part');box.innerHTML=QS.filter(function(q){return q.part===part;}).map(cardHTML).join('');});
 sel(document,'.qslot').forEach(function(box){box.innerHTML=cardHTML(byId(+box.getAttribute('data-q')));});
 QS.forEach(function(q){if(q.kind!=='case')fill(q);});newCase();
 (function(){var names=['','Part 1. Concepts','Part 2. Standard error','Part 3. A mean: test and estimate','Part 4. A proportion: test and estimate','Part 5. Comparing surveys and stating conclusions'],h='';
-  for(var p=1;p<=5;p++){var qs=QS.filter(function(q){return q.part===p;});h+='<h3>'+names[p]+'</h3><ol class="all" start="'+qs[0].id+'">'+qs.map(function(q){return '<li>'+q.text+'</li>';}).join('')+'</ol><p><button class="btn lnk" data-pg="'+p+'">Practice these questions</button></p>';}
+  for(var p=1;p<=5;p++){var qs=QS.filter(function(q){return q.part===p;});if(!qs.length)continue;h+='<h3>'+names[p]+'</h3><ol class="all" start="'+qs[0].id+'">'+qs.map(function(q){return '<li>'+q.text+'</li>';}).join('')+'</ol><p><button class="btn lnk" data-pg="'+p+'">Practice these questions</button></p>';}
   [[6,"Part 6. Midterm ideas: roles of variables, Simpson's paradox and survivorship bias"],[7,'Part 7. Variables, types of analysis and charts']].forEach(function(p){var qs=sel($('pg'+p[0]),'.qa');
     h+='<h3>'+p[1]+'</h3><ol class="all" start="'+qs[0].id.slice(1)+'">'+qs.map(function(c){return '<li>'+c.querySelector('.qt').innerHTML+'</li>';}).join('')+'</ol><p><button class="btn lnk" data-pg="'+p[0]+'">Practice these questions</button></p>';});
   $('allQ').innerHTML=h;})();
